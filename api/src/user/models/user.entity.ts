@@ -1,5 +1,6 @@
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
+import { Role } from "./item.types";
 
 @Schema()
 export class User {
@@ -17,6 +18,9 @@ export class User {
 
     @Prop()
     public password: string;
+
+    @Prop()
+    public role: Role[]
 
 }
 
@@ -37,4 +41,7 @@ export class userDto {
 
     @ApiProperty()
     public password: string;
+
+    @ApiProperty()
+    public confirmPassword: string;
 }
