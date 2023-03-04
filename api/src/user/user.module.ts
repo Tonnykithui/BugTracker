@@ -8,16 +8,26 @@ import { RolesGuard } from './auth/roles.guard';
 import { privateKey } from './auth/auth.constants';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, userSchema } from './models/user.entity';
+import { LoginController } from './controllers/auth.controller';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: User.name, schema: userSchema }
-    ])
+    ]),
+    JwtModule.register({
+      secret: privateKey
+    }),
+    PassportModule
   ],
-  controllers: [UserController],
+  controllers: [
+    UserController,
+    LoginController
+  ],
   providers: [
-    UserService
+    UserService,
+    JwtStrategy
   ]
 })
-export class UserModule {}
+export class UserModule { }

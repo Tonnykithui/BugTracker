@@ -23,6 +23,10 @@ import { UserModule } from './user/user.module';
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard
     }
   ],
 })

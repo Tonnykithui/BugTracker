@@ -19,7 +19,7 @@ export class User {
     @Prop()
     public password: string;
 
-    @Prop()
+    @Prop({ default: Role.DEVELOPER })
     public role: Role[]
 
 }
@@ -44,4 +44,7 @@ export class userDto {
 
     @ApiProperty()
     public confirmPassword: string;
+
+    @ApiProperty()
+    public role: Role[]
 }
