@@ -11,7 +11,6 @@ export class RolesGuard implements CanActivate {
         private jwtService: JwtService
     ) { }
 
-    // : boolean | Promise<boolean> | Observable<boolean>
     canActivate(context: ExecutionContext) {
         const roles = this.reflector.getAllAndOverride<Role[]>('roles',
             [

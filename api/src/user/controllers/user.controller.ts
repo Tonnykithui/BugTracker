@@ -15,26 +15,26 @@ export class UserController {
 
   @Post()
   async create(@Body() createUserDto: userDto) {
-    return new ResponseMessage('', await this.userService.create(createUserDto));
+    return new ResponseMessage('Successfully created a user', await this.userService.create(createUserDto));
   }
 
   @Get()
   async findAll() {
-    return new ResponseMessage('', await this.userService.findAll());
+    return new ResponseMessage('Successfully fetched all users records', await this.userService.findAll());
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return new ResponseMessage('', await this.userService.findOne(+id));
+    return new ResponseMessage('Successfully fetched a single user details', await this.userService.findOne(+id));
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: User) {
-    return new ResponseMessage('', await this.userService.update(+id, updateUserDto));
+    return new ResponseMessage('Successfully updated a single user details', await this.userService.update(+id, updateUserDto));
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return new ResponseMessage('', await this.userService.remove(+id));
+    return new ResponseMessage('Successfully deleted a user details', await this.userService.remove(+id));
   }
 }
