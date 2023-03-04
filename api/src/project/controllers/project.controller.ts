@@ -1,33 +1,35 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { ResponseMessage } from 'src/customs/Response';
 import { projectDto } from '../models/project.entity';
 import { ProjectService } from '../services/project.service';
+import { ObjectId } from 'mongoose';
 
 @Controller('project')
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
   @Post()
-  create(@Body() createProjectDto: projectDto) {
-    return this.projectService.create(createProjectDto);
+  async create(@Body() createProjectDto: projectDto) {
+    return new ResponseMessage('Successfully created a project', await this.projectService.create(createProjectDto));
   }
 
   @Get()
-  findAll() {
-    return this.projectService.findAll();
+  async findAll() {
+    return new ResponseMessage('Successfully fetched all project', await this.projectService.findAll());
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.projectService.findOne(+id);
+  async findOne(@Param('id') id: ObjectId) {
+    return new ResponseMessage('Successfully found a single project', await this.projectService.findOne(id));
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProjectDto: projectDto) {
-    return this.projectService.update(+id, updateProjectDto);
+  async update(@Param('id') id: ObjectId, @Body() updateProjectDto: projectDto) {
+    return new ResponseMessage('Successfully updated a project', await this.projectService.update(id, updateProjectDto));
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.projectService.remove(+id);
+  async remove(@Param('id') id: ObjectId) {
+    return new ResponseMessage('Successfully deleted a project', await this.projectService.remove(id));
   }
 }

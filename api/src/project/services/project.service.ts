@@ -3,23 +3,23 @@ import { projectDto } from '../models/project.entity';
 
 @Injectable()
 export class ProjectService {
-  create(createProjectDto: projectDto) {
-    return 'This action adds a new project';
+  async create(createProjectDto: projectDto) {
+    return await 'This action adds a new project';
   }
 
-  findAll() {
-    return `This action returns all project`;
+  async findAll() {
+    return await `This action returns all project`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
+  async findOne(id) {
+    return await `This action returns a #${id} project`;
   }
 
-  update(id: number, updateProjectDto: projectDto) {
-    return `This action updates a #${id} project`;
+  async update(id, updateProjectDto: projectDto) {
+    return await `This action updates a #${id} project`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  async remove(id) {
+    return await `This action removes a #${id} project`;
   }
 }

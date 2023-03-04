@@ -6,10 +6,11 @@ import { Roles } from '../auth/roles.decorator';
 import { Role } from '../models/item.types';
 import { JwtAuthGuard } from '../auth/jwt.authguard';
 import { ResponseMessage } from 'src/customs/Response';
+import { ObjectId } from 'mongoose';
 
 @Controller('user')
 @UseGuards(RolesGuard)
-@Roles(Role.DEVELOPER)
+@Roles(Role.PROJECTMANAGER)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -24,17 +25,17 @@ export class UserController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return new ResponseMessage('Successfully fetched a single user details', await this.userService.findOne(+id));
+  async findOne(@Param('id') id: ObjectId) {
+    return new ResponseMessage('Successfully fetched a single user details', await this.userService.findOne(id));
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: User) {
-    return new ResponseMessage('Successfully updated a single user details', await this.userService.update(+id, updateUserDto));
+  async update(@Param('id') id: ObjectId, @Body() updateUserDto: User) {
+    return new ResponseMessage('Successfully updated a single user details', await this.userService.update(id, updateUserDto));
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return new ResponseMessage('Successfully deleted a user details', await this.userService.remove(+id));
+  async remove(@Param('id') id: ObjectId) {
+    return new ResponseMessage('Successfully deleted a user details', await this.userService.remove(id));
   }
 }

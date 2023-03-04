@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, userDto } from '../models/user.entity';
@@ -18,16 +18,24 @@ export class UserService {
     return await this.userModel.find();
   }
 
-  async findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id) {
+    return await this.userModel.findById(id);
   }
 
-  async update(id: number, data: User) {
-    return `This action updates a #${id} user`;
+  async update(id, data: User) {
+    if(await this.userModel.findById(id)){
+      return await this.userModel.findByIdAndUpdate(id, data);
+    } else {
+      throw new HttpException("User with provided credentials does not exists", HttpStatus.BAD_REQUEST);
+    }
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id) {
+    if(await this.userModel.findById(id)){
+      return await this.userModel.findByIdAndDelete(id);
+    } else {
+      throw new HttpException('User with provided id does not exists', HttpStatus.BAD_REQUEST);
+    }
   }
 
   async findUserByEmail(email: string){
