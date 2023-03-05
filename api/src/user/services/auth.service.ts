@@ -35,7 +35,7 @@ export class AuthService {
     }
 
     async registerUser(data) {
-        const checkUser = await this.userService.findUserByEmail(data.email);
+        const checkUser = await this.userService.findUserByEmail(data.email, data.phone);
         if (checkUser && checkUser.length >= 1) {
             throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
         } else {

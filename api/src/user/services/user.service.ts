@@ -38,7 +38,7 @@ export class UserService {
     }
   }
 
-  async findUserByEmail(email: string){
-    return await this.userModel.find({ email: email });
+  async findUserByEmail(email: string, phone?: string){
+    return await this.userModel.find({ $or:[{ email: email }, { phone: phone }] });
   }
 }

@@ -7,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 import { ResponseMessage } from "src/customs/Response";
 import { ApiTags } from "@nestjs/swagger";
 import { AuthService } from "../services/auth.service";
+import { LoggedInUser } from "../auth/user.decorator";
 
 @Controller('auth')
 @ApiTags('AUTH')
@@ -23,7 +24,7 @@ export class LoginController {
     }
 
     @Post('register')
-    async register(@Body() data: userDto){
+    async register(@Body() data: userDto, @LoggedInUser() userId){
         return new ResponseMessage('Successfully register the user', await this.authService.registerUser(data));
     }
 }

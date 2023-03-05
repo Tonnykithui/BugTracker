@@ -7,6 +7,7 @@ import { Role } from '../models/item.types';
 import { JwtAuthGuard } from '../auth/jwt.authguard';
 import { ResponseMessage } from 'src/customs/Response';
 import { ObjectId } from 'mongoose';
+import { LoggedInUser } from '../auth/user.decorator';
 
 @Controller('user')
 @UseGuards(RolesGuard)
