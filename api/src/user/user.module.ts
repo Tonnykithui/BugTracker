@@ -30,6 +30,7 @@ import { AuthService } from './services/auth.service';
     UserService,
     JwtStrategy,
     AuthService
-  ]
+  ],
+  exports: [UserService]
 })
 export class UserModule { }

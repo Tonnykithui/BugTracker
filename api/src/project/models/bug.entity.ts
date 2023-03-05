@@ -75,10 +75,12 @@ export class bugDto {
     @ApiProperty()
     public estimateTime: string;
 
-    @ApiProperty()
     public ticketOwner: ObjectId;
 
     projectId: ObjectId;
 
     lastUpdatedBy: ObjectId;
+
+    @ApiProperty()
+    assignedUsers: ObjectId[];
 }

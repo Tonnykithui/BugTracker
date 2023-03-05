@@ -8,16 +8,23 @@ import { JwtAuthGuard } from '../auth/jwt.authguard';
 import { ResponseMessage } from 'src/customs/Response';
 import { ObjectId } from 'mongoose';
 import { LoggedInUser } from '../auth/user.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('user')
 @UseGuards(RolesGuard)
 @Roles(Role.PROJECTMANAGER, Role.DEVELOPER)
+@ApiTags('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
   async create(@Body() createUserDto: userDto) {
     return new ResponseMessage('Successfully created a user', await this.userService.create(createUserDto));
+  }
+
+  @Post('/assignRole/:userId')
+  async assignUserRole(@Param('userId') userId: ObjectId, @Body() data, @LoggedInUser() loggedUserId: ObjectId){
+    return await this.userService.assignUserOtherRole(userId, loggedUserId, data);
   }
 
   @Get()

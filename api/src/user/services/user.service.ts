@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Role } from '../models/item.types';
 import { User, userDto } from '../models/user.entity';
 
 @Injectable()
@@ -42,5 +43,15 @@ export class UserService {
 
   async findUserByEmail(email: string, phone?: string) {
     return await this.userModel.find({ $or: [{ email: email }, { phone: phone }] });
+  }
+
+  async assignUserOtherRole(userId, loggedInUserId, role) {
+    const checkAssigningUserRole = await this.findOne(loggedInUserId);
+    if (checkAssigningUserRole.role.includes(Role.PROJECTMANAGER)) {
+      const userToAssignRole = await this.findOne(userId);
+      userToAssignRole.role.push(role);
+    } else {
+      throw new HttpException('User not allowed to assign role', HttpStatus.BAD_REQUEST);
+    }
   }
 }

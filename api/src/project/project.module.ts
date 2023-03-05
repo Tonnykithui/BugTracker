@@ -11,10 +11,12 @@ import { BugController } from './controllers/bug.controller';
 import { CommentController } from './controllers/comment.controller';
 import { BugService } from './services/bug.service';
 import { CommentService } from './services/comment.service';
+import { UserModule } from 'src/user/user.module';
 
 
 @Module({
   imports: [
+    UserModule,
     MongooseModule.forFeature([
       { name: TicketMembers.name, schema: ticketMemberSchema },
       { name: ProjectMembers.name, schema: projectMembersSchema },

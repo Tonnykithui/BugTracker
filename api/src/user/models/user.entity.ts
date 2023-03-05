@@ -48,3 +48,11 @@ export class userDto {
     @ApiProperty()
     public role: Role[]
 }
+
+export class LoginDTO {
+    @ApiProperty()
+    email: string;
+    
+    @ApiProperty()
+    password: string;
+}

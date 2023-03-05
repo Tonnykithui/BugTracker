@@ -13,9 +13,8 @@ export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
   @Post()
-  async create(@Body() createProjectDto: projectDto, @LoggedInUser() userId) {
-    createProjectDto.createdBy = userId;
-    return new ResponseMessage('Successfully created a project', await this.projectService.create(createProjectDto));
+  async create(@Body() createProjectDto: projectDto, @LoggedInUser() userId: ObjectId) {
+    return new ResponseMessage('Successfully created a project', await this.projectService.create(createProjectDto, userId));
   }
 
   @Get()
@@ -26,6 +25,11 @@ export class ProjectController {
   @Get(':id')
   async findOne(@Param('id') id: ObjectId) {
     return new ResponseMessage('Successfully found a single project', await this.projectService.findOne(id));
+  }
+
+  @Get('/:projectId/users')
+  async getUsersInAProject(@Param('projectId') projectId: ObjectId){
+    return await this.projectService.findUserInACertainProject(projectId);
   }
 
   @Patch(':id')

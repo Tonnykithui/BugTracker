@@ -17,10 +17,8 @@ export class BugController {
     ) {}
 
   @Post()
-  async create(@Body() createBugDto: bugDto, @LoggedInUser() userId) {
-    createBugDto.ticketOwner = userId;
-    createBugDto.lastUpdatedBy = userId;
-    return new ResponseMessage('Successfully created a Ticket', await this.bugService.create(createBugDto));
+  async create(@Body() createBugDto: bugDto, @LoggedInUser() userId: ObjectId) {
+    return new ResponseMessage('Successfully created a Ticket', await this.bugService.create(createBugDto, userId));
   }
 
   @Get()

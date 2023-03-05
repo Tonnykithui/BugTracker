@@ -3,8 +3,3 @@ export enum Role {
     TESTER = 'TESTER',
     DEVELOPER = 'DEVELOPER'
 }
-
-export type LoginDTO = {
-    email: string,
-    password: string
-}
