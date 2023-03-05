@@ -7,6 +7,10 @@ import { ProjectMembers, projectMembersSchema } from './models/projectMembers.en
 import { Bug, bugSchema } from './models/bug.entity';
 import { Comment, commentSchema } from './models/comment.entity';
 import { Project, projectSchema } from './models/project.entity';
+import { BugController } from './controllers/bug.controller';
+import { CommentController } from './controllers/comment.controller';
+import { BugService } from './services/bug.service';
+import { CommentService } from './services/comment.service';
 
 
 @Module({
@@ -19,7 +23,7 @@ import { Project, projectSchema } from './models/project.entity';
       { name: Project.name, schema: projectSchema }
     ])
   ],
-  controllers: [ProjectController],
-  providers: [ProjectService]
+  controllers: [ProjectController, BugController, CommentController],
+  providers: [ProjectService, BugService, CommentService]
 })
 export class ProjectModule {}

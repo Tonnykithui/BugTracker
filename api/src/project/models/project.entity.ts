@@ -32,4 +32,7 @@ export class projectDto {
         
         @ApiProperty()
         public createdBy: ObjectId;
+
+        @ApiProperty()
+        assignedUsers: ObjectId[];
 }
