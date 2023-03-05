@@ -11,7 +11,7 @@ import { LoggedInUser } from '../auth/user.decorator';
 
 @Controller('user')
 @UseGuards(RolesGuard)
-@Roles(Role.PROJECTMANAGER)
+@Roles(Role.PROJECTMANAGER, Role.DEVELOPER)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

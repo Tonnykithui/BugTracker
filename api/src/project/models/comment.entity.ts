@@ -25,4 +25,10 @@ export const commentSchema = SchemaFactory.createForClass(Comment);
 export class commentDto {
     @ApiProperty()
     public message: string;
+
+    public Owner: ObjectId;
+
+    public ticketId: ObjectId;
+
+    public submitTime: Date;
 }

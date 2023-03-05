@@ -11,7 +11,9 @@ export class CommentService {
   ) { }
 
   async create(createCommentDto: commentDto) {
-    return await 'This action adds a new comment';
+    const date = new Date();
+    createCommentDto.submitTime = date;
+    return await this.commentModel.create(createCommentDto);
   }
 
   async findAllCommentsForTicket(ticketId) {
@@ -19,20 +21,29 @@ export class CommentService {
       .populate('Owner', { firstname: 1, lastname: 1 });
   }
 
-  async findOne(id: number) {
-    return await `This action returns a #${id} comment`;
+  async findOne(id) {
+    return await this.commentModel.findById(id);
   }
 
-  async update(id: number, updateCommentDto: commentDto) {
-    return await `This action updates a #${id} comment`;
+  async update(id, updateCommentDto: commentDto) {
+    if(await this.commentModel.findById(id)){
+      return await this.commentModel.findByIdAndUpdate(id, updateCommentDto);
+    } else {
+      throw new HttpException('Comment with provided ID does not exists', HttpStatus.BAD_REQUEST);
+    }
   }
 
-  async remove(id: number) {
-    return await `This action removes a #${id} comment`;
+  async remove(bugId, commentId, userId) {
+    const comment = await this.commentModel.find({ id: commentId, ticketId: bugId });
+    if(comment[0].id !== userId){
+      throw new HttpException('User not allowed to delete comment', HttpStatus.BAD_REQUEST);
+    } else {
+      return await this.commentModel.findByIdAndDelete(commentId);
+    }
   }
 
-  async deleteCommentForTicket(ticketId){
-    if(await (await this.commentModel.find({ ticketId: ticketId })).length > 0){
+  async deleteCommentsForTicket(ticketId) {
+    if (await (await this.commentModel.find({ ticketId: ticketId })).length > 0) {
       return await this.commentModel.deleteMany({ ticketId: ticketId });
     } else {
       return 'No comments found for the ticket'

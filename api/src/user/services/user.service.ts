@@ -5,17 +5,19 @@ import { User, userDto } from '../models/user.entity';
 
 @Injectable()
 export class UserService {
-  
+
   constructor(
     @InjectModel(User.name) private userModel: Model<User>
-  ){}
+  ) { }
 
   async create(data: userDto) {
     return await this.userModel.create(data);
   }
 
   async findAll() {
-    return await this.userModel.find();
+    return await this.userModel.find()
+      .sort({ "firstname": 1 })
+      .collation({ locale: "en_US", numericOrdering: true });
   }
 
   async findOne(id) {
@@ -23,7 +25,7 @@ export class UserService {
   }
 
   async update(id, data: User) {
-    if(await this.userModel.findById(id)){
+    if (await this.userModel.findById(id)) {
       return await this.userModel.findByIdAndUpdate(id, data);
     } else {
       throw new HttpException("User with provided credentials does not exists", HttpStatus.BAD_REQUEST);
@@ -31,14 +33,14 @@ export class UserService {
   }
 
   async remove(id) {
-    if(await this.userModel.findById(id)){
+    if (await this.userModel.findById(id)) {
       return await this.userModel.findByIdAndDelete(id);
     } else {
       throw new HttpException('User with provided id does not exists', HttpStatus.BAD_REQUEST);
     }
   }
 
-  async findUserByEmail(email: string, phone?: string){
-    return await this.userModel.find({ $or:[{ email: email }, { phone: phone }] });
+  async findUserByEmail(email: string, phone?: string) {
+    return await this.userModel.find({ $or: [{ email: email }, { phone: phone }] });
   }
 }

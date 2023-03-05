@@ -1,11 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ResponseMessage } from 'src/customs/Response';
 import { projectDto } from '../models/project.entity';
 import { ProjectService } from '../services/project.service';
 import { ObjectId } from 'mongoose';
 import { LoggedInUser } from 'src/user/auth/user.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('project')
+@ApiTags('project')
+
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
