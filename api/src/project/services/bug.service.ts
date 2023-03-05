@@ -29,7 +29,7 @@ export class BugService {
     })
 
     const ticket = await this.bugModel.create(createBugDto);
-    await this.ticketMembersModel.create({ memberId: userId, projectId: createBugDto.projectId, ticketId: ticket._id });
+    await this.ticketMembersModel.create({ memberId: userId.userId, projectId: createBugDto.projectId, ticketId: ticket._id });
 
     createBugDto.assignedUsers?.forEach(async (user) => {
       if (await this.projectMembersModel.findById(user)) {
@@ -54,10 +54,14 @@ export class BugService {
   async findOne(ticketId) {
     const ticket = await this.bugModel.findById(ticketId);
     const comments = await this.commentService.findAllCommentsForTicket(ticketId);
+    const assignedUsers = await this.ticketMembersModel.find({ ticketId: ticketId })
+     .populate('memberId', { firstname: 1, lastname: 1});
+
     if (ticket) {
       return {
         ticket,
-        comments
+        comments,
+        assignedUsers
       }
     } else
       throw new HttpException('Ticket with passed ID does not exists', HttpStatus.BAD_REQUEST);
