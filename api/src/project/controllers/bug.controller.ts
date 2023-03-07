@@ -33,7 +33,7 @@ export class BugController {
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateBugDto: bugDto, @LoggedInUser() userId: ObjectId) {
-    updateBugDto.lastUpdatedBy = userId;
+    // updateBugDto.lastUpdatedBy = userId;
     return new ResponseMessage('Successfully updated a ticket', await this.bugService.update(id, updateBugDto));
   }
 

@@ -1,0 +1,563 @@
+{
+	"info": {
+		"_postman_id": "b9b8184a-987f-40c3-8a89-8767a0123d66",
+		"name": "TICKET SYSTEM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21168337"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "REGISTER USER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"sleek\",\r\n    \"lastname\":\"kenisie\",\r\n    \"email\":\"sk@gmail.com\",\r\n    \"password\":\"kjkjkj\",\r\n    \"confirmPassword\":\"kjkjkj\",\r\n    \"phone\": \"0793011434\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3200/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"1234567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3200/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REFRESH TOKEN",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USERS",
+			"item": [
+				{
+					"name": "FIND  ALL USERS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3200/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FIND SINGLE USER",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/user/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE USER",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USER",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ADD USER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"tonny\",\r\n    \"lastname\": \"kithui\",\r\n    \"email\": \"tmk@gmail.com\",\r\n    \"phone\": \"0793011434\",\r\n    \"password\": \"123456\",\r\n    \"confirmPassword\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3200/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PROJECTS",
+			"item": [
+				{
+					"name": "POST PROJECT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Voting app\",\r\n    \"description\":\"An election based system for medical departments\",\r\n    \"assignedUsers\": [\"6404f0e5c14c6a1aad22a805\", \"6404fd4f1729bcc8f8af4932\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3200/PROJECT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"PROJECT"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL PROJECTS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/project",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET SINGLE PROJECT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/project/6404f897fa0b7b5be9109dbb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"project",
+								"6404f897fa0b7b5be9109dbb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE PROJECT",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Keeps track of any upcoming system failures that might occur in a project\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3200/project/6404fd281729bcc8f8af492c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"project",
+								"6404fd281729bcc8f8af492c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE PROJECT",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/project/6404fd281729bcc8f8af492c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"project",
+								"6404fd281729bcc8f8af492c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USERS IN PROJECT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/project/6404f897fa0b7b5be9109dbb/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"project",
+								"6404f897fa0b7b5be9109dbb",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BUGS",
+			"item": [
+				{
+					"name": "POST TICKET",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Students cant access private classrooms\",\r\n  \"description\": \"Students account shut them off when trying to access extra circular lessons from teachers\",\r\n  \"priority\": \"MEDIUM\",\r\n  \"status\": \"OPEN\",\r\n  \"reportDate\": \"2023-03-05T20:43:39.234Z\",\r\n  \"dueDate\": \"2023-03-05T20:43:39.234Z\",\r\n  \"estimateTime\": \"1hrs\",\r\n  \"projectId\": \"6404f897fa0b7b5be9109dbb\",\r\n  \"assignedUser\": [\"6404f0e5c14c6a1aad22a805\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3200/bug",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"bug"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE TICKET",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/bug/64051322a56ab060752f8304",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"bug",
+								"64051322a56ab060752f8304"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE TICKET",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/bug",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"bug"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET SINGLE TICKET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/bug/64051322a56ab060752f8304",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"bug",
+								"64051322a56ab060752f8304"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "COMMENTS",
+			"item": [
+				{
+					"name": "CREATE COMMENT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/bug/:bugId/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"bug",
+								":bugId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "bugId",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE COMMENT",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/bug/:bugId/comments/:commentId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"bug",
+								":bugId",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "bugId",
+									"value": null
+								},
+								{
+									"key": "commentId",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE COMMENT",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/bug/:bugId/comments/:commentId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"bug",
+								":bugId",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "bugId",
+									"value": null
+								},
+								{
+									"key": "commentId",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDA0ZWJjNjRjNjlhZTE4Zjk1MzFiYTciLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicm9sZSI6WyJQUk9KRUNUTUFOQUdFUiJdLCJpYXQiOjE2NzgwNDQzMTR9._pLqODi2Jl1Y2n7UMNkyipk8Bd6fMpcDZibBlyUJRJM",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

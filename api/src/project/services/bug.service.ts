@@ -31,13 +31,15 @@ export class BugService {
     const ticket = await this.bugModel.create(createBugDto);
     await this.ticketMembersModel.create({ memberId: userId.userId, projectId: createBugDto.projectId, ticketId: ticket._id });
 
-    createBugDto.assignedUsers?.forEach(async (user) => {
-      if (await this.projectMembersModel.findById(user)) {
-        await this.ticketMembersModel.create({ memberId: user, projectId: createBugDto.projectId, ticketId: ticket._id });
-      } else {
-        throw new HttpException('User assigned to ticket is not in the base Project', HttpStatus.BAD_REQUEST);
-      }
-    });
+    if (createBugDto.assignedUsers?.length > 0) {
+      createBugDto.assignedUsers?.forEach(async (user) => {
+        if (await (await this.projectMembersModel.find({ memberId: user, projectId: createBugDto.projectId })).length > 0) {
+          await this.ticketMembersModel.create({ memberId: user, projectId: createBugDto.projectId, ticketId: ticket._id });
+        } else {
+          throw new HttpException('User assigned to ticket is not in the base Project', HttpStatus.BAD_REQUEST);
+        }
+      });
+    }
 
     return ticket;
   }
@@ -55,7 +57,7 @@ export class BugService {
     const ticket = await this.bugModel.findById(ticketId);
     const comments = await this.commentService.findAllCommentsForTicket(ticketId);
     const assignedUsers = await this.ticketMembersModel.find({ ticketId: ticketId })
-     .populate('memberId', { firstname: 1, lastname: 1});
+      .populate('memberId', { firstname: 1, lastname: 1 });
 
     if (ticket) {
       return {
@@ -69,10 +71,30 @@ export class BugService {
 
   async update(id, updateBugDto: bugDto) {
     if (await this.bugModel.findById(id)) {
-      return await this.bugModel.findByIdAndUpdate(id, updateBugDto);
+      const allTickets = await this.bugModel.find({ projectId: updateBugDto.projectId });
+      for (let i = 0; i < allTickets.length; i++) {
+        if (allTickets[i].title === updateBugDto.title && allTickets[i]._id != id) {
+          throw new HttpException('Ticket with given title already exists', HttpStatus.BAD_REQUEST);
+        }
+      }
+
+      const ticketUpdate = await this.bugModel.findByIdAndUpdate(id, updateBugDto);
+
+      if (updateBugDto.assignedUsers?.length > 0) {
+        for (let i = 0; i < updateBugDto.assignedUsers.length; i++) {
+          const ticketMemberExists = await this.ticketMembersModel.find({ memberId: updateBugDto.assignedUsers[i], projectId: updateBugDto.projectId, ticketId: id })
+          if (!(ticketMemberExists.length > 0)) {
+            await this.ticketMembersModel.create({ memberId: updateBugDto.assignedUsers[i], projectId: updateBugDto.projectId, ticketId: id });
+          }
+        }
+      }
+
+      return ticketUpdate;
+
     } else {
       throw new HttpException('No ticket with given ID exists', HttpStatus.BAD_REQUEST);
     }
+
   }
 
   async remove(id, userId) {
@@ -101,4 +123,24 @@ export class BugService {
     return await this.bugModel.deleteMany({ projectId: projectId });
   }
 
+  async findTicketById(ticketId) {
+    return await this.bugModel.findById(ticketId);
+  }
+
+  async removeUserFromAssignedTicket(ticketId, userId) {
+    if (await this.findTicketById(ticketId)) {
+      return await this.ticketMembersModel.deleteMany({ ticketId: ticketId, memberId: userId });
+    } else {
+      throw new HttpException('The Ticket to get rid off of user does not exists', HttpStatus.BAD_REQUEST);
+    }
+  }
 }
+
+// await this.ticketMembersModel.deleteMany(
+//   {
+//     $and:[
+//       { ticketId: id },
+//       { projectId: updateBugDto.projectId },
+//       { memberId: { $ne: updateBugDto.ticketOwner } }
+//     ]
+//   });
