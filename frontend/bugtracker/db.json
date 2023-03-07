@@ -1,0 +1,191 @@
+{
+  "users": [
+    {
+      "id": 2,
+      "FirstName": "Tonny",
+      "LastName": "Kithui",
+      "Email": "tonnykithui@gmail.com",
+      "Role": "Developer"
+    },
+    {
+      "id": 3,
+      "FirstName": "Lincie",
+      "LastName": "Bel",
+      "Email": "linnie@gmail.com",
+      "Role": "Developer"
+    },
+    {
+      "id": 4,
+      "FirstName": "Giddy",
+      "LastName": "Ben",
+      "Email": "tui@gmail.com",
+      "Role": "Admin"
+    },
+    {
+      "id": 2354.454732035399,
+      "FirstName": "sunny",
+      "LastName": "mullie",
+      "PhoneNumber": "03334045959",
+      "Email": "sunie@gmail.com",
+      "Password": ""
+    },
+    {
+      "id": 1732.8015617018023,
+      "FirstName": "Tonny",
+      "LastName": "Kithui",
+      "PhoneNumber": "0793011434",
+      "Email": "t@gmail.com",
+      "Password": ""
+    }
+  ],
+  "projects": [
+    {
+      "id": 2.7753403919491793,
+      "Project": "Bug tracker",
+      "Description": "Ticketing system",
+      "Assigned": [
+        "Tonny",
+        "Giddy"
+      ],
+      "tickets":[]
+    },
+    {
+      "id": 0.8586127663444187,
+      "Project": "School mgt soln",
+      "Description": "Web based portal",
+      "Assigned": [
+        "Giddy"
+      ],
+      "tickets":[]
+    },
+    {
+      "id": 3.5972326370118424,
+      "Project": "Event planning site",
+      "Description": "Both event planners and artist",
+      "Assigned": [
+        "Tonny",
+        "Lincie"
+      ],
+      "tickets":[]
+    },
+    {
+      "id": 4.453102500735277,
+      "Project": "Project mgt",
+      "Description": "Manage sln",
+      "Assigned": [
+        "Tonny"
+      ],
+      "tickets":[]
+    },
+    {
+      "id": 4.582550839461334,
+      "Project": "Hyper mkt system",
+      "Description": "Manage retail stores info",
+      "Assigned": [
+        "Tonny",
+        "Giddy"
+      ],
+      "tickets":[]
+    },
+    {
+      "id": 0.6968884134026443,
+      "Project": "ML price predict",
+      "Description": "Bot",
+      "Assigned": [],
+      "tickets":[]
+    },
+    {
+      "id": 3.606748178981287,
+      "Project": "chat system",
+      "Description": "online meeting forum for gamers",
+      "Assigned": [
+        "Lincie",
+        "Giddy"
+      ],
+      "tickets":[]
+    },
+    {
+      "id": 4.0012973149635584,
+      "Project": "ticketing system",
+      "Description": "Bus online application",
+      "Assigned": [
+        "Lincie",
+        "Giddy"
+      ],
+      "tickets":[]
+    },
+    {
+      "id": 2.1799783738684764,
+      "Project": "Online gaming platform",
+      "Description": "Web based meeting place for gamers",
+      "Assigned": [
+        "Lincie",
+        "Giddy",
+        "sunny"
+      ],
+      "tickets":[
+        {
+          "ticketId":6,
+          "Title":"Login error",
+          "Description":"Both event planners and artist",
+          "Status":"High",
+          "Priority":"High",
+          "TimeEstimate":"2",
+          "Assigned":[
+            "Giddy",
+            "Lincie Bel",
+            "Tonny Kithui"
+          ]
+        },
+        {
+          "ticketId":3,
+          "Title":"Login error",
+          "Description":"Both event planners and artist",
+          "Status":"High",
+          "Priority":"High",
+          "TimeEstimate":"2",
+          "Assigned":[
+            "Giddy",
+            "Lincie Bel",
+            "Tonny Kithui"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1.192395036926418,
+      "Project": "try one ",
+      "Description": "hello there",
+      "Assigned": [
+        "Tonny Kithui",
+        "Lincie Bel"
+      ],
+      "tickets":[
+        {
+          "ticketId":5,
+          "Title":"Login error",
+          "Description":"Both event planners and artist",
+          "Status":"High",
+          "Priority":"High",
+          "TimeEstimate":"2",
+          "Assigned":[
+            "Giddy"
+          ]
+        },
+        {
+          "ticketId":2,
+          "Title":"Authentication error",
+          "Description":"artist",
+          "Status":"Closed",
+          "Priority":"Low",
+          "TimeEstimate":"2",
+          "Assigned":[
+            "Giddy",
+            "Lincie Bel",
+            "Tonny Kithui"
+          ]
+        }
+      ]
+    }
+  ]
+}
