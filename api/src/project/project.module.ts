@@ -12,6 +12,9 @@ import { CommentController } from './controllers/comment.controller';
 import { BugService } from './services/bug.service';
 import { CommentService } from './services/comment.service';
 import { UserModule } from 'src/user/user.module';
+import { Menu, menuSchema } from './models/menu.entity';
+import { HelpersService } from 'src/customs/helpers.service';
+import { MenuController } from './controllers/menu.controller';
 
 
 @Module({
@@ -22,10 +25,11 @@ import { UserModule } from 'src/user/user.module';
       { name: ProjectMembers.name, schema: projectMembersSchema },
       { name: Bug.name, schema: bugSchema },
       { name: Comment.name, schema: commentSchema },
-      { name: Project.name, schema: projectSchema }
+      { name: Project.name, schema: projectSchema },
+      { name: Menu.name, schema: menuSchema }
     ])
   ],
-  controllers: [ProjectController, BugController, CommentController],
-  providers: [ProjectService, BugService, CommentService]
+  controllers: [ProjectController, BugController, CommentController, MenuController],
+  providers: [ProjectService, BugService, CommentService, HelpersService]
 })
 export class ProjectModule {}

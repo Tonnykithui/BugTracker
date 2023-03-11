@@ -17,27 +17,41 @@ import NewProject from "./components/modal/NewProject";
 import ProjectInfo from "./components/pages/ProjectInfo";
 import EditProject from "./components/modal/EditProject";
 import NewTicket from "./components/modal/NewTicket";
+import { useState } from "react";
 
 function App() {
+  const [isLoggedIn, LogInUser] = useState(false);
+
   return (
     <Provider store={store}>
       <div className="flex justify-center w-full h-full overflow-y-hidden">
-        <Sidebar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/tickets" element={<Tickets />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot" element={<Forgot />} />
-          <Route path="/administration" element={<Administration />} />
-          <Route path="/projects/:id" element={<ProjectInfo />} />
-        </Routes>
-        <NewUser />
-        <AddUser />
-        <ConfirmDelete />
-        <NewProject />
-        <EditProject />
-        <NewTicket />
+        {
+          isLoggedIn ? (
+            <>
+              <Sidebar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/tickets" element={<Tickets />} />
+                <Route path="/administration" element={<Administration />} />
+                <Route path="/projects/:id" element={<ProjectInfo />} />
+              </Routes>
+              <NewUser />
+              <AddUser />
+              <ConfirmDelete />
+              <NewProject />
+              <EditProject />
+              <NewTicket />
+            </>
+          ) : (
+            <>
+              <Routes>
+                <Route path="/register" element={<Register />} />
+                <Route path="/" element={<Login />} />
+                <Route path="/forgot" element={<Forgot />} />
+              </Routes>
+            </>
+          )
+        }
       </div>
     </Provider>
   );

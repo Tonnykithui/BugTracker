@@ -7,7 +7,7 @@ const Register = () => {
       <div className='text-center mb-5'>
       <h2 className='font-semibold text-xl'>Bug Tracker</h2>
       <div className='my-1 text-sm font-semibold'>
-          <Link to='/login'>Login</Link>
+          <Link to='/'>Login</Link>
       </div>
       </div>
       <div>

@@ -33,7 +33,6 @@ export class BugController {
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateBugDto: bugDto, @LoggedInUser() userId: ObjectId) {
-    // updateBugDto.lastUpdatedBy = userId;
     return new ResponseMessage('Successfully updated a ticket', await this.bugService.update(id, updateBugDto));
   }
 
@@ -45,7 +44,7 @@ export class BugController {
   // COMMENTS CUD
   @Post('/:bugId/comments')
   async createComment(@Param('bugId') bugId: ObjectId, @Body() createCommentDto: commentDto, @LoggedInUser() userId) {
-    createCommentDto.Owner = userId;
+    createCommentDto.Owner = userId.userId;
     createCommentDto.ticketId = bugId
     return new ResponseMessage("Successfully commented on a ticket", await this.commentService.create(createCommentDto));
   }
@@ -56,7 +55,7 @@ export class BugController {
   }
 
   @Delete('/:bugId/comments/:commentId')
-  async removeComment(@Param('bugId') bugId: ObjectId, @Param('commentId') commentId: ObjectId , @LoggedInUser() userId) {
+  async removeComment(@Param('bugId') bugId: ObjectId, @Param('commentId') commentId: ObjectId , @LoggedInUser() userId: ObjectId) {
     return new ResponseMessage("Successfully deleted a comment", await this.commentService.remove(bugId, commentId, userId));
   }
 }

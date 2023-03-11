@@ -14,6 +14,7 @@ export class AuthService implements OnModuleInit {
 
     async onModuleInit() {
         await this.createSuperUser();
+        
     }
 
     async loginUser(data) {
