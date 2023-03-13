@@ -1,0 +1,19 @@
+.task-wrapper{
+    @apply bg-white rounded-lg p-2;
+}
+
+.task-logo{
+    @apply text-red-600 text-xl;
+}
+
+.task-list ul {
+    @apply pt-4;
+}
+
+.task-list ul li{
+    @apply flex flex-row items-center p-2 border-b-2 justify-between border-slate-200 font-semibold;
+}
+
+.task-icon{
+    @apply rounded-full border-2 border-red-500 p-1 text-xl font-semibold text-blue-500;
+}

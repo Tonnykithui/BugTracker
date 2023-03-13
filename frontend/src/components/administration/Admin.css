@@ -1,0 +1,19 @@
+.administration {
+    @apply bg-slate-300 w-screen p-2 h-screen overflow-auto overflow-y-hidden;
+}
+
+.search-bar {
+    @apply flex flex-row items-center float-right w-auto bg-blue-600 p-2  rounded-2xl;
+}
+
+.search-bar input {
+    @apply bg-transparent outline-none ;
+}
+
+.search-bar h2 {
+    @apply p-2 bg-slate-50 rounded-3xl w-20 text-center;
+}
+
+.search-bar-icon {
+    @apply text-white mr-4;
+}

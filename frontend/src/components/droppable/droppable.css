@@ -1,0 +1,7 @@
+.droppable{
+    @apply p-4 bg-white rounded-sm  overflow-y-scroll h-full;
+}
+
+.droppable::-webkit-scrollbar {
+   @apply hidden;
+}

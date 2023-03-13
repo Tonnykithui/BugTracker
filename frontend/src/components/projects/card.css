@@ -1,0 +1,23 @@
+.project-head{
+    @apply font-semibold ;
+}
+
+.project-timeline{
+    @apply flex flex-row items-center gap-2 mt-3 mb-3;
+}
+
+.team{
+    @apply flex flex-row gap-2;
+}
+
+.team div{
+    @apply p-2 bg-slate-300 rounded-md;
+}
+
+.project-details h1{
+    @apply font-semibold;
+}
+
+.project-details{
+    @apply flex flex-row gap-3;
+}

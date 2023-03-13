@@ -1,0 +1,11 @@
+.navbar {
+    @apply top-0 md:hidden;
+}
+
+.closed-menu {
+    @apply h-10 w-screen fixed top-0 md:hidden bg-blue-500 text-white flex items-center;
+}
+
+.ham-icon {
+    @apply absolute right-8;
+}

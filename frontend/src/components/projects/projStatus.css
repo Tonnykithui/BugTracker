@@ -1,0 +1,11 @@
+.proj-status{
+    @apply flex flex-row gap-3 pl-4 justify-center;
+}
+
+.status{
+    @apply items-center justify-center;
+}
+
+.proj-status-items{
+    @apply flex flex-row items-center gap-1;
+}

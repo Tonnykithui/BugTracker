@@ -1,0 +1,7 @@
+.draggable{
+    @apply rounded-lg bg-slate-300 w-60 p-2 mt-2;
+}
+
+.wrapper {
+    @apply p-2;
+}

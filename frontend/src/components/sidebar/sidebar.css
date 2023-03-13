@@ -1,0 +1,3 @@
+.sidebar {
+    @apply hidden md:block lg:block;
+}

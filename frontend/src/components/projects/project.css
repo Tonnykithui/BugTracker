@@ -1,0 +1,7 @@
+.project{
+    @apply h-screen overflow-auto p-4;
+}
+
+.project-list {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4;
+}

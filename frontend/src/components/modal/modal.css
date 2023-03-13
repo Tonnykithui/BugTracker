@@ -1,0 +1,4 @@
+.modal {
+    @apply inset-0 shadow-slate-900 absolute h-screen w-screen flex items-center 
+           justify-center backdrop-blur-sm;
+}

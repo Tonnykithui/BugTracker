@@ -1,0 +1,27 @@
+.register {
+    @apply w-screen h-screen flex flex-row justify-center items-center bg-slate-200;
+}
+
+.register-screens {
+    @apply bg-white p-10;
+}
+
+.register-message {
+    @apply font-semibold text-red-600 text-2xl text-center;
+}
+
+.register-input {
+    @apply p-2;
+} 
+
+.register-input input {
+    @apply h-10 rounded-lg bg-slate-200 p-4 w-80 outline-none;
+}
+
+.register-form {
+    @apply w-full p-4 ;
+}
+
+.register-btn-div {
+    @apply m-2 grid grid-cols-2 gap-1 p-2;
+}

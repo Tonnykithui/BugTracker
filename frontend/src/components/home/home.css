@@ -1,0 +1,11 @@
+.Home{
+    @apply grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 bg-slate-300 p-2 h-full;
+}
+
+.dashboard{
+    @apply text-xl font-semibold text-blue-700;
+}
+
+.dashboard-wrapper{
+    @apply h-screen w-screen overflow-hidden;
+}

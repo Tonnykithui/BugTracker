@@ -1,0 +1,51 @@
+.projects-details{
+    @apply col-span-1 w-full;
+}
+
+.project-details-card{
+    @apply w-full bg-white rounded-lg mb-4 p-2 ;
+}
+
+.header {
+    @apply flex flex-row justify-between items-center w-full font-semibold text-lg;
+}
+
+.project-status{
+    @apply flex flex-row justify-between mt-2;
+}
+
+.progress {
+    @apply p-1 pl-2 pr-2 bg-slate-200 rounded-lg text-blue-600 text-lg font-semibold;
+}
+
+.priority{
+    @apply p-1 pl-2 pr-2 border-2 border-red-600 rounded-lg text-lg text-red-500 font-semibold;
+}
+
+.project-tasks span{
+    @apply font-semibold text-blue-800;
+}
+
+.project-type{
+    @apply flex flex-row gap-2 mb-2;
+}
+
+.project-type h2{
+    @apply p-2 bg-slate-200 rounded-lg font-semibold;
+}
+
+.assigned-teams ul{
+    @apply flex flex-row;
+}
+
+.assigned-teams ul li{
+    @apply rounded-full p-2;
+}
+
+.project-due-date{
+    @apply min-w-fit;
+}
+
+.project-due-date h2{
+    @apply bg-slate-200 text-red-500 rounded-lg p-1 font-semibold w-48;
+}

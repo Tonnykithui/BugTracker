@@ -1,0 +1,35 @@
+.employee-card {
+    @apply grid grid-rows-3 bg-white rounded-lg p-2;
+}
+
+.img {
+    @apply flex flex-row justify-center;
+}
+
+.img img {
+    @apply h-20 w-20;
+}
+
+.name-role {
+    @apply text-center;
+}
+
+.name-role h2 {
+    @apply font-semibold;
+}
+
+.name-role p {
+    @apply text-slate-400 font-semibold;
+}
+
+.ticket-assigned {
+    @apply flex flex-row justify-between text-center;
+}
+
+.ticket-assigned h2 {
+    @apply text-slate-400 font-semibold;
+}
+
+.ticket-assigned p {
+    @apply text-blue-900 font-bold text-xl;
+}

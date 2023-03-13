@@ -1,0 +1,64 @@
+.login-wrapper{
+    @apply w-screen h-screen flex flex-row justify-center items-center bg-slate-200;
+}
+
+.login-screens{
+    @apply flex flex-row h-full w-full justify-center items-center relative;
+}
+
+.login{
+    @apply p-10 rounded-md bg-white;
+}
+
+.login-message{
+    @apply text-center font-semibold text-2xl text-red-700;
+}
+
+.login-message h2::after{
+    @apply h-2 w-full bg-blue-400;
+}
+
+.login-form {
+    @apply pt-2;
+}
+
+.login-input{
+    @apply flex flex-row gap-4 items-center rounded-md border-l-4
+     border-blue-800 bg-slate-200 m-2 p-4 w-80 h-10;
+}
+
+.login-input span{
+    @apply text-xl text-slate-600 border-r-2 border-slate-400 pr-4;
+}
+
+.login-input input{
+    @apply outline-none border-none bg-transparent;
+}
+
+.forgot-password {
+    @apply flex flex-row justify-end;
+}
+
+.forgot-password span {
+    @apply text-blue-600 font-semibold text-sm;
+}
+
+.login-btn-div{
+    @apply flex flex-row items-center mt-4;
+}
+
+.login-button{
+    @apply bg-blue-700 flex flex-row p-2 justify-center items-center text-white w-full;
+}
+
+.login-welcome{
+    @apply bg-blue-500 h-4/5 w-2/5;
+}
+
+.register-direction {
+    @apply text-center p-4;
+}
+
+.register-direction span {
+    @apply text-blue-600 font-semibold text-lg;
+}

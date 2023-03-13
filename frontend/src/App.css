@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.App {
+  @apply h-screen w-screen;
+}
+
+.app-layout{
+  @apply grid md:flex flex-row gap-2;
+}
+
+.sidebar {
+  @apply h-screen bg-white flex flex-col w-52 p-6;
+}
+
+.logo {
+  @apply flex flex-row gap-1 items-center text-red-500 font-semibold text-2xl mb-6;
+}
+
+.menu-items {
+  @apply flex flex-row gap-2 items-center mt-6 text-lg font-semibold text-blue-500 relative;
+} 
+
+.menu-items:hover {
+  @apply bg-blue-500 text-white rounded-lg p-1;
+}
+
+.logout {
+  @apply absolute bottom-2 gap-1 flex flex-row items-center text-red-600 font-semibold 
+  rounded-md bg-slate-300 pt-3 pr-6 pl-6 pb-3 text-lg cursor-pointer;
+}
+
+.projects-menu {
+  @apply flex flex-row gap-2 items-center mt-6 text-lg font-semibold text-blue-500 relative max-h-full;
+}
+
+.projects-menu-items{
+  @apply flex flex-col pl-6 text-blue-500 font-semibold;
+}
+
+.menu{
+  @apply pt-1 pb-1 pl-2;
+}
+
+.menu:hover{
+  @apply bg-slate-200 rounded-sm;
+}
+
+.project-card{
+  @apply p-7 bg-white rounded-lg;
+}
+
+.project-list{
+  @apply grid grid-cols-3 gap-2;
+}
