@@ -10,6 +10,7 @@ import Register from './components/auth/register/Register';
 import Login from './components/auth/login/Login';
 import Administration from './components/administration/Administration';
 import Navbar from './components/navbar/Navbar';
+import ProjDetails from './components/projectDetails/ProjDetails';
 
 function App() {
 
@@ -23,13 +24,14 @@ function App() {
             (
               <>
                 <Sidebar />
-                <Navbar />
+                <ProjDetails />
+                {/* <Navbar />
                 <Routes>
                   <Route path='/' element={<Home />} />
                   <Route path='/Project' element={<Projects />} />
                   <Route path='/task' element={<Board />} />
                   <Route path='/teams' element={<Administration />} />
-                </Routes>
+                </Routes> */}
 
               </>
             )
