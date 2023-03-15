@@ -1,6 +1,15 @@
 import React from 'react';
+import Button from '../button/Button';
+import Draggable from '../draggable/Draggable';
 import './projDetails.css';
 
+export const buttonStyles = {
+    borderRadius:'5px', 
+    opacity:'0.8', 
+    color:'blue', 
+    border:'2px solid blue',
+    height:'25px'
+}
 
 const ProjDetails = () => {
     return (
@@ -33,13 +42,33 @@ const ProjDetails = () => {
                 <div className="bottom">
                     <div className="bottom-wrapper">
                         <div className="droppable">
-                            <h2>Todo</h2>
+                            <div className="title">
+                                <h2>To Do</h2>
+                                {/* rounded-md bg-transparent border-solid border-2 border-blue-500 text-blue-700 */}
+                                <Button style={buttonStyles}>+ New Card</Button>
+                            </div>
+                            <div className="droppable-items"></div>
                         </div>
                         <div className="droppable">
-                            <h2>InProgress</h2>
+                            <div className="title">
+                                <h2>InProgress</h2>
+                                <Button style={buttonStyles}>+ New Card</Button>
+                            </div>
+                            <div className="droppable-items">
+                                <Draggable />
+                                <Draggable />
+                                <Draggable />
+                                <Draggable />
+                                <Draggable />
+                                <Draggable />
+                            </div>
                         </div>
                         <div className="droppable">
-                            <h2>Completed</h2>
+                            <div className="title">
+                                <h2>Completed</h2>
+                                <Button style={buttonStyles}>+ New Card</Button>
+                            </div>
+                            <div className="droppable-items"></div>
                         </div>
 
                     </div>

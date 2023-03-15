@@ -40,7 +40,7 @@
 
 /************** BOTTOM *************/
 .bottom {
-    @apply bg-white rounded-md row-span-6 h-full;
+    @apply rounded-md row-span-6 h-full;
 }
 
 .bottom-wrapper {
@@ -48,5 +48,25 @@
 }
 
 .droppable {
-    @apply bg-slate-400 rounded-md h-full;
+    @apply rounded-md h-full gap-1 relative;
+}
+/* grid-rows-6 */
+
+.droppable .title {
+    @apply grid grid-cols-2 h-7 fixed opacity-100;
+}
+
+.droppable .title h2 {
+    @apply text-black;
+}
+
+.droppable .droppable-items{
+    @apply overflow-y-hidden absolute mt-4 opacity-80;
+}
+
+/* row-span-6 */
+/* borderRadius:'5px', background:'grey', color:'blue' */
+
+.button-project-new {
+    @apply rounded-md bg-transparent border-solid border-2 border-blue-500 text-blue-700;
 }
