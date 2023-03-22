@@ -40,28 +40,32 @@
 
 /************** BOTTOM *************/
 .bottom {
-    @apply rounded-md row-span-6 h-full;
+    @apply rounded-md row-span-6 sm:h-full md:h-full h-screen;
 }
 
 .bottom-wrapper {
     @apply grid lg:grid-cols-3 text-center gap-1 h-full md:grid-cols-2 sm:grid-cols-1;
 }
 
+
+/* DROPPABLE */
 .droppable {
-    @apply rounded-md h-full gap-1 relative;
+    @apply rounded-md h-full gap-1 relative overflow-y-hidden grid grid-rows-6;
 }
 /* grid-rows-6 */
 
 .droppable .title {
-    @apply grid grid-cols-2 h-7 fixed opacity-100;
+    @apply grid grid-cols-2 row-span-1 opacity-100;
 }
+
+/* absolute top-0 */
 
 .droppable .title h2 {
     @apply text-black;
 }
 
 .droppable .droppable-items{
-    @apply overflow-y-hidden absolute mt-4 opacity-80;
+    @apply overflow-y-scroll opacity-80 row-span-5;
 }
 
 /* row-span-6 */
@@ -70,3 +74,9 @@
 .button-project-new {
     @apply rounded-md bg-transparent border-solid border-2 border-blue-500 text-blue-700;
 }
+
+
+/* DROPPABLE ITEMS */
+/* .droppable-items {
+    @apply h-full;
+} */

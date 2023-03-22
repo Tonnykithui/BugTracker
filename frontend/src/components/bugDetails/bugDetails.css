@@ -1,0 +1,38 @@
+.bug-details-page {
+    @apply bg-slate-200 p-4 grid grid-cols-2;
+}
+
+
+/* LEFT PAGE */
+.left-page {
+    @apply grid grid-rows-3;
+}
+
+/* 
+.todo-activity {
+    @apply bg-red-600;
+} */
+
+.title {
+    @apply row-span-1 p-2;
+}
+
+.statuses {
+    @apply row-span-2 p-2;
+}
+
+
+.todo-activity p {
+    @apply overflow-y-scroll h-80 p-2;
+}
+
+
+/* RIGHT PAGE */
+
+.right-page {
+    @apply grid grid-rows-3;
+}
+
+.comments {
+    @apply bg-red-500;
+}
