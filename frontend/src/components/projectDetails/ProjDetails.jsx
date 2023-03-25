@@ -23,14 +23,30 @@ const info = {
 
 const ProjDetails = () => {
 
-    const modal = useSelector(state => state.bugOpenModalReducer.open);
-
+    const viewBug = useSelector(state => state.bugOpenModalReducer.open);
+    const addBug = useSelector(state => state.createBugReducer.open);
+    let childToDisplay = '';
+    if(viewBug){
+        childToDisplay = 'openBug'
+    } else {
+        childToDisplay = 'createBug'
+    }
+    console.log(childToDisplay);
     return (
         <>
             {
-                modal ?
+                viewBug || addBug ?
                     (
-                        <Modal children={<BugDetails />}/>
+                        <>
+                        <div className='ProjDetails-wrapper'>
+                            <div className="ProjectDetails">
+                                <ProjDetailsTop />
+                                <ProjDetailsBottom />
+                            </div>
+                        </div>
+                        <Modal child={`${childToDisplay}`}
+                        style={{}}/>
+                        </>
                     ) :
                     (
                         <div className='ProjDetails-wrapper'>

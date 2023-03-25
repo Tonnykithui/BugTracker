@@ -2,6 +2,9 @@ import React from 'react'
 import Button from '../button/Button'
 import Draggable from '../draggable/Draggable'
 import './projDetails.css';
+import { useDispatch } from 'react-redux';
+import { openBugForm, openBugFormSuc, openBugSuccess } from '../../redux';
+
 
 export const buttonStyles = {
     borderRadius: '5px',
@@ -25,6 +28,9 @@ function onDropItem(e) {
 }
 
 const ProjDetailsBottom = () => {
+
+    const dispatch = useDispatch();
+    
     return (
         <div className="bottom">
             <div className="bottom-wrapper">
@@ -32,7 +38,7 @@ const ProjDetailsBottom = () => {
                     <div className="title">
                         <h2>To Do</h2>
                         {/* rounded-md bg-transparent border-solid border-2 border-blue-500 text-blue-700 */}
-                        <Button style={buttonStyles}>+ New Card</Button>
+                        <Button style={buttonStyles} onClick={() => dispatch(openBugFormSuc())}>+ New Card</Button>
                     </div>
                     <div className="droppable-items"></div>
                 </div>
@@ -46,7 +52,7 @@ const ProjDetailsBottom = () => {
                     }>
                     <div className="title">
                         <h2>InProgress</h2>
-                        <Button style={buttonStyles}>+ New Card</Button>
+                        <Button style={buttonStyles} onClick={() => dispatch(openBugFormSuc())}>+ New Card</Button>
                     </div>
                     <div className="droppable-items">
                         <Draggable info={info} />
@@ -69,7 +75,7 @@ const ProjDetailsBottom = () => {
                 >
                     <div className="title">
                         <h2>Completed</h2>
-                        <Button style={buttonStyles}>+ New Card</Button>
+                        <Button style={buttonStyles}  onClick={() => dispatch(openBugFormSuc())}>+ New Card</Button>
                     </div>
                     <div className="droppable-items">
 

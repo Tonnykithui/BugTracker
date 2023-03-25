@@ -1,38 +1,57 @@
 .bug-details-page {
-    @apply bg-slate-200 p-4 grid grid-cols-2;
+    @apply bg-slate-300 rounded-sm p-4 grid grid-cols-2 h-full gap-4;
 }
 
+.right-page {
+    @apply ml-5;
+}
 
 /* LEFT PAGE */
-.left-page {
-    @apply grid grid-rows-3;
-}
+/* grid grid-rows-3 */
+/* .left-page {
+    @apply grid grid-rows-3 h-full bg-red-500;
+} */
 
 /* 
 .todo-activity {
     @apply bg-red-600;
 } */
 
-.title {
-    @apply row-span-1 p-2;
+/* row-span-1 */
+/* .title {
+    @apply row-start-1 row-end-2;
+} */
+
+/* row-span-2 */
+/* .statuses {
+    @apply row-end-3;
+} */
+
+/* .statuses ul li {
+    @apply m-1;
 }
 
-.statuses {
-    @apply row-span-2 p-2;
+.todo-activity {
+    @apply mt-5 bg-black;
 }
-
 
 .todo-activity p {
     @apply overflow-y-scroll h-80 p-2;
-}
+} */
 
 
 /* RIGHT PAGE */
 
-.right-page {
-    @apply grid grid-rows-3;
-}
+/* .right-page {
+    @apply relative ;
+} */
 
-.comments {
+/* .comments {
     @apply bg-red-500;
-}
+} */
+
+
+/* ADD COMMENT */
+/* .add-comment {
+    @apply flex flex-row w-full;
+} */

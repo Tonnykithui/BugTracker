@@ -1,0 +1,23 @@
+.form-control {
+    @apply m-2 p-2;
+}
+
+.form-input {
+    @apply border-none outline-none p-2 rounded-lg w-full;
+}
+
+.priority-status {
+    @apply flex flex-row gap-1;
+}
+
+.type-priority-status {
+    @apply flex flex-row gap-2 w-full justify-between;
+}
+
+.buttons {
+    @apply w-full p-2 flex flex-row justify-between gap-2;
+}
+
+.form-control label {
+    @apply text-black font-semibold;
+}

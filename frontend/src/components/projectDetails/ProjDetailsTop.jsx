@@ -1,4 +1,20 @@
 import React from 'react'
+import Button from '../button/Button'
+import './projDetails.css';
+
+const newMembersStyling = {
+    background: 'blue',
+    padding: '2px',
+    borderRadius: '8px',
+    border: 'none',
+    color: 'white',
+    height: '20px',
+    width: '80px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '24px'
+}
 
 const ProjDetailsTop = () => {
     return (
@@ -8,8 +24,9 @@ const ProjDetailsTop = () => {
                 <p>Project X</p>
             </div>
             <div className="meambers">
-                <div className="members-title">
+                <div className="members-title flex flex-row justify-between mb-1">
                     <h2>Team</h2>
+                    <Button style={newMembersStyling}>+</Button>
                 </div>
                 <div className="member-list">
                     <ul>

@@ -1,0 +1,24 @@
+/* grid-rows-6 */
+.comment {
+    @apply relative flex flex-col gap-2 h-full;
+}
+
+.comment ul {
+    @apply overflow-y-scroll absolute h-4/5 w-full;
+}
+
+.comment ul::-webkit-scrollbar {
+    display: none;
+}
+
+.comment-title {
+    @apply h-5 w-full;
+}
+
+/* .comment-list {
+    @apply ;
+} */
+
+.add-comment {
+    @apply absolute bottom-0 flex flex-row justify-between w-full;
+}

@@ -1,6 +1,6 @@
 .modal {
     @apply inset-0 shadow-slate-900 h-screen w-screen absolute flex items-center 
-    justify-center backdrop-blur-sm lg:overflow-hidden;
+    justify-center backdrop-blur-sm overflow-hidden;
 }
 
 .close-icon {

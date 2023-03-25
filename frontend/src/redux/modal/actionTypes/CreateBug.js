@@ -1,0 +1,7 @@
+export const OPEN_BUG_FORM = 'OPEN_BUG_FORM';
+export const OPEN_BUG_FORM_SUC = 'OPEN_BUG_FORM_SUC';
+export const OPEN_BUG_FORM_ERR = 'OPEN_BUG_FORM_ERR';
+
+export const  CLOSE_BUG_FORM = 'CLOSE_BUG_FORM';
+export const CLOSE_BUG_FORM_SUC = 'CLOSE_BUG_FORM_SUC';
+export const CLOSE_BUG_FORM_ERR = 'CLOSE_BUG_FORM_ERR';

@@ -3,7 +3,8 @@ import { OPEN_BUG_ERR, OPEN_BUG_REQ, OPEN_BUG_SUC } from "../actionTypes/ViewBug
 
 const initState = {
     loading: false,
-    open: false
+    open: false,
+    child: ''
 }
 
 const bugOpenModalReducer = (state = initState, action) => {
@@ -18,6 +19,7 @@ const bugOpenModalReducer = (state = initState, action) => {
             return {
                 ...state,
                 loading: false,
+                child:'openBug',
                 open: true
             }
 
@@ -30,6 +32,7 @@ const bugOpenModalReducer = (state = initState, action) => {
         case CLOSE_BUG_ERR:
             return {
                 ...state,
+                child: '',
                 loading:true
             }
 
@@ -37,12 +40,14 @@ const bugOpenModalReducer = (state = initState, action) => {
             return {
                 ...state,
                 loading: false,
+                child: '',
                 open: false
             }
 
         case CLOSE_BUG_ERR:
             return {
                 ...state,
+                child: '',
                 loading: false
             }
         default:

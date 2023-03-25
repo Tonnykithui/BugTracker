@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { CREATE_BUG, CREATE_BUG_ERROR, CREATE_BUG_SUCCESS } from "./actionType";
+import { OPEN_BUG_ERR } from '../modal/actionTypes/ViewBug';
+import { CREATE_BUG, CREATE_BUG_ERROR, CREATE_BUG_SUCCESS, OPEN_BUG_FORM_ERR, OPEN_BUG_FORM_SUC } from "./actionType";
 
 export const createBugReq = (data) => {
     return {
@@ -19,6 +20,25 @@ export const createBugErr = error => {
     return {
         type: CREATE_BUG_ERROR,
         payload: error
+    }
+}
+
+export const openBugForm = () => {
+    return {
+        type: OPEN_BUG_ERR
+    }
+}
+
+export const openBugFormSuc = () => {
+    return {
+        type: OPEN_BUG_FORM_SUC
+    }
+}
+
+
+export const openBugFormErr = () => {
+    return {
+        type: OPEN_BUG_FORM_ERR
     }
 }
 

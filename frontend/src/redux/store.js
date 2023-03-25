@@ -4,11 +4,13 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from '@redux-devtools/extension'
 import bugCloseModalReducer from './modal/reducers/bugCloseModal.reducer';
 import bugOpenModalReducer from './modal/reducers/bugOpenModal.Reducer';
+import createBugOpenModalReducer from './modal/reducers/createBugModal.reducer';
 
 
 const combinedReducers = combineReducers({
     bugOpenModalReducer: bugOpenModalReducer,
-    bugCloseModalReducer: bugCloseModalReducer
+    bugCloseModalReducer: bugCloseModalReducer,
+    createBugReducer: createBugOpenModalReducer
 }) 
 
 const reduxStore = createStore(

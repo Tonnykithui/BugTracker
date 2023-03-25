@@ -1,3 +1,4 @@
+import { OPEN_BUG_ERR } from "../modal/actionTypes/ViewBug";
 import { CREATE_BUG, CREATE_BUG_ERROR, CREATE_BUG_SUCCESS } from "./actionType";
 
 const init = {
@@ -23,6 +24,7 @@ export const addBugReducer = (state = init, action) => {
             return {
                 ...state,
                 data: action.payload
+
             }
         default:
             break;

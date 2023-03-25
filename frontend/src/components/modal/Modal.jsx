@@ -3,19 +3,30 @@ import './modal.css';
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch } from 'react-redux';
 import { closeBugSuccess } from '../../redux';
+import BugDetails from '../bugDetails/BugDetails';
+import BugForm from '../bug/BugForm';
+import AddUserToProject from '../addUser/AddUserToProject';
 
 
-const Modal = ({ children }) => {
-  
+const Modal = ({ child, style }) => {
+  console.log(child)
   const dispatch = useDispatch();
+  let childToDisplay;
+  if(child == 'openBug'){
+    childToDisplay = <BugDetails />
+  } else if(child == 'createBug'){
+    childToDisplay = <BugForm />
+  } else {
+    childToDisplay = <AddUserToProject />
+  }
   
   return (
-    <div className='modal'>
+    <div className={`${style} modal`}>
       <div className="modal-outer-wrapper">
         <div className="modal-inner-wrapper">
           <div className="children">
             {
-              children
+              childToDisplay
             }
           </div>
           <div className="close-icon">
