@@ -1,6 +1,8 @@
 import React from 'react'
 import Button from '../button/Button'
 import './projDetails.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { addNewUserToProjSuc } from "../../redux/index"
 
 const newMembersStyling = {
     background: 'blue',
@@ -17,6 +19,9 @@ const newMembersStyling = {
 }
 
 const ProjDetailsTop = () => {
+
+    const dispatch = useDispatch();
+    // const addNewUser = useSelector(state => state.addUserToProjReducer.open);
     return (
         <div className="top">
             <div className="title">
@@ -26,7 +31,7 @@ const ProjDetailsTop = () => {
             <div className="meambers">
                 <div className="members-title flex flex-row justify-between mb-1">
                     <h2>Team</h2>
-                    <Button style={newMembersStyling}>+</Button>
+                    <Button style={newMembersStyling} onClick={() => dispatch(addNewUserToProjSuc())}>+</Button>
                 </div>
                 <div className="member-list">
                     <ul>

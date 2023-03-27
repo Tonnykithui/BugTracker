@@ -1,25 +1,60 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Button from '../button/Button';
+
+const addUserBtnStyling = {
+    background: 'blue',
+    padding: '4px',
+    borderRadius: '8px',
+    color: 'white',
+    width: '100%',
+    marginTop: '10px'
+}
 
 const AddUserToProject = () => {
-  return (
-    <div>
-        <div className="title">
-            <h2>This is project X</h2>
-        </div>
-        <div className="form">
-            <form action="">
-                <div className="form-wrapper">
-                    <label htmlFor="">User</label>
-                    <select name="" id="">
-                        <option value="234562">Tonny</option>
-                        <option value='123434'>kithui</option>
-                        <option value="876543">Muli</option>
-                    </select>
+
+    const [selectedOptions, setSelectedOptions] = useState([]);
+
+    const handleOptionChange = (event) => {
+        const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
+        setSelectedOptions(selectedValues);
+    };
+
+    return (
+        <div className='bg-slate-200 p-5 rounded-lg flex flex-row gap-10'>
+            <div>
+                <div>
+                    <p className='font-semibold text-slate-500'>Project X</p>
                 </div>
-            </form>
+                <div>
+                    <h2 className='text-black font-semibold text-lg'>Users Precent In Project</h2>
+                </div>
+                <div>
+                    <ul>
+                        <li>Tonny Kithui</li>
+                        <li>Mark Nthungu</li>
+                        <li>Cliff Ombeta</li>
+                        <li>Jerry Mutuko</li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div className="">
+                    <form action="">
+                        <div className="">
+                            <label htmlFor="" className='text-black font-semibold'>Users</label>
+                            <select name="" id="" multiple value={selectedOptions} onChange={handleOptionChange} 
+                            className='border-none outline-none p-2 rounded-lg w-full h-full mt-2'>
+                                <option value="234562">Tonny Muli</option>
+                                <option value='123434'>kithui Junior</option>
+                                <option value="876543">Muli Kununga</option>
+                            </select>
+                        </div>
+                        <Button style={addUserBtnStyling}>+</Button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default AddUserToProject

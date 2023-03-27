@@ -9,7 +9,7 @@ import AddUserToProject from '../addUser/AddUserToProject';
 
 
 const Modal = ({ child, style }) => {
-  console.log(child)
+  
   const dispatch = useDispatch();
   let childToDisplay;
   if(child == 'openBug'){
