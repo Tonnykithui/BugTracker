@@ -1,5 +1,6 @@
 .Home{
-    @apply grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 bg-slate-300 p-2 h-full;
+    @apply grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 bg-slate-300 p-2 lg:h-full 
+    sm:h-screen overflow-y-scroll;
 }
 
 .dashboard{
@@ -7,5 +8,5 @@
 }
 
 .dashboard-wrapper{
-    @apply h-screen w-screen overflow-hidden;
+    @apply h-screen w-screen lg:overflow-hidden;
 }
