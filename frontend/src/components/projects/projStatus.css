@@ -1,5 +1,5 @@
 .proj-status{
-    @apply flex flex-row gap-3 pl-4 justify-center;
+    @apply flex flex-row gap-3 justify-center;
 }
 
 .status{

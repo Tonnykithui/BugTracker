@@ -1,8 +1,9 @@
 import React from 'react'
 import Priority from './Priority'
-import Type from './Type'
+import Type from './TypeChart'
 import Status from './Status'
 import "./stats.css";
+import TypeChart from './TypeChart';
 
 
 const All = () => {
@@ -10,7 +11,7 @@ const All = () => {
     <div className='all'>
         <Priority />
         <Status />
-        <Type />
+        <TypeChart />
     </div>
   )
 }

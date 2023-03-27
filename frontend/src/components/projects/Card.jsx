@@ -1,9 +1,11 @@
 import React from 'react';
 import './card.css';
 import { BsClockHistory } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 
 const Card = () => {
   return (
+    <Link to='/Project/:id'>
     <div className='project-card'>
         <div className='project-head'><h1>Heading</h1></div>
         <div className='project-timeline'>
@@ -26,6 +28,7 @@ const Card = () => {
             </div>
         </div>
     </div>
+    </Link>
   )
 }
 

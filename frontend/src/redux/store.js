@@ -6,13 +6,15 @@ import bugCloseModalReducer from './modal/reducers/bugCloseModal.reducer';
 import bugOpenModalReducer from './modal/reducers/bugOpenModal.Reducer';
 import createBugOpenModalReducer from './modal/reducers/createBugModal.reducer';
 import { addUserToProjReducer } from './modal/reducers/addNewUserToProj';
+import { addNewProjectModalReducer } from './modal/reducers/addNewProjectModal';
 
 
 const combinedReducers = combineReducers({
     bugOpenModalReducer: bugOpenModalReducer,
     bugCloseModalReducer: bugCloseModalReducer,
     createBugReducer: createBugOpenModalReducer,
-    addUserToProjReducer: addUserToProjReducer
+    addUserToProjReducer: addUserToProjReducer,
+    addNewProjectModalReducer: addNewProjectModalReducer
 }) 
 
 const reduxStore = createStore(

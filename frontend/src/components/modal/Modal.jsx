@@ -6,6 +6,7 @@ import { closeBugSuccess } from '../../redux';
 import BugDetails from '../bugDetails/BugDetails';
 import BugForm from '../bug/BugForm';
 import AddUserToProject from '../addUser/AddUserToProject';
+import Project from '../project/Project';
 
 
 const Modal = ({ child, style }) => {
@@ -16,8 +17,10 @@ const Modal = ({ child, style }) => {
     childToDisplay = <BugDetails />
   } else if(child == 'createBug'){
     childToDisplay = <BugForm />
-  } else {
+  } else if(child == 'addNewUserToProj') {
     childToDisplay = <AddUserToProject />
+  } else {
+    childToDisplay = <Project />
   }
   
   return (

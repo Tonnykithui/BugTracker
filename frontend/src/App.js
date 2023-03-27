@@ -24,14 +24,15 @@ function App() {
             (
               <>
                 <Sidebar />
-                <ProjDetails />
-                {/* <Navbar />
+                {/* <ProjDetails /> */}
+                <Navbar />
                 <Routes>
                   <Route path='/' element={<Home />} />
                   <Route path='/Project' element={<Projects />} />
                   <Route path='/task' element={<Board />} />
                   <Route path='/teams' element={<Administration />} />
-                </Routes> */}
+                  <Route path='/Project/:id' element={<ProjDetails />}/>
+                </Routes>
 
               </>
             )

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import Chart from 'chart.js/auto';
 
-const PolarAreaChart = () => {
+const TypeChart = () => {
   const chartRef = useRef(null);
   let myChart = null;
 
@@ -9,9 +9,6 @@ const PolarAreaChart = () => {
     const chartOptions = {
       responsive: true,
       maintainAspectRatio: false,
-      scales: {
-        display: false,
-      },
       legend: {
         display: true,
         position: 'bottom',
@@ -19,12 +16,13 @@ const PolarAreaChart = () => {
       plugins: {
         title: {
           display: true,
-          text: 'Priority',
+          text: 'Type',
           font: { size: 18 },
         },
       },
     };
 
+    console.log('chartOptions:', chartOptions);
     const myChartRef = chartRef.current.getContext('2d');
 
     if (myChart) {
@@ -32,13 +30,13 @@ const PolarAreaChart = () => {
     }
 
     myChart = new Chart(myChartRef, {
-      type: 'polarArea',
+      type: 'pie',
       data: {
-        labels: ['High (10)', 'Medium (5)', 'Low (1)'],
+        labels: ['Issue', 'Bug'],
         datasets: [
           {
-            data: [10, 5, 1],
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+            data: [10, 20],
+            backgroundColor: ['#FF6384', '#36A2EB'],
             borderWidth: 0,
           },
         ],
@@ -58,4 +56,4 @@ const PolarAreaChart = () => {
   );
 };
 
-export default PolarAreaChart;
+export default TypeChart;

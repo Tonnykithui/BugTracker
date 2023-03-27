@@ -67,9 +67,3 @@ const ProjDetails = () => {
 }
 
 export default ProjDetails
-
-// <Draggable />
-//                                 <Draggable />
-//                                 <Draggable />
-//                                 <Draggable />
-//                                 <Draggable />

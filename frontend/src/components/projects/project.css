@@ -1,7 +1,11 @@
 .project{
-    @apply h-screen overflow-auto p-4;
+    @apply h-screen overflow-auto p-2;
 }
 
 .project-list {
     @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4;
+}
+
+.project::-webkit-scrollbar {
+    display: none;
 }

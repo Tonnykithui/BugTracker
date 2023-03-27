@@ -3,11 +3,15 @@
 }
 
 .search-bar {
-    @apply flex flex-row items-center float-right w-auto bg-blue-600 p-2  rounded-2xl;
+    @apply flex flex-row items-center float-left w-auto bg-blue-400 p-1 rounded-2xl;
 }
 
 .search-bar input {
-    @apply bg-transparent outline-none ;
+    @apply bg-transparent outline-none text-white;
+}
+
+.search-bar input ::placeholder {
+    @apply text-black font-semibold;
 }
 
 .search-bar h2 {
@@ -16,4 +20,8 @@
 
 .search-bar-icon {
     @apply text-white mr-4;
+}
+
+.admin::-webkit-scrollbar {
+    display: none;
 }
