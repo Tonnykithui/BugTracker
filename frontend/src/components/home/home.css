@@ -1,12 +1,16 @@
 .Home{
-    @apply grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 bg-slate-300 p-2 lg:h-full 
-    sm:h-screen overflow-y-scroll;
+    @apply bg-slate-300 flex flex-row overflow-hidden;
 }
 
+/* grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 overflow-y-scroll lg:h-full sm:h-screen*/
 .dashboard{
     @apply text-xl font-semibold text-blue-700;
 }
 
 .dashboard-wrapper{
     @apply h-screen w-screen lg:overflow-hidden;
+}
+
+.home-contents {
+    @apply grid grid-cols-1 w-full gap-2 p-1 overflow-y-scroll md:grid-cols-2 lg:grid-cols-3;
 }

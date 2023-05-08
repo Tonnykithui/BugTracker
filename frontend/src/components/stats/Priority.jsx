@@ -52,8 +52,9 @@ const PolarAreaChart = () => {
   }, []);
 
   return (
-    <div className='bg-white'>
-      <canvas ref={chartRef} style={{ width: '150px', height: '150px' }}/>
+    <div className='bg-white w-full'>
+      {/* style={{ width: '150px', height: '150px' }} */}
+      <canvas ref={chartRef} className='mx-auto max-w-full lg:h-32 lg:w-32 md:h-16 md:w-16' />
     </div>
   );
 };

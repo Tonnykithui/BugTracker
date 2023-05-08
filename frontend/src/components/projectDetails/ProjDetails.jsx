@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Button from '../button/Button';
 import Draggable from '../draggable/Draggable';
 import './projDetails.css';
 import ProjDetailsBottom from './ProjDetailsBottom';
 import ProjDetailsTop from './ProjDetailsTop';
-import { useSelector } from 'react-redux';
 import Modal from '../modal/Modal';
 import BugDetails from '../bugDetails/BugDetails';
+import Sidebar from '../sidebar/Sidebar';
 
 export const buttonStyles = {
     borderRadius: '5px',
@@ -28,33 +30,36 @@ const ProjDetails = () => {
     const addNewUser = useSelector(state => state.addUserToProjReducer.open);
     let childToDisplay = '';
 
-    if(viewBug){
+    if (viewBug) {
         childToDisplay = 'openBug'
-    } else if(addBug) {
+    } else if (addBug) {
         childToDisplay = 'createBug'
     } else {
         childToDisplay = 'addNewUserToProj'
     }
 
-    // console.log(childToDisplay);
+    const isAuthenticated = useSelector(state => state.authReducer.isAuthenticated);
+
     return (
         <>
             {
                 viewBug || addBug || addNewUser ?
                     (
                         <>
-                        <div className='ProjDetails-wrapper'>
-                            <div className="ProjectDetails">
-                                <ProjDetailsTop />
-                                <ProjDetailsBottom />
+                            <div className='ProjDetails-wrapper'>
+                                <Sidebar />
+                                <div className="ProjectDetails">
+                                    <ProjDetailsTop />
+                                    <ProjDetailsBottom />
+                                </div>
                             </div>
-                        </div>
-                        <Modal child={`${childToDisplay}`}
-                        style={{}}/>
+                            <Modal child={`${childToDisplay}`}
+                                style={{}} />
                         </>
                     ) :
                     (
                         <div className='ProjDetails-wrapper'>
+                            <Sidebar />
                             <div className="ProjectDetails">
                                 <ProjDetailsTop />
                                 <ProjDetailsBottom />

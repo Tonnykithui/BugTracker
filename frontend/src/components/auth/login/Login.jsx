@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsKey } from "react-icons/bs";
 import { AiOutlineMail } from "react-icons/ai";
 import { IoLogInOutline } from "react-icons/io5";
 import "./Login.css";
 import Button from '../../button/Button';
+import { useDispatch } from 'react-redux';
+import { loginThunk } from '../../../redux';
 
 
 const Login = () => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const dispatch = useDispatch();
+
+    const handleSubmit = async (e) => {
+        // e.preventDefault();
+        const loginData = {
+            email,
+            password
+        }
+        console.log(loginData)
+        dispatch(loginThunk(loginData))
+    }
+
     return (
         <div className='login-wrapper'>
             <div className="login-screens">
@@ -20,20 +38,26 @@ const Login = () => {
                             <span>
                                 <AiOutlineMail />
                             </span>
-                            <input type="text" name="" id="" placeholder='email' />
+                            <input type="text" name="" id="" placeholder='email'
+                                value={email}
+                                onChange={(e) => setEmail(e.currentTarget.value)}
+                            />
                         </div>
                         <div className="login-input">
                             <span>
                                 <BsKey />
                             </span>
-                            <input type="text" name="" id="" placeholder='password' />
+                            <input type="text" name="" id="" placeholder='password'
+                                value={password}
+                                onChange={(e) => setPassword(e.currentTarget.value)}
+                            />
                         </div>
                         <div className="forgot-password">
                             <Link to='/forgot-password'><span>Forgot password</span></Link>
                         </div>
                     </div>
                     <div className='login-btn-div'>
-                        <button className="login-button"><span><IoLogInOutline /></span>Login</button>
+                        <button className="login-button" onClick={() => handleSubmit()}><span><IoLogInOutline /></span>Login</button>
                     </div>
                     <div className="register-direction">
                         <p>Don't have an Account? <Link to='/register'><span>Sign Up</span></Link></p>

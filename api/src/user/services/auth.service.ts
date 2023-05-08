@@ -18,6 +18,7 @@ export class AuthService implements OnModuleInit {
     }
 
     async loginUser(data) {
+        console.log("Checking Login", data);
         const checkUser = await this.userService.findUserByEmail(data.email);
         if (checkUser.length == 0) {
             throw new HttpException('User with given details does not exists', HttpStatus.BAD_REQUEST);

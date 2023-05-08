@@ -9,3 +9,7 @@
 .project::-webkit-scrollbar {
     display: none;
 }
+
+.project-page {
+    @apply flex flex-row;
+}
