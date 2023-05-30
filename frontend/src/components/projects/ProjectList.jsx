@@ -12,7 +12,8 @@ export const buttonStyles = {
     color: 'white',
     border: '2px solid blue',
     height: '25px',
-    background: 'blue'
+    background: 'blue',
+    padding: '2px'
 }
 
 const projects = [
@@ -125,7 +126,7 @@ const ProjectList = () => {
     return (
         <>
             <div className='w-screen overflow-auto overflow-y-hidden h-screen bg-slate-300'>
-                <div className='w-full flex flex-row gap-10 mb-2'>
+                <div className='w-full flex flex-row gap-10 p-2'>
                     <h2 className='font-semibold text-2xl pl-2'>Projects</h2>
                     <div className='items-center'>
                         <ProjectStatus />

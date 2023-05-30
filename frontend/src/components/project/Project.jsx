@@ -5,6 +5,8 @@ import * as yup from 'yup';
 import Button from '../button/Button';
 import Input from '../input/Input';
 import './project.css';
+import { closeBugSuccess } from '../../redux';
+import { useDispatch } from 'react-redux';
 
 const cancelBtn = {
     background: 'red',
@@ -36,11 +38,13 @@ const Project = () => {
         console.log(data);
     };
 
+    const dispatch = useDispatch();
+
     return (
         <>
-            <div className='bg-slate-300 p-4'>
-                <h2 className='text-center font-semibold text-2xl'>Project</h2>
-                <div className='p-4 rounded-lg flex justify-center items-center gap-4'>
+            <div className='bg-slate-300 p-2'>
+                <h2 className='add-project'>Add Project</h2>
+                <div className='add-project-wrap'>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className='w-full p-2'>
                             <label htmlFor='name' className='font-semibold block'>Name</label>
@@ -49,25 +53,28 @@ const Project = () => {
                         </div>
                         <div className='w-full p-2'>
                             <label htmlFor='description' className='font-semibold block'>Description</label>
-                            <Input styles='form-input' id='description' name='description' ref={register} />
+                            <textarea name="" id="description" className='description' cols="50" rows="5"></textarea>
                             {errors.description && <span>{errors.description.message}</span>}
                         </div>
-                        <button type='submit'>Submit</button>
-                    </form>
-                    <div className='flex flex-col'>
-                        <label htmlFor='' className='font-semibold text-center'>Assign Devs</label>
-                        <select name='' id='' multiple className='form-input'>
-                            <option value=''>Tonny Kithui</option>
-                            <option value=''>Tonny Kithui</option>
-                            <option value=''>Tonny Kithui</option>
-                            <option value=''>Tonny Kithui</option>
-                        </select>
-                        <div className='flex flex-row'>
-                            
-                            {/* <Button style={cancelBtn}>Cancel</Button>
-                        <Button style={addBtn} onClick={}>Add</Button> */}
+                        <div className='w-full p-2'>
+                            <label htmlFor='' className='font-semibold text-left'>Assign Devs</label>
+                            <select name='' id='' multiple className='form-input'>
+                                <option value=''>Tonny Kithui</option>
+                                <option value=''>Tonny Kithui</option>
+                                <option value=''>Tonny Kithui</option>
+                                <option value=''>Tonny Kithui</option>
+                                <option value=''>Tonny Kithui</option>
+                                <option value=''>Tonny Kithui</option>
+                                <option value=''>Tonny Kithui</option>
+                                <option value=''>Tonny Kithui</option>
+                            </select>
                         </div>
-                    </div>
+                        <div className='add-project-btns'>
+                            <Button children='Submit' style={addBtn} />
+                            <Button children='Cancel' style={cancelBtn} onClick={() => dispatch(closeBugSuccess())}/>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </>

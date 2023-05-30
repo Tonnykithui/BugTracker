@@ -16,12 +16,11 @@ import { useSelector } from 'react-redux';
 import ProtectedRoute from './components/HOC/ProtectedRoute';
 
 function App() {
-  // const userAuthenticated = useSelector(state => state.authReducer.isAuthenticated);
+  const userAuthenticated = useSelector(state => state.authReducer.isAuthenticated);
 
-  const userAuthenticated = true;
+  // const userAuthenticated = false;
   return (
     <div className="App">
-      {/* <Sidebar /> */}
       <Routes>
         <Route exact path="/" element={ProtectedRoute(Home, userAuthenticated)} />
         {/* <Route path="/dashboard" element={ProtectedRoute(<Dashboard />, userAuthenticated)} isAuthenticated={userAuthenticated} /> */}

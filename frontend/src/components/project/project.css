@@ -1,3 +1,19 @@
 .form-input {
     @apply border-none outline-none p-2 rounded-lg w-full;
 }
+
+.description {
+    @apply outline-none border-none p-2;
+}
+
+.add-project {
+    @apply text-center font-semibold text-xl;
+}
+
+.add-project-wrap {
+    @apply p-4 rounded-lg flex justify-center items-center gap-4;
+}
+
+.add-project-btns {
+    @apply flex justify-between p-2;
+}

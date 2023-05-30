@@ -1,29 +1,33 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { BsKey } from "react-icons/bs";
 import { AiOutlineMail } from "react-icons/ai";
 import { IoLogInOutline } from "react-icons/io5";
 import "./Login.css";
 import Button from '../../button/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginThunk } from '../../../redux';
 
 
 const Login = () => {
 
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const dispatch = useDispatch();
 
-    const handleSubmit = async (e) => {
-        // e.preventDefault();
+    const handleSubmit = async (e, props) => {
         const loginData = {
             email,
             password
         }
-        console.log(loginData)
-        dispatch(loginThunk(loginData))
+
+       dispatch(loginThunk(loginData, redirectToHome));
+    }
+
+    const redirectToHome = () => {
+        navigate('/')
     }
 
     return (

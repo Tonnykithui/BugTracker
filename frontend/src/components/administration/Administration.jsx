@@ -16,9 +16,9 @@ const Administration = () => {
         <div className='administration'>
             <div className="admin-page">
             <Sidebar />
-            <div className="employee-cards">
+            <div className="employee-cards p-2">
                 <SearchBar />
-                <div className='admin grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4 overflow-y-scroll h-screen w-full pb-10'>
+                <div className='admin'>
                     <Card />
                     <Card />
                     <Card />
