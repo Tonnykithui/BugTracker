@@ -14,6 +14,7 @@ export class ProjectController {
 
   @Post()
   async create(@Body() createProjectDto: projectDto, @LoggedInUser() userId: ObjectId) {
+    createProjectDto.createdBy = userId;
     return new ResponseMessage('Successfully created a project', await this.projectService.create(createProjectDto, userId));
   }
 

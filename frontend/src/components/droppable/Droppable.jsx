@@ -50,6 +50,7 @@ const Droppable = () => {
     },
   ]
   const updateCardDetails = card => {
+    
   }
 
   return (
@@ -57,7 +58,7 @@ const Droppable = () => {
       onDragOver={
         e => e.preventDefault()
       }
-      // onDrop={updateCardDetails}
+      onDrop={updateCardDetails}
     >
       {
         cards.map((card) => (

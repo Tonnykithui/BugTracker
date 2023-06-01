@@ -1,5 +1,5 @@
 .project-head{
-    @apply font-semibold ;
+    @apply font-semibold text-xl;
 }
 
 .project-timeline{

@@ -1,11 +1,15 @@
 .draggable{
-    @apply rounded-lg bg-slate-300 w-full p-2 mt-2 border-red-500;
+    @apply rounded-lg bg-slate-200 w-full p-2 mt-2 border-red-500;
 }
 
-.wrapper {
+/* .wrapper {
     @apply p-2;
-}
+} */
 
 .beautify-draggable {
     @apply opacity-10;
 }
+
+/* .description {
+    @apply ;
+} */

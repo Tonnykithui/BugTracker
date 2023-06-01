@@ -60,13 +60,13 @@ const Project = () => {
                             <label htmlFor='' className='font-semibold text-left'>Assign Devs</label>
                             <select name='' id='' multiple className='form-input'>
                                 <option value=''>Tonny Kithui</option>
+                                {/* <option value=''>Tonny Kithui</option>
                                 <option value=''>Tonny Kithui</option>
                                 <option value=''>Tonny Kithui</option>
                                 <option value=''>Tonny Kithui</option>
                                 <option value=''>Tonny Kithui</option>
                                 <option value=''>Tonny Kithui</option>
-                                <option value=''>Tonny Kithui</option>
-                                <option value=''>Tonny Kithui</option>
+                                <option value=''>Tonny Kithui</option> */}
                             </select>
                         </div>
                         <div className='add-project-btns'>

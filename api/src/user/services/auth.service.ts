@@ -19,7 +19,7 @@ export class AuthService implements OnModuleInit {
 
     async loginUser(data) {
         console.log("Checking Login", data);
-        const checkUser = await this.userService.findUserByEmail(data.email);
+        const checkUser = await this.userService.findUserByEmailOrPhone(data.email);
         if (checkUser.length == 0) {
             throw new HttpException('User with given details does not exists', HttpStatus.BAD_REQUEST);
         } else {
@@ -45,7 +45,7 @@ export class AuthService implements OnModuleInit {
     async registerUser(data) {
         const emailIsValid = await this.validateEmail(data.email);
         if (emailIsValid) {
-            const checkUser = await this.userService.findUserByEmail(data.email, data.phone);
+            const checkUser = await this.userService.findUserByEmailOrPhone(data.email, data.phone);
             if (checkUser && checkUser.length >= 1) {
                 throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
             } else {
@@ -54,7 +54,7 @@ export class AuthService implements OnModuleInit {
                     throw new HttpException('Passwords provided do not match', HttpStatus.BAD_REQUEST)
 
                 //encrypt password
-                const encryptedPass = bcrypt.hashSync(data.password, 10);
+                const encryptedPass = await bcrypt.hash(data.password, 10);
                 data.password = encryptedPass;
 
                 return await this.userService.create(data)
@@ -70,7 +70,7 @@ export class AuthService implements OnModuleInit {
     }
 
     async createSuperUser(){
-        if(await (await this.userService.findUserByEmail('test@gmail.com')).length == 0){
+        if((await this.userService.findUserByEmailOrPhone('test@gmail.com')).length == 0){
             const superPass = '1234567';
             const encryptedPass = await bcrypt.hash(superPass, 10);
     

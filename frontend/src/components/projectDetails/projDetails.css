@@ -50,7 +50,7 @@
 
 /* DROPPABLE */
 .droppable {
-    @apply rounded-md h-full gap-1 relative overflow-y-hidden grid grid-rows-6;
+    @apply rounded-md h-full gap-1 relative overflow-y-hidden grid;
 }
 /* grid-rows-6 */
 

@@ -111,6 +111,13 @@ export class BugService {
       .populate('ticketOwner', { firstname: 1, lastname: 1 });
   }
 
+  async countCompletedBugsForProject(projectId){
+    return await this.bugModel.count({
+      projectId: projectId,
+      status: 'CLOSED'
+    });
+  }
+
   async deleteAllTicketsForProject(projectId) {
     const allTicketsForProject = await this.findAllTicketsForProject(projectId);
     try {

@@ -41,7 +41,7 @@ export class ProjectService implements OnModuleInit {
 
     if (data.assignedUsers?.length > 0) {
       data.assignedUsers.forEach(async user => {
-        await this.projectMembers.create({ memberId: user, projectId: projectCreated._id })
+        (await this.projectMembers.create({ memberId: user, projectId: projectCreated._id }))
       })
     }
 
@@ -49,20 +49,24 @@ export class ProjectService implements OnModuleInit {
   }
 
   async findAll() {
-    return await this.projectModel.find();
+    return await this.projectModel.find().populate('createdBy', { firstname: 1, lastname: 1 });
   }
 
   async findOne(id) {
     //GET PROJECT, TICKETS AND ASSIGNED MEMBERS
-    const project = await this.projectModel.findById(id);
+    const project = await this.projectModel.findById(id).populate('createdBy', { firstname: 1, lastname: 1 });
     const tickets = await this.bugService.findAllTicketsForProject(id);
     const assignedProjectMembers = await this.findUserInACertainProject(id);
+    const projectComplete = await this.bugService.countCompletedBugsForProject(id);
+
+    let perc = (projectComplete / tickets.length) * 100;
 
     if (project) {
       return {
         project,
         tickets,
-        assignedProjectMembers
+        assignedProjectMembers,
+        perc
       }
     } else {
       throw new HttpException('Project does not exist', HttpStatus.BAD_REQUEST);

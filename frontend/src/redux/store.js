@@ -9,7 +9,7 @@ import { addNewProjectModalReducer } from './modal/reducers/addNewProjectModal';
 import { authReducer } from './user/reducers/Login';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-
+import { configureStore } from '@reduxjs/toolkit'
 
 const combinedReducers = combineReducers({
     bugOpenModalReducer: bugOpenModalReducer,
@@ -29,10 +29,15 @@ const persistConfig = {
 export const persistedReducerStore = persistReducer(persistConfig, combinedReducers);
 
 
-export const reduxStore = createStore(
-    persistedReducerStore,
-    composeWithDevTools(applyMiddleware(thunk))
-);
+// export const reduxStore = createStore(
+//     persistedReducerStore,
+//     composeWithDevTools(applyMiddleware(thunk))
+// );
+
+export const reduxStore = configureStore({
+    reducer: persistedReducerStore,
+    middleware: [thunk]
+})
 
 const reduxStorePersist = persistStore(reduxStore);
 
