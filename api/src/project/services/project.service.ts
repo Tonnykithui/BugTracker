@@ -123,4 +123,9 @@ export class ProjectService implements OnModuleInit {
     } else
       throw new HttpException("Project does not exists", HttpStatus.BAD_REQUEST);
   }
+
+  // async projectSummaryReport(){
+  //   let allProjects = await this.projectModel.find();
+
+  // }
 }

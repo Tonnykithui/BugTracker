@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { User } from 'src/user/models/user.entity';
 import { UserService } from 'src/user/services/user.service';
 import { Bug, bugDto } from '../models/bug.entity';
@@ -139,6 +139,42 @@ export class BugService {
       return await this.ticketMembersModel.deleteMany({ ticketId: ticketId, memberId: userId });
     } else {
       throw new HttpException('The Ticket to get rid off of user does not exists', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async findTaskForAUser(userId){
+    let allRelatedBugsToUser = await this.ticketMembersModel.find({
+      memberId: userId.userId
+    });
+
+    let allUndoneBugs = [];
+
+    allRelatedBugsToUser.forEach(async (bug) => {
+      allUndoneBugs.push(await this.bugModel.find({ _id: bug.ticketId, status: 'OPEN' }));
+    });
+
+    return allUndoneBugs.slice(0,9);
+  }
+
+  async findUserBugRelation(userId){
+    let allTicketsAssigned = await this.ticketMembersModel.find({
+      memberId: userId
+    });
+
+    let ticketDoneCount = [];
+    allTicketsAssigned.forEach(async (bug) => {
+      ticketDoneCount.push(await this.bugModel.find({
+        _id: bug.ticketId,
+        status: 'CLOSED'
+      }));
+    });
+
+    let openTickets = allTicketsAssigned.length - ticketDoneCount.length;
+
+    return {
+      allTicketsAssigned: allTicketsAssigned.length,
+      ticketDoneCount: ticketDoneCount.length,
+      openTickets
     }
   }
 }

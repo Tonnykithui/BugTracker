@@ -26,6 +26,16 @@ export class BugController {
     return new ResponseMessage('Successfully fetched all tickets assigned to logged in user', await this.bugService.findAllTicketsAssignedToUser(userId));
   }
 
+  @Get('pendingTickets')
+  async pendingTickets(@LoggedInUser() userId: ObjectId){
+    return new ResponseMessage('Successfully fetched all tickets belonging to a user and not completed', await this.bugService.findTaskForAUser(userId));
+  }
+
+  @Get('user/:userId')
+  async findUserBugSummary(@Param('userId') userId: ObjectId){
+    return new ResponseMessage('Successfully fetched bug summary reports for a user', await this.bugService.findUserBugRelation(userId));
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return new ResponseMessage('Successfully fetched a single tickets details', await this.bugService.findOne(id));
