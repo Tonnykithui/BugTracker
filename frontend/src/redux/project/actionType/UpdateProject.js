@@ -1,0 +1,3 @@
+export const UPDATE_PROJ_REQ = 'UPDATE_PROJ_REQ';
+export const UPDATE_PROJ_SUC = 'UPDATE_PROJ_SUC';
+export const UPDATE_PROJ_ERR = 'UPDATE_PROJ_ERR';

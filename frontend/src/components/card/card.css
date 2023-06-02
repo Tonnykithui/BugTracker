@@ -1,5 +1,5 @@
 .employee-card {
-    @apply grid grid-rows-3 bg-white rounded-lg p-2;
+    @apply grid grid-rows-3 bg-white rounded-lg p-1 h-72;
 }
 
 .img {

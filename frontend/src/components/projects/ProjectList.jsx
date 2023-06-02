@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { createNewProjectModalSuc } from '../../redux';
 import Button from '../button/Button';
@@ -57,6 +57,10 @@ const ProjectList = () => {
   const btnClicked = () => {
     console.log('Button clicked');
   }
+
+  useEffect(()=> {
+
+  }, [])
 
   return (
     <>

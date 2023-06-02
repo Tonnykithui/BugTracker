@@ -1,0 +1,3 @@
+export const DELETE_PROJ_REQ = 'DELETE_PROJ_REQ';
+export const DELETE_PROJ_SUC = 'DELETE_PROJ_SUC';
+export const DELETE_PROJ_ERR = 'DELETE_PROJ_ERR';

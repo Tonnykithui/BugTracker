@@ -1,0 +1,3 @@
+export const UPDATE_BUG_REQ = 'UPDATE_BUG_REQ';
+export const UPDATE_BUG_SUC = 'UPDATE_BUG_SUC';
+export const UPDATE_BUG_ERR = 'UPDATE_BUG_ERR';
