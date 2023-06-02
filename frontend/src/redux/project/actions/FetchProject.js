@@ -24,11 +24,19 @@ export const fetchProjectRequest = () => {
   export const fetchProject = () => {
     return async (dispatch) => {
       dispatch({ type: FETCH_PROJECT_REQ });
-  
+
+      const token = localStorage.getItem('token');
+
       try {
-        const response = await fetch('http://localhost:3200/project');
+        const response = await fetch(
+          'http://localhost:3200/project', 
+          {
+            headers: {
+            'Authorization': 'Bearer ' + token
+          }}
+          );
         const projectData = await response.json();
-  
+        console.log(projectData);    
         dispatch({ type: FETCH_PROJECT_SUC, payload: projectData });
       } catch (error) {
         dispatch({ type: FETCH_PROJECT_ERR, payload: error.message });

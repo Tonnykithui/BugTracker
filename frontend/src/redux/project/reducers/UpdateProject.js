@@ -1,3 +1,5 @@
+import { UPDATE_PROJ_ERR, UPDATE_PROJ_REQ, UPDATE_PROJ_SUC } from "../actionType/UpdateProject";
+
 const initState = {
     loading: false,
     project: null,

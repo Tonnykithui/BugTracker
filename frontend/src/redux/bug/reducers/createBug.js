@@ -1,4 +1,4 @@
-import { CREATE_BUG, CREATE_BUG_ERROR, CREATE_BUG_SUCCESS } from "./actionType";
+import { CREATE_BUG, CREATE_BUG_ERROR, CREATE_BUG_SUCCESS } from "../actionTypes/createBug"
 
 const init = {
     loading: true,
@@ -12,7 +12,7 @@ const addBugReducer = (state = init, action) => {
         case CREATE_BUG:
             return {
                 ...state,
-                data: loading
+                loading:true
             }
         case CREATE_BUG_SUCCESS:
             return {
@@ -25,7 +25,7 @@ const addBugReducer = (state = init, action) => {
                 data: action.payload
             }
         default:
-            break;
+            return state;
     }
 }
 

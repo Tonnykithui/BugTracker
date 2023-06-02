@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Card = ({ project }) => {
   return (
-    <Link to='/Project/:id'>
+    <Link to={`/project/${project._id}`}>
     <div className='project-card'>
         <div className='project-head'><h1>{project.name}</h1></div>
         <div>

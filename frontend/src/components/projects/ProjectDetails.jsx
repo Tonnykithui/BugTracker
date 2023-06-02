@@ -57,8 +57,7 @@ const ProjectDetails = () => {
             const newIndex = (projectIndex + 2) % projects.length;
             setProjectIndex(newIndex);
             setDisplayedProjects([projects[newIndex], projects[newIndex + 1]]);
-        }, 30000); // 2 minutes in milliseconds
-        console.log('Current pojects', displayedProjects);
+        }, 30000);
         return () => clearInterval(intervalId);
     }, [projectIndex, projects]);
 

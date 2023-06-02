@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { createNewProjectModalSuc } from '../../redux';
+import { createNewProjectModalSuc, fetchProject } from '../../redux';
 import Button from '../button/Button';
 import Card from './Card';
 import ProjectStatus from './ProjectStatus';
-
+import { useSelector } from 'react-redux';
 
 export const buttonStyles = {
   borderRadius: '5px',
@@ -16,41 +16,41 @@ export const buttonStyles = {
   padding: '2px'
 }
 
-const projects = [
-  {
-    _id: "6404f897fa0b7b5be9109dbb",
-    name: "Leave management system",
-    description: "A school based system to manage records for school",
-    creationDate: "2023-03-05T20:16:23.082Z",
-    createdBy: {
-      _id: "6404ebc64c69ae18f9531ba7",
-      firstname: "super",
-      lastname: "admin"
-    }
-  },
-  {
-    _id: "6404f897fa0b7b5be9109dbb",
-    name: "School management system",
-    description: "A school based system to manage records for school",
-    creationDate: "2023-03-05T20:16:23.082Z",
-    createdBy: {
-      _id: "6404ebc64c69ae18f9531ba7",
-      firstname: "super",
-      lastname: "admin"
-    }
-  },
-  {
-    _id: "6404f897fa0b7b5be9109dbb",
-    name: "Hotel management system",
-    description: "A school based system to manage records for school",
-    creationDate: "2023-03-05T20:16:23.082Z",
-    createdBy: {
-      _id: "6404ebc64c69ae18f9531ba7",
-      firstname: "super",
-      lastname: "admin"
-    }
-  }
-]
+// const projects = [
+//   {
+//     _id: "6404f897fa0b7b5be9109dbb",
+//     name: "Leave management system",
+//     description: "A school based system to manage records for school",
+//     creationDate: "2023-03-05T20:16:23.082Z",
+//     createdBy: {
+//       _id: "6404ebc64c69ae18f9531ba7",
+//       firstname: "super",
+//       lastname: "admin"
+//     }
+//   },
+//   {
+//     _id: "6404f897fa0b7b5be9109dbb",
+//     name: "School management system",
+//     description: "A school based system to manage records for school",
+//     creationDate: "2023-03-05T20:16:23.082Z",
+//     createdBy: {
+//       _id: "6404ebc64c69ae18f9531ba7",
+//       firstname: "super",
+//       lastname: "admin"
+//     }
+//   },
+//   {
+//     _id: "6404f897fa0b7b5be9109dbb",
+//     name: "Hotel management system",
+//     description: "A school based system to manage records for school",
+//     creationDate: "2023-03-05T20:16:23.082Z",
+//     createdBy: {
+//       _id: "6404ebc64c69ae18f9531ba7",
+//       firstname: "super",
+//       lastname: "admin"
+//     }
+//   }
+// ]
 
 const ProjectList = () => {
   const dispatch = useDispatch();
@@ -59,8 +59,10 @@ const ProjectList = () => {
   }
 
   useEffect(()=> {
-
+    dispatch(fetchProject());
   }, [])
+
+  const projects = useSelector(state => state.projectFetchReducer.data.data);
 
   return (
     <>
@@ -74,7 +76,7 @@ const ProjectList = () => {
         <div className='project'>
           <div className='project-list pb-4'>
             {
-              projects.map((project) => (
+              projects?.map((project) => (
                 <Card key={project.id} project={project} />
               ))
             }

@@ -22,11 +22,15 @@ const ProjDetailsTop = () => {
 
     const dispatch = useDispatch();
     // const addNewUser = useSelector(state => state.addUserToProjReducer.open);
+    const project = useSelector(state => state.projectSingleReducer.project.data.project);
+    const assignedUsers = useSelector(state => state.projectSingleReducer.project.data.assignedProjectMembers);
+
+    console.log(project)
     return (
         <div className="top">
             <div className="title">
                 <h2>Title</h2>
-                <p>Project X</p>
+                <p>{project.name}</p>
             </div>
             <div className="meambers">
                 <div className="members-title flex flex-row justify-between mb-1">
@@ -35,15 +39,11 @@ const ProjDetailsTop = () => {
                 </div>
                 <div className="member-list">
                     <ul>
-                        <li>To</li>
-                        <li>Mo</li>
-                        <li>Ki</li>
-                        <li>To</li>
-                        <li>Mo</li>
-                        <li>Ki</li>
-                        <li>To</li>
-                        <li>Mo</li>
-                        <li>Ki</li>
+                        {
+                            assignedUsers.map((user) => (
+                                <li>{user.firstname.slice(0,1)}{user.lastname.slice(0,1)}</li>
+                            ))
+                        }
                     </ul>
                 </div>
             </div>

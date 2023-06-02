@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../button/Button';
 import Draggable from '../draggable/Draggable';
 import './projDetails.css';
@@ -9,6 +9,7 @@ import ProjDetailsTop from './ProjDetailsTop';
 import Modal from '../modal/Modal';
 import BugDetails from '../bugDetails/BugDetails';
 import Sidebar from '../sidebar/Sidebar';
+import { fetchSingleProject } from '../../redux';
 
 export const buttonStyles = {
     borderRadius: '5px',
@@ -23,7 +24,17 @@ const info = {
     para: 'Long details here'
 }
 
-const ProjDetails = () => {
+const ProjDetails = ({  }) => {
+
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        dispatch(fetchSingleProject(id))
+    }, []);
+
+    // const project = useSelector(state => state.projectSingleReducer.project.data.project);
+    // const assignedUsers = useSelector(state => state.projectSingleReducer.project.data.assignedProjectMembers);
 
     const viewBug = useSelector(state => state.bugOpenModalReducer.open);
     const addBug = useSelector(state => state.createBugReducer.open);
@@ -49,7 +60,9 @@ const ProjDetails = () => {
                             <div className='ProjDetails-wrapper'>
                                 <Sidebar />
                                 <div className="ProjectDetails">
-                                    <ProjDetailsTop />
+                                    <ProjDetailsTop 
+                                    // project={project} assignedUsers={assignedUsers}
+                                    />
                                     <ProjDetailsBottom />
                                 </div>
                             </div>

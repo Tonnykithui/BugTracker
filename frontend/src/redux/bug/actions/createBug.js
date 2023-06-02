@@ -1,11 +1,11 @@
 import axios from 'axios';
+import { CREATE_BUG, CREATE_BUG_ERROR, CREATE_BUG_SUCCESS } from '../actionTypes/createBug';
 import { OPEN_BUG_ERR } from '../../modal/actionTypes/ViewBug';
-import { CREATE_BUG, CREATE_BUG_ERROR, CREATE_BUG_SUCCESS, OPEN_BUG_FORM_ERR, OPEN_BUG_FORM_SUC } from "../actionTypes/createBug";
+import { OPEN_BUG_FORM_ERR, OPEN_BUG_FORM_SUC } from '../../modal/actionTypes/CreateBug';
 
-export const createBugReq = (data) => {
+export const createBugReq = () => {
     return {
-        type: CREATE_BUG,
-        payload: data,
+        type: CREATE_BUG
     }
 }
 
@@ -23,35 +23,49 @@ export const createBugErr = error => {
     }
 }
 
-export const openBugForm = () => {
-    return {
-        type: OPEN_BUG_ERR
-    }
-}
+// export const openBugForm = () => {
+//     return {
+//         type: OPEN_BUG_ERR
+//     }
+// }
 
-export const openBugFormSuc = () => {
-    return {
-        type: OPEN_BUG_FORM_SUC
-    }
-}
+// export const openBugFormSuc = () => {
+//     return {
+//         type: OPEN_BUG_FORM_SUC
+//     }
+// }
 
 
-export const openBugFormErr = () => {
-    return {
-        type: OPEN_BUG_FORM_ERR
-    }
-}
+// export const openBugFormErr = () => {
+//     return {
+//         type: OPEN_BUG_FORM_ERR
+//     }
+// }
 
-export const createBugThunk = dispatch => {
-    return dispatch => {
-        dispatch(createBugReq);
-        axios.post('http://localhost:3200/bug', data)
-            .then(res => {
-                dispatch(res.data);
-            })
-            .catch(err => {
-                return err.Message;
-            })
-    }
-}
+export const createBugThunk = (bugData) => {
+    return (dispatch) => {
+      dispatch(createBugReq());
+  
+      axios
+        .post('http://localhost:3200/bug', bugData)
+        .then((res) => {
+          dispatch(createBugSuc(res.data));
+        })
+        .catch((err) => {
+          dispatch(createBugErr(err.message));
+        });
+    };
+  };
 
+// export const createBugThunk = async (data) => {
+//     return (dispatch) => {
+//         dispatch(createBugReq);
+//         axios.post('http://localhost:3200/bug', data)
+//             .then(res => {
+//                 dispatch(res.data);
+//             })
+//             .catch(err => {
+//                 return err.Message;
+//             })
+//     }
+// }

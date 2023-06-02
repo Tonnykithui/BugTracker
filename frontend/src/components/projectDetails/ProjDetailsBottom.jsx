@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '../button/Button'
 import Draggable from '../draggable/Draggable'
 import './projDetails.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { openBugForm, openBugFormSuc, openBugSuccess } from '../../redux';
 
 
@@ -17,7 +17,7 @@ export const buttonStyles = {
 const info = [
     {
         _id: "640500338bb630e9b6f9e1d3",
-        projectId : "6404f897fa0b7b5be9109dbb",
+        projectId: "6404f897fa0b7b5be9109dbb",
         title: "Change password defect",
         description: "Students cant change their passwords",
         priority: "HIGH",
@@ -25,16 +25,16 @@ const info = [
         reportDate: "2023-03-05T20:43:39.234Z",
         dueDate: "2023-03-05T20:43:39.234Z",
         ticketOwner: {
-        _id: "6404ebc64c69ae18f9531ba7",
-        firstname: "super",
-        lastname: "admin"
-         },
+            _id: "6404ebc64c69ae18f9531ba7",
+            firstname: "super",
+            lastname: "admin"
+        },
         estimateTime: "2hrs",
         lastUpdatedBy: "6404ebc64c69ae18f9531ba7"
     },
     {
         _id: "640500338bb630e9b6f9e1d3",
-        projectId : "6404f897fa0b7b5be9109dbb",
+        projectId: "6404f897fa0b7b5be9109dbb",
         title: "Change password defect",
         description: "Students cant change their passwords",
         priority: "HIGH",
@@ -42,16 +42,16 @@ const info = [
         reportDate: "2023-03-05T20:43:39.234Z",
         dueDate: "2023-03-05T20:43:39.234Z",
         ticketOwner: {
-        _id: "6404ebc64c69ae18f9531ba7",
-        firstname: "super",
-        lastname: "admin"
-         },
+            _id: "6404ebc64c69ae18f9531ba7",
+            firstname: "super",
+            lastname: "admin"
+        },
         estimateTime: "2hrs",
         lastUpdatedBy: "6404ebc64c69ae18f9531ba7"
     },
     {
         _id: "640500338bb630e9b6f9e1d3",
-        projectId : "6404f897fa0b7b5be9109dbb",
+        projectId: "6404f897fa0b7b5be9109dbb",
         title: "Change password defect",
         description: "Note that you'll need to include the Tailwind CSS framework in your project to make use of the utility classes. Make sure you have the necessary setup to use Tailwind CSS, such as linking the CSS file or using a build process like PostCSS",
         priority: "HIGH",
@@ -59,30 +59,30 @@ const info = [
         reportDate: "2023-03-05T20:43:39.234Z",
         dueDate: "2023-03-05T20:43:39.234Z",
         ticketOwner: {
-        _id: "6404ebc64c69ae18f9531ba7",
-        firstname: "super",
-        lastname: "admin"
-         },
+            _id: "6404ebc64c69ae18f9531ba7",
+            firstname: "super",
+            lastname: "admin"
+        },
         estimateTime: "2hrs",
         lastUpdatedBy: "6404ebc64c69ae18f9531ba7"
     }
 ]
-   let bug = {
-        _id: "640500338bb630e9b6f9e1d3",
-        projectId : "6404f897fa0b7b5be9109dbb",
-        title: "Change password defect",
-        description: "Students cant change their passwords",
-        priority: "HIGH",
-        status: "OPEN",
-        reportDate: "2023-03-05T20:43:39.234Z",
-        dueDate: "2023-03-05T20:43:39.234Z",
-        ticketOwner: {
+let bug = {
+    _id: "640500338bb630e9b6f9e1d3",
+    projectId: "6404f897fa0b7b5be9109dbb",
+    title: "Change password defect",
+    description: "Students cant change their passwords",
+    priority: "HIGH",
+    status: "OPEN",
+    reportDate: "2023-03-05T20:43:39.234Z",
+    dueDate: "2023-03-05T20:43:39.234Z",
+    ticketOwner: {
         _id: "6404ebc64c69ae18f9531ba7",
         firstname: "super",
         lastname: "admin"
-         },
-        estimateTime: "2hrs",
-        lastUpdatedBy: "6404ebc64c69ae18f9531ba7"
+    },
+    estimateTime: "2hrs",
+    lastUpdatedBy: "6404ebc64c69ae18f9531ba7"
 }
 
 function onDropItem(event, str) {
@@ -106,9 +106,12 @@ function updateItem(data) {
 const ProjDetailsBottom = () => {
 
     const dispatch = useDispatch();
-    let todo = info.filter((item) => item.status == 'OPEN');
-    let inprogress = info.filter((item) => item.status == 'INPROGRESS');
-    let completed = info.filter((item) => item.status == 'CLOSED')
+
+    const tickets = useSelector(state => state.projectSingleReducer.project.data.tickets);
+
+    let todo = tickets.filter((item) => item.status == 'OPEN');
+    let inprogress = tickets.filter((item) => item.status == 'INPROGRESS');
+    let completed = tickets.filter((item) => item.status == 'CLOSED')
 
     return (
         <div className="bottom">
