@@ -6,7 +6,7 @@ const initState = {
     err: ''
 };
 
-const projectReducer = (state = initState, action) => {
+const projectFetchReducer = (state = initState, action) => {
     switch (action.type) {
         case FETCH_PROJECT_REQ:
             return {
@@ -32,4 +32,4 @@ const projectReducer = (state = initState, action) => {
     }
 };
 
-export default projectReducer;
+export default projectFetchReducer;

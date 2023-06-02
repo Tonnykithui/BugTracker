@@ -6,7 +6,7 @@ const initState = {
     err: ''
 }
 
-export const addNewProjectReducer = ( state = initState, action ) => {
+const addNewProjectReducer = ( state = initState, action ) => {
     switch (action.type) {
         case CREATENEWPROJERR:
             return {
@@ -19,3 +19,5 @@ export const addNewProjectReducer = ( state = initState, action ) => {
             return state;
     }
 }
+
+export default addNewProjectReducer

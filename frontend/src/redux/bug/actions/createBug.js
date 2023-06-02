@@ -50,7 +50,6 @@ export const createBugThunk = dispatch => {
                 dispatch(res.data);
             })
             .catch(err => {
-                console.log(err);
                 return err.Message;
             })
     }

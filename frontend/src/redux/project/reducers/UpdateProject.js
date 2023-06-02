@@ -4,7 +4,7 @@ const initState = {
     error: ''
 };
 
-const projectReducer = (state = initState, action) => {
+const projectUpdateReducer = (state = initState, action) => {
     switch (action.type) {
         case UPDATE_PROJ_REQ:
             return {
@@ -30,4 +30,4 @@ const projectReducer = (state = initState, action) => {
     }
 };
 
-export default projectReducer;
+export default projectUpdateReducer;

@@ -5,7 +5,7 @@ const initState = {
     error: '',
 };
 
-const projectReducer = (state = initState, action) => {
+const projectDeleteReducer = (state = initState, action) => {
     switch (action.type) {
         case DELETE_PROJ_REQ:
             return {
@@ -30,4 +30,4 @@ const projectReducer = (state = initState, action) => {
     }
 };
 
-export default projectReducer;
+export default projectDeleteReducer;

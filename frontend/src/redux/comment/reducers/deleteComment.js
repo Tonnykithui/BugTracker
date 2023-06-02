@@ -1,27 +1,25 @@
-import { REGISTER_USER_ERR, REGISTER_USER_REQ, REGISTER_USER_SUC } from "../actionType/CreateUser";
+import { DELETE_COMMENT_ERR, DELETE_COMMENT_REQ, DELETE_COMMENT_SUC } from "../actionTypes/deleteComment";
 
 const initState = {
     loading: false,
-    user: null,
     error: '',
 };
 
-const userCreateReducer = (state = initState, action) => {
+const commentDeleteReducer = (state = initState, action) => {
     switch (action.type) {
-        case REGISTER_USER_REQ:
+        case DELETE_COMMENT_REQ:
             return {
                 ...state,
                 loading: true,
                 error: '',
             };
-        case REGISTER_USER_SUC:
+        case DELETE_COMMENT_SUC:
             return {
                 ...state,
                 loading: false,
-                user: action.payload,
                 error: '',
             };
-        case REGISTER_USER_ERR:
+        case DELETE_COMMENT_ERR:
             return {
                 ...state,
                 loading: false,
@@ -32,4 +30,4 @@ const userCreateReducer = (state = initState, action) => {
     }
 };
 
-export default userCreateReducer;
+export default commentDeleteReducer;

@@ -1,27 +1,27 @@
-import { REGISTER_USER_ERR, REGISTER_USER_REQ, REGISTER_USER_SUC } from "../actionType/CreateUser";
+import { FETCH_COMMENT_ERR, FETCH_COMMENT_REQ, FETCH_COMMENT_SUC } from "../actionTypes/fetchComment";
 
 const initState = {
     loading: false,
-    user: null,
+    comments: [],
     error: '',
 };
 
-const userCreateReducer = (state = initState, action) => {
+const commentFetchReducer = (state = initState, action) => {
     switch (action.type) {
-        case REGISTER_USER_REQ:
+        case FETCH_COMMENT_REQ:
             return {
                 ...state,
                 loading: true,
                 error: '',
             };
-        case REGISTER_USER_SUC:
+        case FETCH_COMMENT_SUC:
             return {
                 ...state,
                 loading: false,
-                user: action.payload,
+                comments: action.payload,
                 error: '',
             };
-        case REGISTER_USER_ERR:
+        case FETCH_COMMENT_ERR:
             return {
                 ...state,
                 loading: false,
@@ -32,4 +32,4 @@ const userCreateReducer = (state = initState, action) => {
     }
 };
 
-export default userCreateReducer;
+export default commentFetchReducer;

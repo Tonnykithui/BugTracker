@@ -10,6 +10,18 @@ import { authReducer } from './user/reducers/Login';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit'
+import projectUpdateReducer from './project/reducers/UpdateProject';
+import addNewProjectReducer from './project/reducers/NewProject';
+import projectFetchReducer from './project/reducers/FetchProject';
+import projectDeleteReducer from './project/reducers/DeleteProject';
+import commentCreateReducer from './comment/reducers/createComment';
+import commentDeleteReducer from './comment/reducers/deleteComment';
+import commentFetchReducer from './comment/reducers/fetchComment';
+import addBugReducer from './bug/reducers/createBug';
+import bugDeleteReducer from './bug/reducers/deleteBug';
+import bugUpdateReducer from './bug/reducers/updateBug';
+import userCreateReducer from './user/reducers/CreateUser';
+import usersFetchReducer from './user/reducers/FetchUsers';
 
 const combinedReducers = combineReducers({
     bugOpenModalReducer: bugOpenModalReducer,
@@ -17,7 +29,20 @@ const combinedReducers = combineReducers({
     createBugReducer: createBugOpenModalReducer,
     addUserToProjReducer: addUserToProjReducer,
     addNewProjectModalReducer: addNewProjectModalReducer,
-    authReducer: authReducer
+    authReducer: authReducer,
+    projectUpdateReducer:projectUpdateReducer,
+    addNewProjectReducer: addNewProjectReducer,
+    projectFetchReducer: projectFetchReducer,
+    projectDeleteReducer: projectDeleteReducer,
+    commentCreateReducer: commentCreateReducer,
+    commentDeleteReducer: commentDeleteReducer,
+    commentFetchReducer: commentFetchReducer,
+    addBugReducer: addBugReducer,
+    bugDeleteReducer: bugDeleteReducer,
+    bugUpdateReducer: bugUpdateReducer,
+    userCreateReducer: userCreateReducer,
+    usersFetchReducer: usersFetchReducer,
+    
 })
 
 const persistConfig = {

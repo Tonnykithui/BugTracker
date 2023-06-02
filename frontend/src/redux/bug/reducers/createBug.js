@@ -1,4 +1,3 @@
-import { OPEN_BUG_ERR } from "../../modal/actionTypes/ViewBug";
 import { CREATE_BUG, CREATE_BUG_ERROR, CREATE_BUG_SUCCESS } from "./actionType";
 
 const init = {
@@ -8,7 +7,7 @@ const init = {
 }
 
 
-export const addBugReducer = (state = init, action) => {
+const addBugReducer = (state = init, action) => {
     switch (action.type) {
         case CREATE_BUG:
             return {
@@ -24,9 +23,10 @@ export const addBugReducer = (state = init, action) => {
             return {
                 ...state,
                 data: action.payload
-
             }
         default:
             break;
     }
 }
+
+export default addBugReducer;

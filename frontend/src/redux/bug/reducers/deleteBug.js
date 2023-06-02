@@ -5,7 +5,7 @@ const initState = {
     error: '',
 };
 
-const bugReducer = (state = initState, action) => {
+const bugDeleteReducer = (state = initState, action) => {
     switch (action.type) {
         case DELETE_BUG_REQ:
             return {
@@ -30,4 +30,4 @@ const bugReducer = (state = initState, action) => {
     }
 };
 
-export default bugReducer;
+export default bugDeleteReducer;
