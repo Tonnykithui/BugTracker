@@ -41,8 +41,9 @@ export class BugController {
     return new ResponseMessage('Successfully fetched a single tickets details', await this.bugService.findOne(id));
   }
 
-  @Patch(':id')
+  @Post(':id')
   async update(@Param('id') id: string, @Body() updateBugDto: bugDto, @LoggedInUser() userId: ObjectId) {
+    console.log('HIT UPDATE TICKET CONTROLLER', updateBugDto)
     return new ResponseMessage('Successfully updated a ticket', await this.bugService.update(id, updateBugDto));
   }
 

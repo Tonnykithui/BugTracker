@@ -25,6 +25,7 @@ export class ProjectController {
 
   @Get(':id')
   async findOne(@Param('id') id: ObjectId) {
+    console.log('SINGLE PROJECT', id)
     return new ResponseMessage('Successfully found a single project', await this.projectService.findOne(id));
   }
 

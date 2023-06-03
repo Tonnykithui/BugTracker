@@ -9,7 +9,8 @@ import ProjDetailsTop from './ProjDetailsTop';
 import Modal from '../modal/Modal';
 import BugDetails from '../bugDetails/BugDetails';
 import Sidebar from '../sidebar/Sidebar';
-import { fetchSingleProject } from '../../redux';
+import { fetchSingleProject, fetchSingleProjectFailure, fetchSingleProjectRequest, fetchSingleProjectSuccess } from '../../redux';
+import axios from 'axios';
 
 export const buttonStyles = {
     borderRadius: '5px',
@@ -24,17 +25,11 @@ const info = {
     para: 'Long details here'
 }
 
-const ProjDetails = ({  }) => {
+let project;
+const ProjDetails = ({ }) => {
 
-    const { id } = useParams();
-    const dispatch = useDispatch();
-    
-    useEffect(() => {
-        dispatch(fetchSingleProject(id))
-    }, []);
-
-    // const project = useSelector(state => state.projectSingleReducer.project.data.project);
-    // const assignedUsers = useSelector(state => state.projectSingleReducer.project.data.assignedProjectMembers);
+    const project = useSelector(state => state.projectSingleReducer);
+    console.log(project.loading);
 
     const viewBug = useSelector(state => state.bugOpenModalReducer.open);
     const addBug = useSelector(state => state.createBugReducer.open);
@@ -54,16 +49,22 @@ const ProjDetails = ({  }) => {
     return (
         <>
             {
+                project.loading && <p>LOADING</p>
+            }
+            {
                 viewBug || addBug || addNewUser ?
                     (
                         <>
                             <div className='ProjDetails-wrapper'>
                                 <Sidebar />
                                 <div className="ProjectDetails">
-                                    <ProjDetailsTop 
-                                    // project={project} assignedUsers={assignedUsers}
+                                    <ProjDetailsTop
+                                        project={!project.loading? project.project.data.project: {}}
+                                        assignedUsers={!project.loading? project.project.data.assignedProjectMembers: {}}
                                     />
-                                    <ProjDetailsBottom />
+                                    <ProjDetailsBottom
+                                        tickets={project.project.data.tickets}
+                                    />
                                 </div>
                             </div>
                             <Modal child={`${childToDisplay}`}
@@ -74,8 +75,13 @@ const ProjDetails = ({  }) => {
                         <div className='ProjDetails-wrapper'>
                             <Sidebar />
                             <div className="ProjectDetails">
-                                <ProjDetailsTop />
-                                <ProjDetailsBottom />
+                                <ProjDetailsTop
+                                    project={!project.loading? project.project.data.project: {}}
+                                    assignedUsers={!project.loading? project.project.data.assignedProjectMembers: []}
+                                />
+                                <ProjDetailsBottom
+                                    tickets={!project.loading? project.project.data.tickets: []}
+                                />
                             </div>
                         </div>
                     )

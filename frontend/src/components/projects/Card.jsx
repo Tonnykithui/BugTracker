@@ -2,11 +2,19 @@ import React from 'react';
 import './card.css';
 import { BsClockHistory } from "react-icons/bs";
 import { Link } from 'react-router-dom';
+import { fetchSingleProject } from '../../redux';
+import { useDispatch } from 'react-redux';
+
 
 const Card = ({ project }) => {
+  const dispatch = useDispatch()
+  const handleClick = () => {
+    dispatch(fetchSingleProject(project._id))
+  }
+
   return (
-    <Link to={`/project/${project._id}`}>
-    <div className='project-card'>
+    <Link to={`/project/${project._id}`}  onClick={handleClick}>
+    <div className='project-card' >
         <div className='project-head'><h1>{project.name}</h1></div>
         <div>
           <p>{project.description}</p>

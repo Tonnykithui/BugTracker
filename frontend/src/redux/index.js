@@ -11,6 +11,7 @@ export * from './user/actions/FetchUsers'
 export * from './bug/actions/createBug'
 export * from './bug/actions/deleteBug'
 export * from './bug/actions/updateBug'
+export * from './bug/actions/fetchSingleBug'
 
 export * from './comment/actions/createComment'
 export * from './comment/actions/deleteComment'

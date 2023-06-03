@@ -26,12 +26,14 @@ export const updateBug = (bugId, updatedBugData) => {
 
         try {
             // Perform the update request here
-            const response = await fetch(`https://api.example.com/bugs/${bugId}`, {
-                method: 'PUT',
+            const token = localStorage.getItem('token');
+            const response = await fetch(`http://localhost:3200/bug/${bugId}`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token,
                 },
-                body: JSON.stringify(updatedBugData),
+                body: JSON.stringify(updatedBugData)
             });
 
             if (!response.ok) {

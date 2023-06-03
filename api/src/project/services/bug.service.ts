@@ -70,6 +70,7 @@ export class BugService {
   }
 
   async update(id, updateBugDto: bugDto) {
+    console.log(id);
     if (await this.bugModel.findById(id)) {
       const allTickets = await this.bugModel.find({ projectId: updateBugDto.projectId });
       for (let i = 0; i < allTickets.length; i++) {
@@ -78,8 +79,10 @@ export class BugService {
         }
       }
 
+      console.log('HERE')
       const ticketUpdate = await this.bugModel.findByIdAndUpdate(id, updateBugDto);
 
+      console.log(ticketUpdate);
       if (updateBugDto.assignedUsers?.length > 0) {
         for (let i = 0; i < updateBugDto.assignedUsers.length; i++) {
           const ticketMemberExists = await this.ticketMembersModel.find({ memberId: updateBugDto.assignedUsers[i], projectId: updateBugDto.projectId, ticketId: id })
