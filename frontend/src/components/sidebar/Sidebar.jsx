@@ -35,7 +35,7 @@ const Sidebar = () => {
     }
 
   return (
-    <div className='sidebar'>
+    <div className='sidebar z-10 w-20'>
         <div className='logo'><AiFillApi />BOARDJET</div>
         <ul>
             {

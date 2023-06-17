@@ -14,6 +14,7 @@ import ProjDetails from './components/projectDetails/ProjDetails';
 import { useSelector } from 'react-redux';
 import ProtectedRoute from './components/HOC/ProtectedRoute';
 import NotFound from './components/notfound/NotFound';
+import User from './components/user/User';
 
 function App() {
   const userAuthenticated = useSelector(state => state.authReducer.isAuthenticated);
@@ -31,6 +32,7 @@ function App() {
         <Route path='/task' element={ProtectedRoute(Board, userAuthenticated)} />
         <Route path='/teams' element={ProtectedRoute(Administration, userAuthenticated)} />
         <Route path='/Project/:id' element={ProtectedRoute(ProjDetails, userAuthenticated)} />
+        <Route path='user/:id' element={ProtectedRoute(User, userAuthenticated)}/>
         <Route path='*' element={<NotFound />}/>
       </Routes>
     </div>

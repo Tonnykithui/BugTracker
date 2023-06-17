@@ -29,8 +29,6 @@ let project;
 const ProjDetails = ({ }) => {
 
     const project = useSelector(state => state.projectSingleReducer);
-    console.log(project.loading);
-
     const viewBug = useSelector(state => state.bugOpenModalReducer.open);
     const addBug = useSelector(state => state.createBugReducer.open);
     const addNewUser = useSelector(state => state.addUserToProjReducer.open);
@@ -45,11 +43,16 @@ const ProjDetails = ({ }) => {
     }
 
     const isAuthenticated = useSelector(state => state.authReducer.isAuthenticated);
-
+    // console.log('SINGLE PROJECT', project.project.data.tickets)
     return (
         <>
             {
-                project.loading && <p>LOADING</p>
+                project.loading && (
+                    <>
+                        <Sidebar />
+                        <p>LOADING</p>
+                    </>
+                )
             }
             {
                 viewBug || addBug || addNewUser ?
@@ -59,8 +62,8 @@ const ProjDetails = ({ }) => {
                                 <Sidebar />
                                 <div className="ProjectDetails">
                                     <ProjDetailsTop
-                                        project={!project.loading? project.project.data.project: {}}
-                                        assignedUsers={!project.loading? project.project.data.assignedProjectMembers: {}}
+                                        project={!project.loading ? project.project.data.project : {}}
+                                        assignedUsers={!project.loading ? project.project.data.assignedProjectMembers : {}}
                                     />
                                     <ProjDetailsBottom
                                         tickets={project.project.data.tickets}
@@ -72,18 +75,20 @@ const ProjDetails = ({ }) => {
                         </>
                     ) :
                     (
-                        <div className='ProjDetails-wrapper'>
-                            <Sidebar />
-                            <div className="ProjectDetails">
-                                <ProjDetailsTop
-                                    project={!project.loading? project.project.data.project: {}}
-                                    assignedUsers={!project.loading? project.project.data.assignedProjectMembers: []}
-                                />
-                                <ProjDetailsBottom
-                                    tickets={!project.loading? project.project.data.tickets: []}
-                                />
+                        <>
+                            <div className='ProjDetails-wrapper'>
+                                <Sidebar />
+                                <div className="ProjectDetails">
+                                    <ProjDetailsTop
+                                        project={!project.loading ? project.project.data.project : {}}
+                                        assignedUsers={!project.loading ? project.project.data.assignedProjectMembers : []}
+                                    />
+                                    <ProjDetailsBottom
+                                        tickets={!project.loading ? project.project.data.tickets : []}
+                                    />
+                                </div>
                             </div>
-                        </div>
+                        </>
                     )
             }
         </>

@@ -26,7 +26,15 @@ export const fetchUsers = () => {
 
         try {
             // Perform the fetch users request here
-            const response = await fetch('http://localhost:3200/user');
+            let token = localStorage.getItem('token')
+            const response = await fetch(
+                'http://localhost:3200/user',
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                }
+            );
 
             if (!response.ok) {
                 throw new Error('Failed to fetch users');

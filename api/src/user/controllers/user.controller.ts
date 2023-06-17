@@ -29,6 +29,7 @@ export class UserController {
 
   @Get()
   async findAll() {
+    console.log('FETCHING ALL USERS');
     return new ResponseMessage('Successfully fetched all users records', await this.userService.findAll());
   }
 

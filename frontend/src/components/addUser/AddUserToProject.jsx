@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import Button from '../button/Button';
+import { useSelector } from 'react-redux';
+
 
 const addUserBtnStyling = {
     background: 'blue',
@@ -19,6 +21,8 @@ const AddUserToProject = () => {
         setSelectedOptions(selectedValues);
     };
 
+    const users = useSelector(state => state.fetchUsersInProject.users);
+
     return (
         <div className='bg-slate-200 p-5 rounded-lg flex flex-row gap-10'>
             <div>
@@ -30,10 +34,15 @@ const AddUserToProject = () => {
                 </div>
                 <div>
                     <ul>
-                        <li>Tonny Kithui</li>
+                        {
+                            users.map((user) => (
+                                <li>{user.firstname} {user.lastname}</li>
+                            ))
+                        }
+                        {/* <li>Tonny Kithui</li>
                         <li>Mark Nthungu</li>
                         <li>Cliff Ombeta</li>
-                        <li>Jerry Mutuko</li>
+                        <li>Jerry Mutuko</li> */}
                     </ul>
                 </div>
             </div>

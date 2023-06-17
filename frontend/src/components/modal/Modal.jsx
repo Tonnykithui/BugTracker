@@ -10,19 +10,19 @@ import Project from '../project/Project';
 
 
 const Modal = ({ child, style }) => {
-  
+
   const dispatch = useDispatch();
   let childToDisplay;
-  if(child == 'openBug'){
+  if (child == 'openBug') {
     childToDisplay = <BugDetails />
-  } else if(child == 'createBug'){
+  } else if (child == 'createBug') {
     childToDisplay = <BugForm />
-  } else if(child == 'addNewUserToProj') {
+  } else if (child == 'addNewUserToProj') {
     childToDisplay = <AddUserToProject />
   } else {
     childToDisplay = <Project />
   }
-  
+
   return (
     <div className={`${style} modal`}>
       <div className="modal-outer-wrapper">
@@ -33,7 +33,7 @@ const Modal = ({ child, style }) => {
             }
           </div>
           <div className="close-icon">
-            <AiOutlineClose onClick={() => dispatch(closeBugSuccess())}/>
+            <AiOutlineClose onClick={() => dispatch(closeBugSuccess())} />
           </div>
         </div>
       </div>

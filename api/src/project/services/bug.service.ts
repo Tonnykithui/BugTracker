@@ -69,18 +69,23 @@ export class BugService {
       throw new HttpException('Ticket with passed ID does not exists', HttpStatus.BAD_REQUEST);
   }
 
-  async update(id, updateBugDto: bugDto) {
+  async update(id, updateBugDto) {
     console.log(id);
     if (await this.bugModel.findById(id)) {
-      const allTickets = await this.bugModel.find({ projectId: updateBugDto.projectId });
-      for (let i = 0; i < allTickets.length; i++) {
-        if (allTickets[i].title === updateBugDto.title && allTickets[i]._id != id) {
-          throw new HttpException('Ticket with given title already exists', HttpStatus.BAD_REQUEST);
-        }
-      }
+      // const allTickets = await this.bugModel.find({ projectId: updateBugDto.projectId });
+      // for (let i = 0; i < allTickets.length; i++) {
+      //   if (allTickets[i].title === updateBugDto.title && allTickets[i]._id != id) {
+      //     throw new HttpException('Ticket with given title already exists', HttpStatus.BAD_REQUEST);
+      //   }
+      // }
 
+      let ticketId = { _id : id }
+      delete updateBugDto._id;
+      // const update = { $unset: { _id: id }, $set: { ...updateBugDto } };
+      // console.log(update);
+      let ticketUpdate = await this.bugModel.findOneAndUpdate(ticketId, updateBugDto);
       console.log('HERE')
-      const ticketUpdate = await this.bugModel.findByIdAndUpdate(id, updateBugDto);
+      // const ticketUpdate = await this.bugModel.findByIdAndUpdate(id, updateBugDto);
 
       console.log(ticketUpdate);
       if (updateBugDto.assignedUsers?.length > 0) {
@@ -178,6 +183,23 @@ export class BugService {
       allTicketsAssigned: allTicketsAssigned.length,
       ticketDoneCount: ticketDoneCount.length,
       openTickets
+    }
+  }
+
+  async findUsersOpenClosedNInprogressTickets(userId){
+    let ticketsAssigned = await this.ticketMembersModel.find({memberId: userId});
+
+    let allTicket: bugDto[] = [];
+    ticketsAssigned.forEach(async (ticket) => {
+      allTicket.push(await this.bugModel.findById(ticket.ticketId));
+    });
+
+    let tickets = await this.bugModel.find({});
+    
+    return {
+      allOpen: allTicket.filter((ticket) => ticket.status !== 'OPEN'),
+      allInProgress: allTicket.filter((ticket) => ticket.status !== 'INPROGRESS'),
+      allClosed: allTicket.filter((ticket) => ticket.status !== 'CLOSED')
     }
   }
 }

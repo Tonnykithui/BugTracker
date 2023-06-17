@@ -45,9 +45,17 @@ export const createBugErr = error => {
 export const createBugThunk = (bugData) => {
     return (dispatch) => {
       dispatch(createBugReq());
-  
+      const token = localStorage.getItem('token');
       axios
-        .post('http://localhost:3200/bug', bugData)
+        .post(
+          'http://localhost:3200/bug',
+          bugData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
+        })
         .then((res) => {
           dispatch(createBugSuc(res.data));
         })

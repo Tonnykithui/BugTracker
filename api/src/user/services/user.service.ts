@@ -3,12 +3,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Role } from '../models/item.types';
 import { User, userDto } from '../models/user.entity';
+import { ProjectService } from 'src/project/services/project.service';
+import { BugService } from 'src/project/services/bug.service';
 
 @Injectable()
 export class UserService {
 
   constructor(
-    @InjectModel(User.name) private userModel: Model<User>
+    @InjectModel(User.name) private userModel: Model<User>,
   ) { }
 
   async create(data: userDto) {

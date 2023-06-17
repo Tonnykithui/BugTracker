@@ -7,6 +7,8 @@ export * from './modal/actions/addProject.Action'
 export * from './user/actions/Login'
 export * from './user/actions/CreateUser'
 export * from './user/actions/FetchUsers'
+export * from './user/actions/FetchSingleUser'
+export * from './user/actions/FetchUsersInProject'
 
 export * from './bug/actions/createBug'
 export * from './bug/actions/deleteBug'

@@ -73,6 +73,19 @@ export class ProjectService implements OnModuleInit {
     }
   }
 
+  async findUsersAssociatedProject(userId){
+   let usersProjects = await this.projectMembers.find({ memberId: userId })
+   .populate('projectId', { name: 1 });
+   let user = await this.userService.findOne(userId);
+   let usersTickets = await this.bugService.findUsersOpenClosedNInprogressTickets(userId);
+   
+   return {
+    usersProjects,
+    usersTickets,
+    user
+   }
+  }
+
   async findProjectById(projectId) {
     return await this.projectModel.findById(projectId);
   }

@@ -14,9 +14,10 @@ export const openBugForm = () => {
     }
 }
 
-export const openBugFormSuc = () => {
+export const openBugFormSuc = (data) => {
     return {
-        type: OPEN_BUG_FORM_SUC
+        type: OPEN_BUG_FORM_SUC,
+        payload: data
     }
 }
 

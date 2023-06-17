@@ -4,7 +4,8 @@ import { CLOSE_BUG_FORM, CLOSE_BUG_FORM_ERR, CLOSE_BUG_FORM_SUC, OPEN_BUG_FORM, 
 const initState = {
     loading: false,
     open: false,
-    child: ''
+    child: '',
+    type: ''
 }
 
 const createBugOpenModalReducer = (state = initState, action) => {
@@ -21,7 +22,8 @@ const createBugOpenModalReducer = (state = initState, action) => {
                 ...state,
                 loading: false,
                 child: 'createBug',
-                open: true
+                open: true,
+                type: action.payload
             }
 
         case OPEN_BUG_FORM_ERR:

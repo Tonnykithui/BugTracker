@@ -29,6 +29,12 @@ export class ProjectController {
     return new ResponseMessage('Successfully found a single project', await this.projectService.findOne(id));
   }
 
+  @Get('user/:userId')
+  async getASingleUsersDetails(@Param('userId') userId){
+    console.log('FETCHING SINGLE USERS PROJ AND TICKETS');
+    return new ResponseMessage('Successfully found a users project and their tickets successfully', await this.projectService.findUsersAssociatedProject(userId));
+  }
+
   @Get('/:projectId/users')
   async getUsersInAProject(@Param('projectId') projectId: ObjectId){
     return await this.projectService.findUserInACertainProject(projectId);
