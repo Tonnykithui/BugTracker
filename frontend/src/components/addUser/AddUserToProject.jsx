@@ -39,10 +39,6 @@ const AddUserToProject = () => {
                                 <li>{user.firstname} {user.lastname}</li>
                             ))
                         }
-                        {/* <li>Tonny Kithui</li>
-                        <li>Mark Nthungu</li>
-                        <li>Cliff Ombeta</li>
-                        <li>Jerry Mutuko</li> */}
                     </ul>
                 </div>
             </div>

@@ -1,0 +1,19 @@
+.contacts span {
+    @apply font-semibold text-lg;
+}
+
+.projects-info span {
+    @apply font-semibold text-lg;
+}
+
+.edit-user input, .mobile input, .middle-select{
+    @apply block border-none h-10 w-full bg-slate-400 rounded-lg p-1 outline-none;
+}
+
+.edit, .projects, .tickets {
+    @apply hover:cursor-pointer ;
+}
+
+/* .middle-select {
+    @apply block bg-slate-400 ;
+} */

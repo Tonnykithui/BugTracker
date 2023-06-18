@@ -26,6 +26,7 @@ import projectSingleReducer from './project/reducers/SingleProject';
 import bugSingleReducer from './bug/reducers/fetchSingleBug';
 import singleUserReducer from './user/reducers/FetchSingleUser';
 import fetchUsersInProject from './user/reducers/FetchUsersInProject';
+import userTicketsReducer from './bug/reducers/userBugs';
 
 const combinedReducers = combineReducers({
     bugOpenModalReducer: bugOpenModalReducer,
@@ -49,7 +50,8 @@ const combinedReducers = combineReducers({
     projectSingleReducer: projectSingleReducer,
     bugSingleReducer: bugSingleReducer,
     singleUserReducer: singleUserReducer,
-    fetchUsersInProject: fetchUsersInProject
+    fetchUsersInProject: fetchUsersInProject,
+    userTicketsReducer: userTicketsReducer
 })
 
 const persistConfig = {

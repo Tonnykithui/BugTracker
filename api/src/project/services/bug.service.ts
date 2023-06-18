@@ -8,6 +8,8 @@ import { ProjectMembers } from '../models/projectMembers.entity';
 import { TicketMembers } from '../models/ticketMembers.entity';
 import { CommentService } from './comment.service';
 import { ProjectService } from './project.service';
+import { Types } from 'mongoose';
+
 
 @Injectable()
 export class BugService {
@@ -45,13 +47,25 @@ export class BugService {
   }
 
   async findAllTicketsAssignedToUser(userId) {
-    const tickets = await this.ticketMembersModel.find({ memberId: userId });
-    const userTickets: Bug[] = [];
-    tickets.forEach(async item => {
-      userTickets.push(await this.bugModel.findById(item.ticketId));
-    })
+    let newId = new Types.ObjectId(userId.userId);
+    const tickets = await this.ticketMembersModel.find({ memberId: newId });
+    let userTickets: Bug[] = await Promise.all(tickets.map(async (item) => {
+      let ticket = await this.bugModel.findById(item.ticketId);
+      return ticket;
+    }));
     return userTickets;
   }
+  // async findAllTicketsAssignedToUser(userId) {
+  //   let newId = new Types.ObjectId(userId.userId);
+  //   const tickets = await this.ticketMembersModel.find({ memberId: newId });
+  //   console.log('USER TICKETS',tickets);
+  //   let userTickets: Bug[] = [];
+  //   tickets.forEach(async item => {
+  //     let ticket = await this.bugModel.findById(item.ticketId);
+  //     userTickets.push(ticket);
+  //   })
+  //   return userTickets;
+  // }
 
   async findOne(ticketId) {
     const ticket = await this.bugModel.findById(ticketId);
