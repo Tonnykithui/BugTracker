@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { createNewProjectModalSuc, fetchProject, fetchSingleProject } from '../../redux';
+import { createNewProjectModalSuc, fetchProject, fetchSingleProject, fetchUserProjects } from '../../redux';
 import Button from '../button/Button';
 import Card from './Card';
 import ProjectStatus from './ProjectStatus';
@@ -23,6 +23,7 @@ const ProjectList = () => {
 
   useEffect(()=> {
     dispatch(fetchProject());
+    dispatch(fetchUserProjects())
   }, [])
 
   const projects = useSelector(state => state.projectFetchReducer.data.data);

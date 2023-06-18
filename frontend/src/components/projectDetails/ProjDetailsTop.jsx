@@ -47,7 +47,7 @@ const ProjDetailsTop = ({ project, assignedUsers }) => {
                             </div>
                             <div className="member-list">
                                 <ul>
-                                    {assignedUsers.map((user) => (
+                                    {assignedUsers && assignedUsers.map((user) => (
                                     <li key={user.id}>{user.firstname?.slice(0, 1)}{user.lastname?.slice(0, 1)}</li>
                                 ))}
                                 </ul>

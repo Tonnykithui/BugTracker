@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { ResponseMessage } from 'src/customs/Response';
 import { projectDto } from '../models/project.entity';
 import { ProjectService } from '../services/project.service';
-import { ObjectId } from 'mongoose';
+import { ObjectId, Types } from 'mongoose';
 import { LoggedInUser } from 'src/user/auth/user.decorator';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -23,11 +23,24 @@ export class ProjectController {
     return new ResponseMessage('Successfully fetched all project', await this.projectService.findAll());
   }
 
+  @Get('/usersProjects')
+  async findAllProjectsAssociatedWithUser(@LoggedInUser() userId){
+    return new ResponseMessage('Successfully fetched all projects associated with a user', await this.projectService.allProjectsAUserIsInvolved(userId));
+  }
+
+  @Get('/usersProjects/:userId')
+  async findAllProjectsAssociatedWithUserInParam(@Param() userId){
+    let newUserId = new Types.ObjectId(userId.userId);
+    return new ResponseMessage('Successfully fetched all projects associated with a user', await this.projectService.allProjectsAUserIsInvolved(newUserId));
+  }
+
+  
   @Get(':id')
   async findOne(@Param('id') id: ObjectId) {
     console.log('SINGLE PROJECT', id)
     return new ResponseMessage('Successfully found a single project', await this.projectService.findOne(id));
   }
+
 
   @Get('user/:userId')
   async getASingleUsersDetails(@Param('userId') userId){

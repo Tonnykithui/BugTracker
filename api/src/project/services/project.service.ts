@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { HelpersService } from 'src/customs/helpers.service';
 import { User } from 'src/user/models/user.entity';
 import { UserService } from 'src/user/services/user.service';
@@ -135,6 +135,18 @@ export class ProjectService implements OnModuleInit {
       return await this.projectMembers.deleteMany({ projectId: projectId, memberId: userId });
     } else
       throw new HttpException("Project does not exists", HttpStatus.BAD_REQUEST);
+  }
+
+  async allProjectsAUserIsInvolved(userId){
+    let newUserId = new Types.ObjectId(userId.userId)
+    let projects = await this.projectMembers.find({ memberId: newUserId });
+
+    let projectsInvolved: Project[] = await Promise.all(projects.map(async(project) => {
+      let proj = await this.projectModel.findById(project.projectId);
+      return proj;
+    }));
+
+    return projectsInvolved;
   }
 
   // async projectSummaryReport(){

@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { ObjectId } from 'mongoose';
+import { ObjectId, Types } from 'mongoose';
 import { ResponseMessage } from 'src/customs/Response';
 import { LoggedInUser } from 'src/user/auth/user.decorator';
 import { bugDto } from '../models/bug.entity';
@@ -23,6 +23,11 @@ export class BugController {
 
   @Get()
   async findAllTicketsAssignedToUser(@LoggedInUser() userId: ObjectId) {
+    return new ResponseMessage('Successfully fetched all tickets assigned to logged in user', await this.bugService.findAllTicketsAssignedToUser(userId));
+  }
+
+  @Get('otherUsers/:userId')
+  async findAllTicketsAssignedToOtherUser(@Param() userId) {
     return new ResponseMessage('Successfully fetched all tickets assigned to logged in user', await this.bugService.findAllTicketsAssignedToUser(userId));
   }
 
