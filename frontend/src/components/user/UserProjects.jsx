@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from '../projects/Card';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchOtherUserProjects } from '../../redux';
 
 const UserProjects = () => {
   const projects = useSelector(state => state.OtherUserProjectsReducer.projects.data);

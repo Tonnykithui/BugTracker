@@ -6,6 +6,8 @@ import EditUser from './EditUser';
 import UserProjects from './UserProjects';
 import { fetchOtherUserProjects, fetchOtherUserTickets, fetchUserTickets } from '../../redux';
 import UserTickets from './UserTickets';
+import jwt_decode from 'jwt-decode';
+
 
 const User = () => {
   const user = useSelector(state => state.singleUserReducer);
@@ -15,13 +17,10 @@ const User = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUserTickets())
-    hasUserData ? dispatch(fetchOtherUserProjects(user.user.data.user._id)) : setTimeout(() => {
-      dispatch(fetchOtherUserProjects(user.user.data.user._id))
-    }, 2000);
-    hasUserData ? dispatch(fetchOtherUserTickets(user.user.data.user._id)) : setTimeout(() => {
-      dispatch(fetchOtherUserTickets(user.user.data.user._id))
-    }, 2000);
+    let token = localStorage.getItem('token');
+    const decodedToken = jwt_decode(token);
+    dispatch(fetchOtherUserProjects(decodedToken.sub))
+    dispatch(fetchOtherUserTickets(decodedToken.sub))
   }, []);
 
   return (

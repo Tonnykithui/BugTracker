@@ -37,21 +37,21 @@ const Draggable = ({ info }) => {
     >
       <div className='wrappper'>
         <div className="bg-red-200 p-1 rounded-sm w-20 text-black font-semibold">
-          <p>{info.priority}</p>
+          <p>{info?.priority}</p>
         </div>
         <div className="header">
-          <h2>{info.title}</h2>
+          <h2>{info?.title}</h2>
           <BsThreeDotsVertical />
         </div>
         <div className="text-left">
-          <p>{info.description}</p>
+          <p>{info?.description}</p>
         </div>
         <div className="finer-details">
-          <div className='text-left pt-2 font-semibold text-black'>
+          {/* <div className='text-left pt-2 font-semibold text-black'>
             Due Date: {info.dueDate.slice(0, 10)}
-          </div>
+          </div> */}
           <div className='text-left flex flex-row'>
-            <h3 className='font-semibold text-black'>Created By:</h3>{info.ticketOwner.firstname} {info.ticketOwner.lastname}
+            <h3 className='font-semibold text-black'>Created By:</h3>{info?.ticketOwner.firstname} {info?.ticketOwner.lastname}
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Role } from '../models/item.types';
 import { User, userDto } from '../models/user.entity';
 import { ProjectService } from 'src/project/services/project.service';
@@ -17,8 +17,10 @@ export class UserService {
     return await this.userModel.create(data);
   }
 
-  async findAll() {
-    return await this.userModel.find()
+  async findAll(userId) {
+    let newUserId = new Types.ObjectId(userId.userId)
+    console.log(newUserId);
+    return await this.userModel.find({ _id: { $ne: newUserId } })
       .sort({ "firstname": 1 })
       .collation({ locale: "en_US", numericOrdering: true });
   }

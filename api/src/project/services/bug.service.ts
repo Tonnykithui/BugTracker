@@ -24,6 +24,7 @@ export class BugService {
     createBugDto.ticketOwner = userId.userId;
     createBugDto.lastUpdatedBy = userId.userId;
     const tickets = await this.bugModel.find({ projectId: createBugDto.projectId });
+    console.log("All tickets",tickets);
     tickets.forEach(ticket => {
       if (ticket.title.toLowerCase().trim() === createBugDto.title.toLowerCase().trim()) {
         throw new HttpException('Ticket with the same Title exists', HttpStatus.BAD_REQUEST);

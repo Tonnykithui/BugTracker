@@ -30,8 +30,7 @@ export class ProjectController {
 
   @Get('/usersProjects/:userId')
   async findAllProjectsAssociatedWithUserInParam(@Param() userId){
-    let newUserId = new Types.ObjectId(userId.userId);
-    return new ResponseMessage('Successfully fetched all projects associated with a user', await this.projectService.allProjectsAUserIsInvolved(newUserId));
+    return new ResponseMessage('Successfully fetched all projects associated with a user', await this.projectService.allProjectsAUserIsInvolved(userId));
   }
 
   
