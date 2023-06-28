@@ -13,7 +13,8 @@ const btnStyles = {
 
 const Comment = () => {
 
-  const bugComments = useSelector(state => state.bugSingleReducer.bug.data.comments);
+  const bugComments = useSelector(state => state.bugSingleReducer.bug?.data.comments);
+  const checkComments = useSelector(state => state.bugSingleReducer.bug);
 
   return (
     <div className='comment'>
@@ -23,15 +24,15 @@ const Comment = () => {
       <div className="comment-list">
         <ul>
           {
-            bugComments.length > 0 ? (
+            checkComments ? (
             bugComments.map((comment) => (
               <li className='p-2 rounded-md bg-white m-1'>
                 <div className="comment-details">
-                  <h3>{bugComments.Owner.firstname} {bugComments.Owner.lastname}</h3>
+                  <h3>{comment.Owner.firstname} {comment.Owner.lastname}</h3>
                   <p>
-                    {bugComments.message}
+                    {comment.message}
                   </p>
-                  <h4>{bugComments.submitTime}</h4>
+                  <h4>{comment.submitTime}</h4>
                 </div>
                 <div className="delete-btn">
                 </div>
@@ -45,7 +46,7 @@ const Comment = () => {
           }
         </ul>
       </div>
-      <div className="add-comment bg-blue-500">
+      <div className="add-comment">
         <Input placeholder='Write comment' styles='bg-white rounded-lg p-3 w-4/5 m-1 border-none outline-none' />
         <Button style={btnStyles} children={<AiOutlineSend className='h-10 w-10' />} />
       </div>
@@ -54,20 +55,3 @@ const Comment = () => {
 }
 
 export default Comment
-
-// ([1, 2, 3, 4, 5, 6, 7, 9, 56]).map(num => {
-//   return (
-//     <li className='p-2 rounded-md bg-white m-1'>
-//       <div className="comment-details">
-//         <h3>Tonny Kithui</h3>
-//         <p>
-//           Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-//         </p>
-//         <h4>Tue, 21 2022</h4>
-//       </div>
-//       <div className="delete-btn">
-
-//       </div>
-//     </li>
-//   )
-// })

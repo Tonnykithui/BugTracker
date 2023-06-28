@@ -206,15 +206,18 @@ export class BugService {
 
     let allTicket: bugDto[] = [];
     ticketsAssigned.forEach(async (ticket) => {
-      allTicket.push(await this.bugModel.findById(ticket.ticketId));
+      let ticketForUser: bugDto = await this.bugModel.findById(ticket.ticketId);
+      if(ticketForUser){
+        allTicket.push(ticketForUser);
+      }
     });
 
     let tickets = await this.bugModel.find({});
-    
+    console.log('TICKETS ASSIGNED', allTicket);
     return {
-      allOpen: allTicket.filter((ticket) => ticket.status !== 'OPEN'),
-      allInProgress: allTicket.filter((ticket) => ticket.status !== 'INPROGRESS'),
-      allClosed: allTicket.filter((ticket) => ticket.status !== 'CLOSED')
+      allOpen: ticketsAssigned.length > 0 ? allTicket.filter((ticket) => ticket.status !== 'OPEN') : [],
+      allInProgress: ticketsAssigned.length > 0 ? allTicket.filter((ticket) => ticket.status !== 'INPROGRESS') : [],
+      allClosed: ticketsAssigned.length > 0 ? allTicket.filter((ticket) => ticket.status !== 'CLOSED'): []
     }
   }
 }

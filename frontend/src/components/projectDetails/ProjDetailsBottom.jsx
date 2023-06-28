@@ -26,8 +26,12 @@ const ProjDetailsBottom = ({ tickets }) => {
     function onDropItem(event, str) {
         event.preventDefault();
         var data = event.dataTransfer.getData("text/plain");
+        let newData = {};
         const updatedTickets = ticketAll.map((ticket) => {
             if (ticket._id === data) {
+                console.log('Found Ticket Details', ticket);
+                ticket.status = str;
+                dispatch(updateBug(data, ticket));
                 return {
                     ...ticket,
                     status: str
@@ -35,26 +39,9 @@ const ProjDetailsBottom = ({ tickets }) => {
             }
             return ticket;
         });
-        console.log('UPDATED', updatedTickets)
         setTickets(updatedTickets);
-        updateItem(data, str);
     }
 
-
-    const selectedBug = useSelector(state => state.bugSingleReducer.bug);
-    let newTicket = {};
-
-    if (selectedBug !== null) {
-        newTicket = {
-            ...selectedBug.data.ticket
-        };
-    }
-
-    function updateItem(data, str) {
-        dispatch(fetchSingleBug(data));
-        newTicket.status = str;
-        dispatch(updateBug(data, newTicket));
-    }
 
     const todo = ticketAll.filter(item => item.status === 'OPEN');
     const inprogress = ticketAll.filter(item => item.status === 'INPROGRESS');

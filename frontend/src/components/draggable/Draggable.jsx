@@ -11,9 +11,11 @@ const Draggable = ({ info }) => {
   const dispatch = useDispatch();
 
   const dragStart = (e, info) => {
+    e.dataTransfer.clearData('text/plain');
+    var data = e.dataTransfer.getData("text/plain");
+    console.log('DRAG STARTED VALUE', data);
     e.dataTransfer.setData("text/plain", info._id);
     e.target.style.border = '2px dotted'
-    // e.target.style.opacity = 1;
   }
 
   return (
@@ -33,7 +35,7 @@ const Draggable = ({ info }) => {
           onDragStartSet(!dragStarts)
         }
       }
-      onDoubleClick={() => {dispatch(openBugSuccess()); dispatch(fetchSingleBug(info._id))}}
+      onDoubleClick={() => { dispatch(openBugSuccess()); dispatch(fetchSingleBug(info._id)) }}
     >
       <div className='wrappper'>
         <div className="bg-red-200 p-1 rounded-sm w-20 text-black font-semibold">

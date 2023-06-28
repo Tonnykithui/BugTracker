@@ -22,6 +22,10 @@ export const updateBugError = (error) => {
 };
 
 export const updateBug = (bugId, updatedBugData) => {
+    
+    console.log('UPDATED BUG IN REDUX', updatedBugData);
+    console.log('UPDATING ID', bugId);
+
     return async (dispatch) => {
         dispatch(updateBugRequest());
 
