@@ -1,3 +1,4 @@
+import { CLEAR_RESOURCE } from "../actionTypes/clearBug";
 import { FETCH_SINGLE_BUG_FAILURE, FETCH_SINGLE_BUG_REQUEST, FETCH_SINGLE_BUG_SUCCESS } from "../actionTypes/fetchSingleBug";
 
 const initialState = {
@@ -26,6 +27,12 @@ const bugSingleReducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload,
             };
+
+        case CLEAR_RESOURCE:
+            return {
+                ...initialState
+            }
+            
         default:
             return state;
     }

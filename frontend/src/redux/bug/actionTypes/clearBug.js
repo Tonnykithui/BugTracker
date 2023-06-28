@@ -1,0 +1,1 @@
+export const CLEAR_RESOURCE = 'CLEAR_RESOURCE'

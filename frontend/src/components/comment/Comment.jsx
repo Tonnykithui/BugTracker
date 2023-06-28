@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '../button/Button';
 import Input from '../input/Input';
 import "./comment.css";
 import { AiOutlineSend } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { createComment } from '../../redux';
 
 
 const btnStyles = {
@@ -13,8 +14,14 @@ const btnStyles = {
 
 const Comment = () => {
 
+  const dispatch = useDispatch();
+  const [comment, setComment] = useState();
   const bugComments = useSelector(state => state.bugSingleReducer.bug?.data.comments);
   const checkComments = useSelector(state => state.bugSingleReducer.bug);
+
+  const handleCommentSubmit = () => {
+    dispatch(createComment())
+  }
 
   return (
     <div className='comment'>
@@ -47,8 +54,15 @@ const Comment = () => {
         </ul>
       </div>
       <div className="add-comment">
-        <Input placeholder='Write comment' styles='bg-white rounded-lg p-3 w-4/5 m-1 border-none outline-none' />
-        <Button style={btnStyles} children={<AiOutlineSend className='h-10 w-10' />} />
+        <Input 
+        value={comment}
+        onchange={(e) => setComment(e.target.value)}
+        placeholder='Write comment' 
+        styles='bg-white rounded-lg p-3 w-4/5 m-1 border-none outline-none' />
+        <Button 
+        onClick={handleCommentSubmit}
+        style={btnStyles} 
+        children={<AiOutlineSend className='h-10 w-10' />} />
       </div>
     </div>
   )

@@ -22,9 +22,6 @@ export const updateBugError = (error) => {
 };
 
 export const updateBug = (bugId, updatedBugData) => {
-    
-    console.log('UPDATED BUG IN REDUX', updatedBugData);
-    console.log('UPDATING ID', bugId);
 
     return async (dispatch) => {
         dispatch(updateBugRequest());
@@ -44,13 +41,9 @@ export const updateBug = (bugId, updatedBugData) => {
             if (!response.ok) {
                 throw new Error('Failed to update bug');
             }
-            console.log(updatedBugData);
-            // dispatch(dispatch(fetchSingleProject(updatedBugData.projectId)))
             const updatedBug = await response.json();
 
             dispatch(updateBugSuccess(updatedBug));
-            // 
-            // localStorage.removeItem('token');
         } catch (error) {
             dispatch(updateBugError(error.message));
         }

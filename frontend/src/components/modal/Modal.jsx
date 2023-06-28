@@ -2,7 +2,7 @@ import React from 'react'
 import './modal.css';
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch } from 'react-redux';
-import { closeBugSuccess } from '../../redux';
+import { clearResource, closeBugSuccess } from '../../redux';
 import BugDetails from '../bugDetails/BugDetails';
 import BugForm from '../bug/BugForm';
 import AddUserToProject from '../addUser/AddUserToProject';
@@ -33,7 +33,7 @@ const Modal = ({ child, style }) => {
             }
           </div>
           <div className="close-icon">
-            <AiOutlineClose onClick={() => dispatch(closeBugSuccess())} />
+            <AiOutlineClose onClick={() => {dispatch(closeBugSuccess()); dispatch(clearResource())}} />
           </div>
         </div>
       </div>

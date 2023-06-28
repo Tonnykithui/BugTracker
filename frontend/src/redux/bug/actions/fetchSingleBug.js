@@ -1,4 +1,5 @@
 import { FETCH_SINGLE_BUG_FAILURE, FETCH_SINGLE_BUG_REQUEST, FETCH_SINGLE_BUG_SUCCESS } from "../actionTypes/fetchSingleBug";
+import { CLEAR_RESOURCE } from '../actionTypes/clearBug';
 
 export const fetchSingleBugRequest = () => ({
     type: FETCH_SINGLE_BUG_REQUEST,
@@ -13,6 +14,12 @@ export const fetchSingleBugRequest = () => ({
     type: FETCH_SINGLE_BUG_FAILURE,
     payload: error,
   });
+
+  export const clearResource = () => {
+    return {
+      type: CLEAR_RESOURCE
+    }
+  }
 
   export const fetchSingleBug = (bugId) => {
     return async (dispatch) => {
