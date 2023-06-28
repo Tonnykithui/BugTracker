@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Button from '../button/Button';
 import Input from '../input/Input';
 import './project.css';
-import { closeBugSuccess } from '../../redux';
-import { useDispatch } from 'react-redux';
+import { addNewProjectThunk, closeBugSuccess } from '../../redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const cancelBtn = {
     background: 'red',
@@ -30,15 +30,18 @@ const schema = yup.object().shape({
 });
 
 const Project = () => {
+
+    const users = useSelector(state => state.usersFetchReducer.users.data);
+
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
 
-    const onSubmit = (data) => {
-        console.log(data);
-    };
-
     const dispatch = useDispatch();
+
+    const onSubmit = (data) => {
+        dispatch(addNewProjectThunk(data))
+    };
 
     return (
         <>
@@ -59,7 +62,12 @@ const Project = () => {
                         <div className='w-full p-2'>
                             <label htmlFor='' className='font-semibold text-left'>Assign Devs</label>
                             <select name='' id='' multiple className='form-input'>
-                                <option value=''>Tonny Kithui</option>
+                                {
+                                    users.map((user) => (
+                                        <option value="">{user.firstname} {user.lastname}</option>
+                                    ))
+                                }
+                                {/* <option value=''>Tonny Kithui</option> */}
                             </select>
                         </div>
                         <div className='add-project-btns'>

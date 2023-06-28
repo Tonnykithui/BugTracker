@@ -66,7 +66,7 @@ const ProjDetails = ({ }) => {
                                         assignedUsers={!project.loading ? project.project.data.assignedProjectMembers : {}}
                                     />
                                     <ProjDetailsBottom
-                                        tickets={project.project.data.tickets}
+                                        tickets={!project.loading ? project.project.data.tickets : []}
                                     />
                                 </div>
                             </div>

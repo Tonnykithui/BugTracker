@@ -40,16 +40,22 @@ const ProjDetailsTop = ({ project, assignedUsers }) => {
                         <div className="meambers">
                             <div className="members-title flex flex-row justify-between mb-1">
                                 <h2>Team</h2>
-                                <Button 
-                                style={newMembersStyling} 
-                                onClick={
-                                    () => handleBtnClick()}>+</Button>
+                                <Button
+                                    style={newMembersStyling}
+                                    onClick={
+                                        () => handleBtnClick()}>+</Button>
                             </div>
                             <div className="member-list">
                                 <ul>
-                                    {assignedUsers && assignedUsers.map((user) => (
-                                    <li key={user.id}>{user.firstname?.slice(0, 1)}{user.lastname?.slice(0, 1)}</li>
-                                ))}
+                                    {
+                                        assignedUsers ? 
+                                        assignedUsers.map((user) => (
+                                            <li key={user.id}>{user.firstname?.slice(0, 1)}{user.lastname?.slice(0, 1)}</li>
+                                        )) :
+                                        (
+                                            <p>Loading</p>
+                                        )
+                                    }
                                 </ul>
                             </div>
                         </div>

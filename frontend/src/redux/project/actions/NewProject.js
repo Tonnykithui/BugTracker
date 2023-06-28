@@ -7,7 +7,7 @@ export const addNewProjectReq = () => {
     }
 }
 
-export const addNewProjectSuc = ( data ) => {
+export const addNewProjectSuc = (data) => {
     return {
         type: CREATENEWPROJSUC,
         payload: data
@@ -23,12 +23,20 @@ export const addNewProjectErr = (data) => {
 
 export const addNewProjectThunk = async (data) => {
     return async (dispatch) => {
-        axios.default.post('')
-        .then(data => {
-            dispatch(addNewProjectSuc(data))
-        })
-        .catch(err => {
-            dispatch(addNewProjectErr(err.mess))
-        })
+        const token = localStorage.getItem('token');
+        axios.default.post(
+            'http://localhost:3200/PROJECT',
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            }
+        )
+            .then(data => {
+                dispatch(addNewProjectSuc(data))
+            })
+            .catch(err => {
+                dispatch(addNewProjectErr(err.mess))
+            })
     }
 }

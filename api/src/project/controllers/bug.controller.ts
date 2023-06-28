@@ -28,6 +28,7 @@ export class BugController {
 
   @Get('otherUsers/:userId')
   async findAllTicketsAssignedToOtherUser(@Param() userId) {
+    console.log('TICKET FOR ',userId);
     return new ResponseMessage('Successfully fetched all tickets assigned to logged in user', await this.bugService.findAllTicketsAssignedToUser(userId));
   }
 
