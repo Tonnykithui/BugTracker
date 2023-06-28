@@ -2,6 +2,8 @@ import axios from 'axios';
 import { CREATE_BUG, CREATE_BUG_ERROR, CREATE_BUG_SUCCESS } from '../actionTypes/createBug';
 import { OPEN_BUG_ERR } from '../../modal/actionTypes/ViewBug';
 import { OPEN_BUG_FORM_ERR, OPEN_BUG_FORM_SUC } from '../../modal/actionTypes/CreateBug';
+import { fetchSingleProject } from '../../project/actions/SingleProject';
+import { closeBugSuccess } from '../../modal/actions/closeBug.Actions';
 
 export const createBugReq = () => {
     return {
@@ -23,24 +25,6 @@ export const createBugErr = error => {
     }
 }
 
-// export const openBugForm = () => {
-//     return {
-//         type: OPEN_BUG_ERR
-//     }
-// }
-
-// export const openBugFormSuc = () => {
-//     return {
-//         type: OPEN_BUG_FORM_SUC
-//     }
-// }
-
-
-// export const openBugFormErr = () => {
-//     return {
-//         type: OPEN_BUG_FORM_ERR
-//     }
-// }
 
 export const createBugThunk = (bugData) => {
     return (dispatch) => {
@@ -58,22 +42,11 @@ export const createBugThunk = (bugData) => {
         })
         .then((res) => {
           dispatch(createBugSuc(res.data));
+          dispatch(fetchSingleProject(bugData.projectId))
+          dispatch(closeBugSuccess())
         })
         .catch((err) => {
           dispatch(createBugErr(err.message));
         });
     };
   };
-
-// export const createBugThunk = async (data) => {
-//     return (dispatch) => {
-//         dispatch(createBugReq);
-//         axios.post('http://localhost:3200/bug', data)
-//             .then(res => {
-//                 dispatch(res.data);
-//             })
-//             .catch(err => {
-//                 return err.Message;
-//             })
-//     }
-// }

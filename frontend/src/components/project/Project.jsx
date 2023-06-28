@@ -24,23 +24,30 @@ const addBtn = {
     width: '100%',
 };
 
-const schema = yup.object().shape({
-    name: yup.string(),
-    description: yup.string(),
-});
+// const schema = yup.object().shape({
+//     name: yup.string(),
+//     description: yup.string(),
+// });
 
 const Project = () => {
 
     const users = useSelector(state => state.usersFetchReducer.users.data);
+    const [projectName, setProjectName] = useState('');
+    const [description, setDescription] = useState('');
+    const [selectedOptions, setSelectedOptions] = useState([]);
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema),
-    });
+    const handleOptionChange = (event) => {
+        const selectedValues = Array.from(
+            event.target.selectedOptions,
+            (option) => option.value
+        );
+        setSelectedOptions(selectedValues);
+    };
 
     const dispatch = useDispatch();
 
-    const onSubmit = (data) => {
-        dispatch(addNewProjectThunk(data))
+    const handleSubmit = () => {
+        dispatch(addNewProjectThunk())
     };
 
     return (
@@ -48,26 +55,34 @@ const Project = () => {
             <div className='bg-slate-300 p-2'>
                 <h2 className='add-project'>Add Project</h2>
                 <div className='add-project-wrap'>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit()}>
                         <div className='w-full p-2'>
                             <label htmlFor='name' className='font-semibold block'>Name</label>
-                            <Input styles='form-input' id='name' name='name' ref={register} />
-                            {errors.name && <span>{errors.name.message}</span>}
+                            <Input styles='form-input' id='name' name='name'  
+                            value={projectName} onChange={(e) => setProjectName(e.target.value)}
+                            />
+                            {/* {errors.name && <span>{errors.name.message}</span>} */}
                         </div>
                         <div className='w-full p-2'>
                             <label htmlFor='description' className='font-semibold block'>Description</label>
-                            <textarea name="" id="description" className='description' cols="50" rows="5"></textarea>
-                            {errors.description && <span>{errors.description.message}</span>}
+                            <textarea name="" maxLength='200' id="description" className='description'
+                            value={description} 
+                            onChange={(e) => setDescription(e.target.value)}
+                            cols="50" rows="5"></textarea>
+                            {/* {errors.description && <span>{errors.description.message}</span>} */}
                         </div>
                         <div className='w-full p-2'>
                             <label htmlFor='' className='font-semibold text-left'>Assign Devs</label>
-                            <select name='' id='' multiple className='form-input'>
+                            <select name='' id='' multiple 
+                            value={selectedOptions}
+                            onChange={handleOptionChange}
+                            className='form-input'
+                            >
                                 {
                                     users.map((user) => (
                                         <option value="">{user.firstname} {user.lastname}</option>
                                     ))
                                 }
-                                {/* <option value=''>Tonny Kithui</option> */}
                             </select>
                         </div>
                         <div className='add-project-btns'>
@@ -83,100 +98,3 @@ const Project = () => {
 };
 
 export default Project;
-
-
-
-// import React from 'react'
-// import Button from '../button/Button'
-// import Input from '../input/Input'
-// import './project.css';
-// import { useForm } from "react-hook-form";
-// import * as z from "zod";
-
-// const cancelBtn = {
-//     background: 'red',
-//     padding: '4px',
-//     borderRadius: '8px',
-//     color: 'white',
-//     width: '100%'
-// }
-
-// const addBtn = {
-//     background: 'blue',
-//     padding: '4px',
-//     borderRadius: '8px',
-//     color: 'white',
-//     width: '100%'
-// }
-
-// const inputStyles = {
-//     width: '100%',
-//     borderRadius: '8px'
-// }
-
-// const schema = z.object({
-//     name: z.string(),
-//     description: z.string()
-// });
-
-// const Project = () => {
-
-//     const { register, handleSubmit, errors } = useForm({
-//         resolver: async (data) => {
-//             try {
-//                 await schema.validate(data);
-//                 return {
-//                     values: data,
-//                     errors: {}
-//                 };
-//             } catch (error) {
-//                 return {
-//                     values: {},
-//                     errors: error.formErrors.fieldErrors
-//                 };
-//             }
-//         }
-//     })
-
-//     const onSubmit = (data) => {
-//         console.log(data);
-//     };
-
-//     return (
-//         <>
-//             <div className='bg-slate-300 p-4'>
-//                 <h2 className='text-center font-semibold text-2xl'>Project</h2>
-//                 <div className='p-4 rounded-lg flex justify-center items-center gap-4'>
-//                     <form action="">
-//                         <div className='w-full p-2'>
-//                             <label htmlFor="name" className='font-semibold block'>Name</label>
-//                             {/* <Input styles='form-input' name='name' ref={register}/> */}
-//                             <input type="text" id="name" ref={register} name="name" />
-//                             {errors.name && <span>{errors.name.message}</span>}
-//                         </div>
-//                         <div className='w-full p-2'>
-//                             <label htmlFor="description" className='font-semibold block'>Description</label>
-//                             <Input styles='form-input' id="description" name="description" ref={register}/>
-//                             {errors.description && <span>{errors.description.message}</span>}
-//                         </div>
-//                     </form>
-//                     <div className='flex flex-col'>
-//                         <label htmlFor="" className='font-semibold text-center'>Assign Devs</label>
-//                         <select name="" id="" multiple className='form-input'>
-//                             <option value="">Tonny Kithui</option>
-//                             <option value="">Tonny Kithui</option>
-//                             <option value="">Tonny Kithui</option>
-//                             <option value="">Tonny Kithui</option>
-//                         </select>
-//                     </div>
-//                 </div>
-//                 <div className='flex flex-row'>
-//                     <Button style={cancelBtn}>Cancel</Button>
-//                     <Button style={addBtn} onClick={() => handleSubmit(onSubmit)}>Add</Button>
-//                 </div>
-//             </div>
-//         </>
-//     )
-// }
-
-// export default Project

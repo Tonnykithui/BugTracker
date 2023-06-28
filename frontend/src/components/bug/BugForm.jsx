@@ -26,7 +26,7 @@ const inputStylingSubmit = {
 };
 
 
-const bugType = ['OPEN', 'INPROGRESS', 'COMPLETED']
+const bugType = ['OPEN', 'INPROGRESS', 'CLOSED']
 const priorities = ['LOW', 'MEDIUM', 'HIGH'];
 
 const BugForm = () => {
@@ -39,8 +39,8 @@ const BugForm = () => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [estimateTime, setEstimateTime] = useState('');
     const [type, setType] = useState('');
-    const [status, setStatus] = useState('');
-    const [priority, setPriority] = useState('');
+    const [status, setStatus] = useState();
+    const [priority, setPriority] = useState();
 
     const passedType = useSelector((state) => state.createBugReducer.type);
     const users = useSelector((state) => state.usersFetchReducer.users.data);
@@ -69,7 +69,7 @@ const BugForm = () => {
             status,
             priority,
         };
-
+        console.log(ticket);
         dispatch(createBugThunk(ticket))
     };
 

@@ -3,7 +3,7 @@ import './draggable.css';
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Modal from '../modal/Modal';
 import { useDispatch } from 'react-redux';
-import { openBugSuccess } from '../../redux';
+import { fetchSingleBug, openBugSuccess } from '../../redux';
 
 const Draggable = ({ info }) => {
 
@@ -33,7 +33,7 @@ const Draggable = ({ info }) => {
           onDragStartSet(!dragStarts)
         }
       }
-      onDoubleClick={() => dispatch(openBugSuccess())}
+      onDoubleClick={() => {dispatch(openBugSuccess()); dispatch(fetchSingleBug(info._id))}}
     >
       <div className='wrappper'>
         <div className="bg-red-200 p-1 rounded-sm w-20 text-black font-semibold">
