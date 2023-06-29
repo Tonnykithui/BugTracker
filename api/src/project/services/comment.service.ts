@@ -10,10 +10,18 @@ export class CommentService {
     @InjectModel(Comment.name) private commentModel: Model<Comment>
   ) { }
 
-  async create(createCommentDto: commentDto) {
+  async create(createCommentDto) {
     const date = new Date();
     createCommentDto.submitTime = date;
-    return await this.commentModel.create(createCommentDto);
+    console.log('COMMENT SERVICE',createCommentDto);
+    return await this.commentModel.create(
+      {
+        name: createCommentDto.name,
+        Owner: createCommentDto.Owner,
+        submitTime: createCommentDto.submitTime,
+        ticketId: createCommentDto.ticketId
+      }
+    );
   }
 
   async findAllCommentsForTicket(ticketId) {

@@ -62,7 +62,8 @@ export class BugController {
   @Post('/:bugId/comments')
   async createComment(@Param('bugId') bugId: ObjectId, @Body() createCommentDto: commentDto, @LoggedInUser() userId) {
     createCommentDto.Owner = userId.userId;
-    createCommentDto.ticketId = bugId
+    createCommentDto.ticketId = bugId;
+    console.log('Comment message', createCommentDto);
     return new ResponseMessage("Successfully commented on a ticket", await this.commentService.create(createCommentDto));
   }
 

@@ -9,22 +9,21 @@ export class Comment {
     @Prop({ type: mongoose.SchemaTypes.ObjectId, ref: Bug.name })
     public ticketId: ObjectId;
 
-    @Prop()
-    public message: string;
-
     @Prop({ type: mongoose.SchemaTypes.ObjectId, ref: User.name })
     public Owner: ObjectId;
 
     @Prop()
     public submitTime: Date;
 
+    @Prop()
+    public name: string;
 }
 
 export const commentSchema = SchemaFactory.createForClass(Comment);
 
 export class commentDto {
     @ApiProperty()
-    public message: string;
+    public name: string;
 
     public Owner: ObjectId;
 

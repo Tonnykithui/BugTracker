@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Input = ({ placeholder, styles, ref, value, onchange,...rest }) => {
+const Input = ({ placeholder, styles, ref, value,...rest }) => {
   return (
     <input type="text" {...rest} id="" maxLength='50' 
     placeholder={placeholder} 

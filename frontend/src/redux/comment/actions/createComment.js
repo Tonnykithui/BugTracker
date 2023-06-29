@@ -20,18 +20,19 @@ export const createCommentError = (error) => {
     };
 };
 
-export const createComment = (bugId, comment) => {
+export const createComment = (bugId, name) => {
     return async (dispatch) => {
         dispatch(createCommentRequest());
-
+        const token = localStorage.getItem('token');
         try {
             // Perform the create comment request here
             const response = await fetch(`http://localhost:3200/bug/${bugId}/comments`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
                 },
-                body: JSON.stringify({ comment }),
+                body: JSON.stringify({ name }),
             });
 
             if (!response.ok) {
