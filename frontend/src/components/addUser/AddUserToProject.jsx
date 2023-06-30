@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Button from '../button/Button';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUserToProject } from '../../redux/user/actions/AddUserToProject';
 
 
 const addUserBtnStyling = {
@@ -15,13 +16,24 @@ const addUserBtnStyling = {
 const AddUserToProject = () => {
 
     const [selectedOptions, setSelectedOptions] = useState([]);
+    const dispatch = useDispatch();
+    // const projectId = useSelector(state => state.)
 
     const handleOptionChange = (event) => {
         const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
         setSelectedOptions(selectedValues);
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log('LOGGING SELECTED OPTIONS',selectedOptions)
+        for (let i = 0; i < selectedOptions.length; i++) {
+            dispatch(addUserToProject(selectedOptions[i], ))
+        }
+    }
+
     const users = useSelector(state => state.fetchUsersInProject.users);
+    const allUsers = useSelector(state => state.usersFetchReducer.users.data);
 
     return (
         <div className='bg-slate-200 p-5 rounded-lg flex flex-row gap-10'>
@@ -47,14 +59,16 @@ const AddUserToProject = () => {
                     <form action="">
                         <div className="">
                             <label htmlFor="" className='text-black font-semibold'>Users</label>
-                            <select name="" id="" multiple value={selectedOptions} onChange={handleOptionChange} 
-                            className='border-none outline-none p-2 rounded-lg w-full h-full mt-2'>
-                                <option value="234562">Tonny Muli</option>
-                                <option value='123434'>kithui Junior</option>
-                                <option value="876543">Muli Kununga</option>
+                            <select name="" id="" multiple value={selectedOptions} onChange={handleOptionChange}
+                                className='border-none outline-none p-2 rounded-lg w-full h-full mt-2'>
+                                    {
+                                        allUsers.map((user) => (
+                                            <option value={user._id}>{user.firstname} {user.lastname}</option>
+                                        ))
+                                    }
                             </select>
                         </div>
-                        <Button style={addUserBtnStyling}>+</Button>
+                        <Button style={addUserBtnStyling} onClick={(e) => handleSubmit(e)}>+</Button>
                     </form>
                 </div>
             </div>

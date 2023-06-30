@@ -1,4 +1,5 @@
 import { UPDATE_PROJ_ERR, UPDATE_PROJ_REQ, UPDATE_PROJ_SUC } from "../actionType/UpdateProject";
+import { fetchSingleProject } from "./SingleProject";
 
 export const updateProjectRequest = () => {
     return {
@@ -39,6 +40,7 @@ export const updateProject = (projectId, updatedData) => {
 
             const projectData = await response.json();
 
+            dispatch(fetchSingleProject(projectId))
             dispatch(updateProjectSuccess(projectData));
         } catch (error) {
             dispatch(updateProjectError(error.message));

@@ -24,10 +24,8 @@ const Comment = () => {
   let handleCommentSubmit;
   if (bugId !== null) {
     handleCommentSubmit = () => {
-      // let comments = {
-      //   comment
-      // }
-      console.log('This is the comment',name)
+      console.log('This is the comment', name)
+      setName('')
       dispatch(createComment(bugId, name));
       dispatch(fetchSingleBug(bugId))
     }

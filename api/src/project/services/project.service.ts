@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model, ObjectId, Types } from 'mongoose';
 import { HelpersService } from 'src/customs/helpers.service';
 import { User } from 'src/user/models/user.entity';
 import { UserService } from 'src/user/services/user.service';
@@ -149,6 +149,30 @@ export class ProjectService implements OnModuleInit {
     return projectsInvolved;
   }
 
+  async addUserToExistingProject(projectId: ObjectId, userId: ObjectId){
+    //Find the project
+    const project = await this.projectModel.findOne(projectId);
+    //Find the user
+    const user = await this.userService.findOne(userId);
+    //If both are present then check user already assigned to same project and assign if else
+    if(project && user){
+      const userInProjectAlready = await this.projectMembers.findOne({
+        memberId: userId,
+        projectId: projectId
+      });
+
+      if(userInProjectAlready){
+        throw new HttpException('User alrready exists in the project', HttpStatus.BAD_REQUEST);
+      } else {
+        return await this.projectMembers.create({
+          memberId: userId,
+          projectId: projectId
+        })
+      }
+    } else {
+      throw new HttpException('Either the user or the project does not exists', HttpStatus.BAD_REQUEST);
+    }
+  }
   // async projectSummaryReport(){
   //   let allProjects = await this.projectModel.find();
 

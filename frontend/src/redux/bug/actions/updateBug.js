@@ -42,7 +42,7 @@ export const updateBug = (bugId, updatedBugData) => {
                 throw new Error('Failed to update bug');
             }
             const updatedBug = await response.json();
-
+            dispatch(fetchSingleProject(updatedBugData.projectId))
             dispatch(updateBugSuccess(updatedBug));
         } catch (error) {
             dispatch(updateBugError(error.message));
