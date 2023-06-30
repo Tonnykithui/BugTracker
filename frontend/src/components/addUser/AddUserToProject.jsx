@@ -17,7 +17,7 @@ const AddUserToProject = () => {
 
     const [selectedOptions, setSelectedOptions] = useState([]);
     const dispatch = useDispatch();
-    // const projectId = useSelector(state => state.)
+    const projectId = useSelector(state => state.projectSingleReducer.project.data.project._id)
 
     const handleOptionChange = (event) => {
         const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
@@ -25,10 +25,9 @@ const AddUserToProject = () => {
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log('LOGGING SELECTED OPTIONS',selectedOptions)
+        e.preventDefault();
         for (let i = 0; i < selectedOptions.length; i++) {
-            dispatch(addUserToProject(selectedOptions[i], ))
+            dispatch(addUserToProject(selectedOptions[i], projectId))
         }
     }
 

@@ -46,8 +46,14 @@ const Project = () => {
 
     const dispatch = useDispatch();
 
-    const handleSubmit = () => {
-        dispatch(addNewProjectThunk())
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        let project ={
+            name:projectName,
+            description,
+            selectedOptions
+        };
+        dispatch(addNewProjectThunk(project))
     };
 
     return (
@@ -55,7 +61,7 @@ const Project = () => {
             <div className='bg-slate-300 p-2'>
                 <h2 className='add-project'>Add Project</h2>
                 <div className='add-project-wrap'>
-                    <form onSubmit={handleSubmit()}>
+                    <form>
                         <div className='w-full p-2'>
                             <label htmlFor='name' className='font-semibold block'>Name</label>
                             <Input styles='form-input' id='name' name='name'  
@@ -80,13 +86,13 @@ const Project = () => {
                             >
                                 {
                                     users.map((user) => (
-                                        <option value="">{user.firstname} {user.lastname}</option>
+                                        <option value={user._id}>{user.firstname} {user.lastname}</option>
                                     ))
                                 }
                             </select>
                         </div>
                         <div className='add-project-btns'>
-                            <Button children='Submit' style={addBtn} />
+                            <Button children='Submit' style={addBtn} onClick={(e) => handleSubmit(e)} />
                             <Button children='Cancel' style={cancelBtn} onClick={() => dispatch(closeBugSuccess())}/>
                         </div>
                     </form>

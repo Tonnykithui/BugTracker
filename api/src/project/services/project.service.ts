@@ -26,6 +26,7 @@ export class ProjectService implements OnModuleInit {
   //USE BINARY SEARCH TO SPEED UP
   async create(data: projectDto, userId) {
     //check project with same name does not exist
+    console.log('=================PROJECT SERVICE=================',data)
     data.createdBy = userId.userId;
     data.creationDate = new Date();
     const projects = await this.projectModel.find();
@@ -149,24 +150,27 @@ export class ProjectService implements OnModuleInit {
     return projectsInvolved;
   }
 
-  async addUserToExistingProject(projectId: ObjectId, userId: ObjectId){
+  async addUserToExistingProject(projectId, userId){
     //Find the project
-    const project = await this.projectModel.findOne(projectId);
+    const newProjectId = new Types.ObjectId(projectId);
+    const newUserId = new Types.ObjectId(userId);
+
+    const project = await this.projectModel.findOne(newProjectId);
     //Find the user
-    const user = await this.userService.findOne(userId);
+    const user = await this.userService.findOne(newUserId);
     //If both are present then check user already assigned to same project and assign if else
     if(project && user){
       const userInProjectAlready = await this.projectMembers.findOne({
-        memberId: userId,
-        projectId: projectId
+        memberId: newUserId,
+        projectId: newProjectId
       });
 
       if(userInProjectAlready){
         throw new HttpException('User alrready exists in the project', HttpStatus.BAD_REQUEST);
       } else {
         return await this.projectMembers.create({
-          memberId: userId,
-          projectId: projectId
+          memberId: newUserId,
+          projectId: newProjectId
         })
       }
     } else {

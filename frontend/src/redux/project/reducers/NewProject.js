@@ -1,23 +1,37 @@
-import { CREATENEWPROJERR } from "../actionType/NewProject";
+import { CREATE_PROJECT_FAILURE, CREATE_PROJECT_REQUEST, CREATE_PROJECT_SUCCESS } from "../actionType/NewProject";
 
-const initState = {
+const initialState = {
+    project: null,
     loading: false,
-    data: [],
-    err: ''
-}
+    error: null,
+};
 
-const addNewProjectReducer = ( state = initState, action ) => {
+const addNewProjectReducer = (state = initialState, action) => {
     switch (action.type) {
-        case CREATENEWPROJERR:
+        case CREATE_PROJECT_REQUEST:
             return {
                 ...state,
-                loading: true
-            }
-            break;
-    
+                loading: true,
+                error: null,
+            };
+        case CREATE_PROJECT_SUCCESS:
+            return {
+                ...state,
+                project: action.payload,
+                loading: false,
+                error: null,
+            };
+        case CREATE_PROJECT_FAILURE:
+            return {
+                ...state,
+                project: null,
+                loading: false,
+                error: action.payload,
+            };
         default:
             return state;
     }
-}
+};
+
 
 export default addNewProjectReducer

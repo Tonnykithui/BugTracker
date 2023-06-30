@@ -1,6 +1,6 @@
 /* grid-rows-6 */
 .comment {
-    @apply relative flex flex-col gap-2 h-full;
+    @apply relative flex flex-col gap-2 h-full w-96;
 }
 
 .comment ul {
@@ -21,4 +21,8 @@
 
 .add-comment {
     @apply absolute bottom-0 flex flex-row justify-between w-full;
+}
+
+.comment-details {
+    @apply w-80;
 }

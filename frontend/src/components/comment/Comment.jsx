@@ -19,7 +19,6 @@ const Comment = () => {
   const bugComments = useSelector(state => state.bugSingleReducer.bug?.data.comments);
   const checkComments = useSelector(state => state.bugSingleReducer.bug);
   const bugId = useSelector(state => state.bugSingleReducer.bug?.data.ticket._id);
-  console.log('THIS IS THE BUG ID', bugId);
 
   let handleCommentSubmit;
   if (bugId !== null) {
@@ -42,7 +41,7 @@ const Comment = () => {
             checkComments ? (
               bugComments.map((comment) => (
                 <li className='p-2 rounded-md bg-white m-1'>
-                  <div className="comment-details">
+                  <div>
                     <h3>{comment.Owner.firstname} {comment.Owner.lastname}</h3>
                     <p>
                       {comment.name}

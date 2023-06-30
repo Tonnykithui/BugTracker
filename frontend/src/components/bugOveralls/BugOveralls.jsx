@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 const BugOveralls = () => {
     const checkDetailsFetched = useSelector(state => state.bugSingleReducer.bug);
     const project = useSelector(state => state.projectSingleReducer.project.data.project.name);
-    
+    const assignee = useSelector(state => state.bugSingleReducer.bug?.data.assignedUsers);
     // Check if the data is not yet fetched
     const bugDetails = useSelector(state => state.bugSingleReducer.bug?.data.ticket);
     if (!checkDetailsFetched) {
@@ -39,15 +39,13 @@ const BugOveralls = () => {
                         <h2>Assignee</h2>
                         <p className='flex flex-row'>
                             {
-                                [1, 2, 3].map((item) => {
-                                    return (
-                                        <li key={item}>Tonny Kithui</li>
-                                    )
-                                })
+                               assignee.map((user) => (
+                                <p>{user.memberId.firstname} {user.memberId.lastname}</p>
+                               ))
                             }
                         </p>
                     </li>
-                    <li>
+                    {/* <li>
                         <h2>
                             Report date
                         </h2>
@@ -55,7 +53,7 @@ const BugOveralls = () => {
                     </li>
                     <li>
                         <h2>Label</h2>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
             <div className='mt-3'>
@@ -69,81 +67,3 @@ const BugOveralls = () => {
 }
 
 export default BugOveralls;
-
-// import React from 'react';
-// import { AiFillEdit, AiOutlineEllipsis } from "react-icons/ai";
-// import './bugOveralls.css';
-// import { useSelector } from 'react-redux';
-
-// const BugOveralls = () => {
-
-//     const checkDetailsFetched = useSelector(state => state.bugSingleReducer.bug.data);
-//     const project = useSelector(state => state.projectSingleReducer.project.data.project.name);
-//     const bugDetails = useSelector(state => state.bugSingleReducer.bug.data.ticket);
-
-//     return (
-//         <>
-//         {
-//             checkDetailsFetched ? (
-//                 <div>
-//                 <div className=''>
-//                     <h2 className='text-slate-500 font-semibold'>{project}</h2>
-//                 </div>
-//                 <div className='flex w-full justify-between h-full items-center mb-2'>
-//                     <h1 className='text-black text-xl font-semibold'>{bugDetails?.title}</h1>
-//                     <div className="flex flex-row gap-1">
-//                         <div className="border-blue-500 border-2 p-2">
-//                             <AiFillEdit />
-//                         </div>
-//                         <div className="border-blue-500 border-2 p-2">
-//                             <AiOutlineEllipsis />
-//                         </div>
-//                     </div>
-//                 </div>
-//                 <div className="statuses">
-//                     <ul className=''>
-//                         <li>
-//                             <h2>Status</h2> <p>{bugDetails?.status}</p>
-//                         </li>
-//                         <li >
-//                             <h2>Assignee</h2>
-//                             <p className='flex flex-row'>
-//                                 {
-//                                     [1, 2, 3].map((item) => {
-//                                         return (
-//                                             <li>Tonny Kithui</li>
-//                                         )
-//                                     })
-//                                 }
-//                             </p>
-//                         </li>
-//                         <li>
-//                             <h2>
-//                                 Report date
-//                             </h2>
-//                             <p>Feb 22,2022</p>
-//                         </li>
-//                         <li>
-//                             <h2>Label</h2>
-//                         </li>
-//                     </ul>
-//                 </div>
-//                 <div className='mt-3'>
-//                     <h2 className='text-xl font-semibold'>Todo</h2>
-//                     <p className="todo-contents">
-//                         {bugDetails?.description}
-//                     </p>
-//                 </div>
-//             </div>
-//             ) : (
-//                 <>
-//                 <p>Loading</p>
-//                 </>
-//             )
-//         }
-            
-//         </>
-//     )
-// }
-
-// export default BugOveralls

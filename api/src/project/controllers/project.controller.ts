@@ -14,6 +14,7 @@ export class ProjectController {
 
   @Post()
   async create(@Body() createProjectDto: projectDto, @LoggedInUser() userId: ObjectId) {
+    console.log('=============POST PROJECT CONTROLLER============', createProjectDto);
     createProjectDto.createdBy = userId;
     return new ResponseMessage('Successfully created a project', await this.projectService.create(createProjectDto, userId));
   }
@@ -54,6 +55,8 @@ export class ProjectController {
 
   @Post('/:projectId/user/:userId')
   async addUserToExistingProject(@Param('projectId') projectId, @Param('userId') userId){
+    console.log('PROJECT ID', projectId);
+    console.log('USER ID', userId);
     return await this.projectService.addUserToExistingProject(projectId, userId);
   }
 
