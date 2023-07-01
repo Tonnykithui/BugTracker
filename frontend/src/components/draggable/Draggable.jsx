@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import './draggable.css';
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Modal from '../modal/Modal';
-import { useDispatch } from 'react-redux';
-import { fetchSingleBug, openBugSuccess } from '../../redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSingleBug, openBugDeleteModal, openBugSuccess } from '../../redux';
 
 const Draggable = ({ info }) => {
 
   const [dragStarts, onDragStartSet] = useState(false);
+  const [showItems, setShowItems] = useState(false);
+
   const dispatch = useDispatch();
 
   const dragStart = (e, info) => {
@@ -17,6 +19,12 @@ const Draggable = ({ info }) => {
     e.dataTransfer.setData("text/plain", info._id);
     e.target.style.border = '2px dotted'
   }
+
+  setTimeout(() => {
+    if (showItems) {
+      setShowItems(false)
+    }
+  }, 4000);
 
   return (
 
@@ -41,9 +49,27 @@ const Draggable = ({ info }) => {
         <div className="bg-red-200 p-1 rounded-sm w-20 text-black font-semibold">
           <p>{info?.priority}</p>
         </div>
-        <div className="header">
+        <div className="header relative">
           <h2>{info?.title}</h2>
-          <BsThreeDotsVertical />
+          {/* onMouseLeave={setShowItems(false)} */}
+          <BsThreeDotsVertical onMouseOver={() => setShowItems(!showItems)} />
+          {
+            showItems &&
+            <div className='flex flex-col absolute right-0 text-sm gap-1'>
+              <button
+                className='bg-blue-500 rounded-lg p-1 text-white'
+              // onClick={() => }
+              >
+                Edit
+              </button>
+              <button
+                className='bg-red-500 rounded-lg p-1 text-white'
+                onClick={() => dispatch(openBugDeleteModal('confirmDelete', info._id))}
+              >
+                Delete
+              </button>
+            </div>
+          }
         </div>
         <div className="text-left">
           <p>{info?.description}</p>
@@ -57,6 +83,7 @@ const Draggable = ({ info }) => {
           </div>
         </div>
       </div>
+
     </div>
   )
 }

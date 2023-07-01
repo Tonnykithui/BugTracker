@@ -24,7 +24,7 @@ export class BugService {
     createBugDto.ticketOwner = userId.userId;
     createBugDto.lastUpdatedBy = userId.userId;
     const tickets = await this.bugModel.find({ projectId: createBugDto.projectId });
-    console.log("All tickets",tickets);
+    console.log("All tickets", tickets);
     tickets.forEach(ticket => {
       if (ticket.title.toLowerCase().trim() === createBugDto.title.toLowerCase().trim()) {
         throw new HttpException('Ticket with the same Title exists', HttpStatus.BAD_REQUEST);
@@ -94,7 +94,7 @@ export class BugService {
       //   }
       // }
 
-      let ticketId = { _id : id }
+      let ticketId = { _id: id }
       delete updateBugDto._id;
       // const update = { $unset: { _id: id }, $set: { ...updateBugDto } };
       // console.log(update);
@@ -122,10 +122,19 @@ export class BugService {
 
   async remove(id, userId) {
     const ticket = await this.bugModel.findById(id);
-    if (ticket.ticketOwner !== userId) {
-      throw new HttpException('User not allowed to delete this ticket', HttpStatus.BAD_REQUEST);
+
+    console.log('COMPARISON', ticket.ticketOwner.toString() === userId.userId);
+    if (ticket) {
+      if (ticket.ticketOwner.toString() !== userId.userId) {
+        throw new HttpException('User not allowed to delete this ticket', HttpStatus.BAD_REQUEST);
+      } else {
+        const ticketMembers = await this.ticketMembersModel.deleteMany({
+          ticketId: id
+        });
+        return await this.bugModel.findByIdAndDelete(id);
+      }
     } else {
-      return await this.bugModel.findByIdAndDelete(id);
+      throw new HttpException('Ticket does not exists', HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -134,7 +143,7 @@ export class BugService {
       .populate('ticketOwner', { firstname: 1, lastname: 1 });
   }
 
-  async countCompletedBugsForProject(projectId){
+  async countCompletedBugsForProject(projectId) {
     return await this.bugModel.count({
       projectId: projectId,
       status: 'CLOSED'
@@ -165,7 +174,7 @@ export class BugService {
     }
   }
 
-  async findTaskForAUser(userId){
+  async findTaskForAUser(userId) {
     let allRelatedBugsToUser = await this.ticketMembersModel.find({
       memberId: userId.userId
     });
@@ -176,10 +185,10 @@ export class BugService {
       allUndoneBugs.push(await this.bugModel.find({ _id: bug.ticketId, status: 'OPEN' }));
     });
 
-    return allUndoneBugs.slice(0,9);
+    return allUndoneBugs.slice(0, 9);
   }
 
-  async findUserBugRelation(userId){
+  async findUserBugRelation(userId) {
     let allTicketsAssigned = await this.ticketMembersModel.find({
       memberId: userId
     });
@@ -201,13 +210,13 @@ export class BugService {
     }
   }
 
-  async findUsersOpenClosedNInprogressTickets(userId){
-    let ticketsAssigned = await this.ticketMembersModel.find({memberId: userId});
+  async findUsersOpenClosedNInprogressTickets(userId) {
+    let ticketsAssigned = await this.ticketMembersModel.find({ memberId: userId });
 
     let allTicket: bugDto[] = [];
     ticketsAssigned.forEach(async (ticket) => {
       let ticketForUser: bugDto = await this.bugModel.findById(ticket.ticketId);
-      if(ticketForUser){
+      if (ticketForUser) {
         allTicket.push(ticketForUser);
       }
     });
@@ -217,7 +226,7 @@ export class BugService {
     return {
       allOpen: ticketsAssigned.length > 0 ? allTicket.filter((ticket) => ticket.status !== 'OPEN') : [],
       allInProgress: ticketsAssigned.length > 0 ? allTicket.filter((ticket) => ticket.status !== 'INPROGRESS') : [],
-      allClosed: ticketsAssigned.length > 0 ? allTicket.filter((ticket) => ticket.status !== 'CLOSED'): []
+      allClosed: ticketsAssigned.length > 0 ? allTicket.filter((ticket) => ticket.status !== 'CLOSED') : []
     }
   }
 }

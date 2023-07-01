@@ -1,3 +1,4 @@
+import { closeBugDeleteModal } from "../../modal/actions/confirmDelete";
 import { DELETE_BUG_ERR, DELETE_BUG_REQ, DELETE_BUG_SUC } from "../actionTypes/deleteBug";
 
 export const deleteBugRequest = () => {
@@ -22,11 +23,17 @@ export const deleteBugRequest = () => {
   export const deleteBug = (bugId) => {
     return async (dispatch) => {
       dispatch(deleteBugRequest());
-  
+
+      const token = localStorage.getItem('token');
+
       try {
         // Perform the delete request here
         const response = await fetch(`http://localhost:3200/bug/${bugId}`, {
           method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
         });
   
         if (!response.ok) {
@@ -34,6 +41,7 @@ export const deleteBugRequest = () => {
         }
   
         dispatch(deleteBugSuccess());
+        dispatch(closeBugDeleteModal())
       } catch (error) {
         dispatch(deleteBugError(error.message));
       }

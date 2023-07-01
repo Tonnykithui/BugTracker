@@ -3,6 +3,7 @@ export * from './modal/actions/closeBug.Actions'
 export * from './modal/actions/createBug'
 export * from './modal/actions/addUser.Action'
 export * from './modal/actions/addProject.Action'
+export * from './modal/actions/confirmDelete'
 
 export * from './user/actions/Login'
 export * from './user/actions/CreateUser'

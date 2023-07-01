@@ -26,3 +26,7 @@
 .comment-details {
     @apply w-80;
 }
+
+.ownerNdelete {
+    @apply flex flex-row justify-between h-full items-center hover:cursor-pointer;
+}

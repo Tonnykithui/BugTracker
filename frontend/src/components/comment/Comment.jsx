@@ -5,7 +5,7 @@ import "./comment.css";
 import { AiOutlineSend } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { createComment, fetchSingleBug } from '../../redux';
-
+import jwt_decode from 'jwt-decode';
 
 const btnStyles = {
   borderRadius: '5px',
@@ -19,6 +19,11 @@ const Comment = () => {
   const bugComments = useSelector(state => state.bugSingleReducer.bug?.data.comments);
   const checkComments = useSelector(state => state.bugSingleReducer.bug);
   const bugId = useSelector(state => state.bugSingleReducer.bug?.data.ticket._id);
+
+  let token = localStorage.getItem('token');
+  let decodedDetails = jwt_decode(token);
+
+  console.log('TOKEN DETAILS',decodedDetails);
 
   let handleCommentSubmit;
   if (bugId !== null) {
@@ -42,11 +47,18 @@ const Comment = () => {
               bugComments.map((comment) => (
                 <li className='p-2 rounded-md bg-white m-1'>
                   <div>
-                    <h3>{comment.Owner.firstname} {comment.Owner.lastname}</h3>
+                    <div className="ownerNdelete">
+                      <h3>{comment.Owner.firstname} {comment.Owner.lastname}</h3>
+                      {
+                        decodedDetails.sub === comment.Owner._id ? 
+                        <span className='text-red-600 font-semibold text-lg'>X</span> :
+                        ''
+                      }
+                    </div>
                     <p>
                       {comment.name}
                     </p>
-                    <h4>{comment.submitTime}</h4>
+                    <h4>{comment.submitTime.slice(0,10)}</h4>
                   </div>
                   <div className="delete-btn">
                   </div>

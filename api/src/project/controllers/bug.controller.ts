@@ -55,6 +55,7 @@ export class BugController {
 
   @Delete(':id')
   async remove(@Param('id') id: string, @LoggedInUser() userId: ObjectId) {
+    console.log('DELETE TICKET CONTROLLER')
     return new ResponseMessage('Successfully deleted a ticket', await this.bugService.remove(id, userId));
   }
 

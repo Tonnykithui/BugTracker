@@ -30,6 +30,7 @@ import userTicketsReducer from './bug/reducers/userBugs';
 import userProjectsReducer from './project/reducers/SingleUserProjects';
 import OtherUserProjectsReducer from './project/reducers/OtherUserProjects';
 import OtherUserTicketsReducer from './bug/reducers/otherUserBug';
+import confirmBugDeleteReducer from './modal/reducers/confirmDelete';
 
 const combinedReducers = combineReducers({
     bugOpenModalReducer: bugOpenModalReducer,
@@ -57,7 +58,8 @@ const combinedReducers = combineReducers({
     userTicketsReducer: userTicketsReducer,
     userProjectsReducer: userProjectsReducer,
     OtherUserProjectsReducer: OtherUserProjectsReducer,
-    OtherUserTicketsReducer: OtherUserTicketsReducer
+    OtherUserTicketsReducer: OtherUserTicketsReducer,
+    confirmBugDeleteReducer: confirmBugDeleteReducer
 })
 
 const persistConfig = {

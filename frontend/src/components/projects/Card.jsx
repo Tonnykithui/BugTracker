@@ -13,25 +13,30 @@ const Card = ({ project }) => {
   }
 
   return (
-    <Link to={`/project/${project._id}`}  onClick={handleClick}>
-    <div className='project-card' >
+    <Link to={`/project/${project._id}`} onClick={handleClick}>
+      <div className='project-card' >
         <div className='project-head'><h1>{project.name}</h1></div>
-        <div>
+        <div className='h-28 overflow-y-scroll'>
           <p>{project.description}</p>
         </div>
-        <div className='project-timeline'>
-           <BsClockHistory />
-           <p>{project.creationDate.slice(0,10)}</p>
-        </div>
-        <div className='project-details'>
-            <div className='project-team'>
-                <h1 className='team-heading'>Created By: </h1>
-                <div className='team'>
-                   <div>{project.createdBy.firstname} {project.createdBy.lastname}</div>
-                </div>
+        <div className="proj-details-bottom">
+          <div className='font-semibold'>
+            <p>Project Start</p>
+            <div className='project-timeline'>
+              <BsClockHistory />
+              <p>{project.creationDate.slice(0, 10)}</p>
             </div>
+          </div>
+          <div className='project-details'>
+            <div className='project-team'>
+              <h1 className='team-heading'>Created By: </h1>
+              <div className='team'>
+                <div>{project.createdBy.firstname} {project.createdBy.lastname}</div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
     </Link>
   )
 }

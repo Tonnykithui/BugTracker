@@ -32,12 +32,16 @@ const ProjDetails = ({ }) => {
     const viewBug = useSelector(state => state.bugOpenModalReducer.open);
     const addBug = useSelector(state => state.createBugReducer.open);
     const addNewUser = useSelector(state => state.addUserToProjReducer.open);
+    const bugDelete = useSelector(state => state.confirmBugDeleteReducer.modalOpen);
+
     let childToDisplay = '';
 
     if (viewBug) {
         childToDisplay = 'openBug'
     } else if (addBug) {
         childToDisplay = 'createBug'
+    } else if(bugDelete){
+        childToDisplay = 'confirmDelete'
     } else {
         childToDisplay = 'addNewUserToProj'
     }
@@ -55,7 +59,7 @@ const ProjDetails = ({ }) => {
                 )
             }
             {
-                viewBug || addBug || addNewUser ?
+                viewBug || addBug || addNewUser || bugDelete?
                     (
                         <>
                             <div className='ProjDetails-wrapper'>

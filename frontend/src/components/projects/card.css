@@ -3,7 +3,7 @@
 }
 
 .project-timeline{
-    @apply flex flex-row items-center gap-2 mt-3 mb-3;
+    @apply flex flex-row items-center gap-2 mb-3;
 }
 
 .team{
@@ -20,4 +20,12 @@
 
 .project-details{
     @apply flex flex-row gap-3;
+}
+
+.project-card {
+    @apply h-60 p-2 relative;
+}
+
+.proj-details-bottom {
+    @apply flex flex-row justify-between mt-2 items-center;
 }
