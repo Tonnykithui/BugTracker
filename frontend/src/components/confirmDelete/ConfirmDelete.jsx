@@ -3,12 +3,16 @@ import Button from '../button/Button'
 import { useDispatch, useSelector } from 'react-redux';
 import { closeBugDeleteModal } from '../../redux/modal/actions/confirmDelete';
 import { deleteBug } from '../../redux/bug/actions/deleteBug';
+import { deleteProject } from '../../redux';
 
-const ConfirmDelete = () => {
+const ConfirmDelete = ({ message }) => {
   
-  const toDelete = 'hello'
+  const toDelete = message
   const dispatch = useDispatch();
   const bugToDeleteId = useSelector(state => state.confirmBugDeleteReducer.bug);
+  const bugProjectId = useSelector(state => state.projectSingleReducer.project.data.project._id);
+
+  const projectToDeleteId = useSelector(state => state.confirmBugDeleteReducer.bug);
 
   return (
     <div className='bg-white p-5'>
@@ -34,7 +38,11 @@ const ConfirmDelete = () => {
           borderRadius: '8px',
           width:'100%'
         }}
-        onClick={() => dispatch(deleteBug(bugToDeleteId))}
+        onClick={
+          () => message ===  'confirmDeleteBug' ? 
+          dispatch(deleteBug(bugToDeleteId, bugProjectId)) : 
+          dispatch(deleteProject(projectToDeleteId)) 
+        }
         >
           Confirm
         </Button>

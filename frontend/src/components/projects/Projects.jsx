@@ -8,8 +8,17 @@ import Sidebar from '../sidebar/Sidebar';
 
 const Projects = () => {
   const newProject = useSelector(state => state.addNewProjectModalReducer.open);
-  const childToDisplay = 'addNewProjectModal'
+  const displayConfirmDelProj = useSelector(state => state.confirmBugDeleteReducer.modalOpen);
+  const childToDispFromConfirmModal = useSelector(state => state.confirmBugDeleteReducer.child);
 
+  const childToDisplay1 = 'addNewProjectModal'
+  const childToDisplay2 = 'confirmDeleteProject'
+  let childToDisplay = '';
+  if(childToDispFromConfirmModal == childToDisplay2){
+    childToDisplay = childToDisplay2
+  } else {
+    childToDisplay = childToDisplay1
+  }
   // const isAuthenticated = useSelector(state => state.authReducer.isAuthenticated);
 
   return (
@@ -17,7 +26,7 @@ const Projects = () => {
       <div className="project-page">
         <Sidebar />
         {
-          newProject ?
+          newProject || displayConfirmDelProj?
             (
               <>
                 <ProjectList />

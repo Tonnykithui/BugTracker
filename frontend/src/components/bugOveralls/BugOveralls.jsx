@@ -6,14 +6,14 @@ import { useSelector } from 'react-redux';
 const BugOveralls = () => {
     const checkDetailsFetched = useSelector(state => state.bugSingleReducer.bug);
     const project = useSelector(state => state.projectSingleReducer.project.data.project.name);
-    const assignee = useSelector(state => state.bugSingleReducer.bug?.data.assignedUsers);
+    const assignee = useSelector(state => state.projectSingleReducer.project?.data.assignedProjectMembers);
     // Check if the data is not yet fetched
     const bugDetails = useSelector(state => state.bugSingleReducer.bug?.data.ticket);
     if (!checkDetailsFetched) {
         return <p>Loading...</p>;
     }
-    
-    
+
+
     return (
         <div>
             <div className=''>
@@ -37,11 +37,16 @@ const BugOveralls = () => {
                     </li>
                     <li >
                         <h2>Assignee</h2>
-                        <p className='flex flex-row'>
+                        <p className='flex gap-1'>
                             {
-                               assignee.map((user) => (
-                                <p>{user.memberId.firstname} {user.memberId.lastname}</p>
-                               ))
+                                assignee.map((user) => (
+                                    <>
+                                        <div className='flex flex-col bg-white rounded-lg p-2'>
+                                            <p>{user.firstname}</p>
+                                            <p>{user.lastname}</p>
+                                        </div>
+                                    </>
+                                ))
                             }
                         </p>
                     </li>

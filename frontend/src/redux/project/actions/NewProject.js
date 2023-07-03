@@ -1,5 +1,7 @@
+import { closeBugSuccess } from '../../modal/actions/closeBug.Actions';
 import { CREATE_PROJECT_FAILURE, CREATE_PROJECT_REQUEST, CREATE_PROJECT_SUCCESS } from '../actionType/NewProject';
 import * as axios from 'axios';
+
 
 export const createProjectRequest = () => ({
     type: CREATE_PROJECT_REQUEST,
@@ -31,6 +33,7 @@ export const addNewProjectThunk = (data) => {
         )
             .then(data => {
                 dispatch(createProjectSuccess(data))
+                dispatch(closeBugSuccess())
             })
             .catch(err => {
                 dispatch(createProjectFailure(err.mess))

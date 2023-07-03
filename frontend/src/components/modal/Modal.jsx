@@ -21,7 +21,9 @@ const Modal = ({ child, style }) => {
   } else if (child == 'addNewUserToProj') {
     childToDisplay = <AddUserToProject />
   } else if (child == 'confirmDelete') {
-    childToDisplay = <ConfirmDelete />
+    childToDisplay = <ConfirmDelete message='confirmDeleteBug'/>
+  } else if(child == 'confirmDeleteProject'){
+    childToDisplay = <ConfirmDelete message='confirmDeleteProject' />
   }
   else {
     childToDisplay = <Project />

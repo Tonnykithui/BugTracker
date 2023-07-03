@@ -1,21 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './card.css';
 import { BsClockHistory } from "react-icons/bs";
 import { Link } from 'react-router-dom';
-import { fetchSingleProject } from '../../redux';
+import { fetchSingleProject, openBugDeleteModal } from '../../redux';
 import { useDispatch } from 'react-redux';
+import { BsThreeDotsVertical } from "react-icons/bs";
+import Button from '../button/Button';
 
 
 const Card = ({ project }) => {
+
+  const [showHiddenOptions, setShowHiddenOptions] = useState(false);
+
   const dispatch = useDispatch()
   const handleClick = () => {
     dispatch(fetchSingleProject(project._id))
   }
 
+  setTimeout(() => {
+    setShowHiddenOptions(false);
+  }, 5000);
+
   return (
-    <Link to={`/project/${project._id}`} onClick={handleClick}>
-      <div className='project-card' >
-        <div className='project-head'><h1>{project.name}</h1></div>
+
+    <div className='project-card' >
+      <div className='project-head flex flex-row justify-between relative'>
+        <h1>{project.name}</h1>
+        <BsThreeDotsVertical onMouseOver={() => setShowHiddenOptions(true)} />
+        {
+          showHiddenOptions &&
+          <div className='flex flex-row text-sm gap-1 absolute right-0'>
+            <Button
+              children='Edit'
+              style={{ background: 'blue', padding: '2px', borderRadius: '8px', color: 'white' }}
+            // onClick={}
+            />
+            <Button
+              children='Delete'
+              style={{ background: 'red', padding: '2px', borderRadius: '8px', color: 'white' }}
+              onClick={(event) => { ; event.stopPropagation(); dispatch(openBugDeleteModal('confirmDeleteProject', `${project._id}`)) }}
+            />
+          </div>
+        }
+      </div>
+      <Link to={`/project/${project._id}`} onClick={handleClick}>
         <div className='h-28 overflow-y-scroll'>
           <p>{project.description}</p>
         </div>
@@ -36,8 +64,9 @@ const Card = ({ project }) => {
             </div>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div >
+
   )
 }
 
