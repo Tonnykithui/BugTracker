@@ -46,7 +46,7 @@ const ProjectList = () => {
             }
           </div>
           <div className='text-white rounded-lg font-semibold absolute top-2 right-2 p-2'>
-            <Button style={buttonStyles} onClick={() => dispatch(createNewProjectModalSuc())}>NEW PROJECT</Button>
+            <Button style={buttonStyles} onClick={() => dispatch(createNewProjectModalSuc('addNewProjectModal'))}>NEW PROJECT</Button>
           </div>
         </div>
       </div >

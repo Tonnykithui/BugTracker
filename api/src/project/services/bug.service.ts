@@ -9,6 +9,7 @@ import { TicketMembers } from '../models/ticketMembers.entity';
 import { CommentService } from './comment.service';
 import { ProjectService } from './project.service';
 import { Types } from 'mongoose';
+import { Project } from '../models/project.entity';
 
 
 @Injectable()
@@ -17,7 +18,8 @@ export class BugService {
     @InjectModel(Bug.name) private bugModel: Model<Bug>,
     @InjectModel(TicketMembers.name) private ticketMembersModel: Model<TicketMembers>,
     @InjectModel(ProjectMembers.name) private projectMembersModel: Model<ProjectMembers>,
-    private commentService: CommentService,
+    @InjectModel(Project.name) private projectModel: Model<Project>,
+    private commentService: CommentService
   ) { }
 
   async create(createBugDto: bugDto, userId) {
@@ -151,15 +153,21 @@ export class BugService {
   }
 
   async deleteAllTicketsForProject(projectId) {
-    const allTicketsForProject = await this.findAllTicketsForProject(projectId);
-    try {
-      allTicketsForProject.forEach(async ticket => {
-        await this.commentService.deleteCommentsForTicket(ticket.id);
-      })
-    } catch (error) {
-      throw new HttpException('Error on deleting comments', HttpStatus.BAD_REQUEST);
+    //check there is a project wih this Id
+    let newProjectId = new Types.ObjectId(projectId);
+    if (await this.projectModel.findOne(newProjectId)) {
+      const allTicketsForProject = await this.findAllTicketsForProject(newProjectId);
+      try {
+        allTicketsForProject.forEach(async ticket => {
+          await this.commentService.deleteCommentsForTicket(ticket.id);
+        })
+      } catch (error) {
+        throw new HttpException('Error on deleting comments', HttpStatus.BAD_REQUEST);
+      }
+    } else {
+      throw new HttpException('No project with given id exists', HttpStatus.BAD_REQUEST);
     }
-    return await this.bugModel.deleteMany({ projectId: projectId });
+    return await this.bugModel.deleteMany({ projectId: newProjectId });
   }
 
   async findTicketById(ticketId) {

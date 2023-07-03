@@ -1,4 +1,4 @@
-import { FETCH_PROJECT_FAILURE, FETCH_PROJECT_REQUEST, FETCH_PROJECT_SUCCESS } from "../actionType/SingleProject";
+import { CLEAR_SINGLE_PROJECT, FETCH_PROJECT_FAILURE, FETCH_PROJECT_REQUEST, FETCH_PROJECT_SUCCESS } from "../actionType/SingleProject";
 
 const initialState = {
   loading: false,
@@ -28,6 +28,12 @@ const projectSingleReducer = (state = initialState, action) => {
         project: null,
         error: action.payload
       };
+
+    case CLEAR_SINGLE_PROJECT:
+      return {
+        ...initialState
+      }
+
     default:
       return state;
   }

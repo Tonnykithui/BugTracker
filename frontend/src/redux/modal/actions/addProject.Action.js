@@ -6,9 +6,10 @@ export const createNewProjectModalReq = () => {
     }
 }
 
-export const createNewProjectModalSuc = () => {
+export const createNewProjectModalSuc = (data) => {
     return {
-        type: CREATENEWPROJECTMODALSUC
+        type: CREATENEWPROJECTMODALSUC,
+        payload: data
     }
 }
 

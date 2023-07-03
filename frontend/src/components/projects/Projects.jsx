@@ -10,13 +10,17 @@ const Projects = () => {
   const newProject = useSelector(state => state.addNewProjectModalReducer.open);
   const displayConfirmDelProj = useSelector(state => state.confirmBugDeleteReducer.modalOpen);
   const childToDispFromConfirmModal = useSelector(state => state.confirmBugDeleteReducer.child);
+  const editProjectChild = useSelector(state => state.addNewProjectModalReducer.child);
 
   const childToDisplay1 = 'addNewProjectModal'
   const childToDisplay2 = 'confirmDeleteProject'
   let childToDisplay = '';
   if(childToDispFromConfirmModal == childToDisplay2){
     childToDisplay = childToDisplay2
-  } else {
+  } else if(editProjectChild == 'editProjectModal'){
+    childToDisplay = 'editProjectModal'
+  } 
+  else {
     childToDisplay = childToDisplay1
   }
   // const isAuthenticated = useSelector(state => state.authReducer.isAuthenticated);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './card.css';
 import { BsClockHistory } from "react-icons/bs";
 import { Link } from 'react-router-dom';
-import { fetchSingleProject, openBugDeleteModal } from '../../redux';
+import { createNewProjectModalSuc, fetchSingleProject, openBugDeleteModal } from '../../redux';
 import { useDispatch } from 'react-redux';
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Button from '../button/Button';
@@ -33,12 +33,16 @@ const Card = ({ project }) => {
             <Button
               children='Edit'
               style={{ background: 'blue', padding: '2px', borderRadius: '8px', color: 'white' }}
-            // onClick={}
+              onClick={
+                () => {
+                  dispatch(fetchSingleProject(project._id));
+                  dispatch(createNewProjectModalSuc('editProjectModal'))
+                }}
             />
             <Button
               children='Delete'
               style={{ background: 'red', padding: '2px', borderRadius: '8px', color: 'white' }}
-              onClick={(event) => { ; event.stopPropagation(); dispatch(openBugDeleteModal('confirmDeleteProject', `${project._id}`)) }}
+              onClick={(event) => { event.stopPropagation(); dispatch(openBugDeleteModal('confirmDeleteProject', `${project._id}`)) }}
             />
           </div>
         }

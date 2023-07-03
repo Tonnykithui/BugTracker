@@ -66,11 +66,11 @@ const ProjDetails = ({ }) => {
                                 <Sidebar />
                                 <div className="ProjectDetails">
                                     <ProjDetailsTop
-                                        project={!project.loading ? project.project.data.project : []}
-                                        assignedUsers={!project.loading ? project.project.data.assignedProjectMembers : []}
+                                        project={!project.loading ? project.project.data.project : [] }
+                                        assignedUsers={!project.loading ? project.project.data.assignedProjectMembers : [] }
                                     />
                                     <ProjDetailsBottom
-                                        tickets={!project.loading ? project.project.data.tickets : []}
+                                        tickets={!project.loading ? project.project.data.tickets : [] }
                                     />
                                 </div>
                             </div>
@@ -84,7 +84,7 @@ const ProjDetails = ({ }) => {
                                 <Sidebar />
                                 <div className="ProjectDetails">
                                     <ProjDetailsTop
-                                        project={!project.loading ? project.project.data.project : {}}
+                                        project={!project.loading ? project.project.data.project : []}
                                         assignedUsers={!project.loading ? project.project.data.assignedProjectMembers : []}
                                     />
                                     <ProjDetailsBottom

@@ -10,7 +10,7 @@ const ConfirmDelete = ({ message }) => {
   const toDelete = message
   const dispatch = useDispatch();
   const bugToDeleteId = useSelector(state => state.confirmBugDeleteReducer.bug);
-  const bugProjectId = useSelector(state => state.projectSingleReducer.project.data.project._id);
+  const bugProjectId = useSelector(state => state.projectSingleReducer.project?.data.project._id);
 
   const projectToDeleteId = useSelector(state => state.confirmBugDeleteReducer.bug);
 

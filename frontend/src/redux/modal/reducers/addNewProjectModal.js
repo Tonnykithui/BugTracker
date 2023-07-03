@@ -19,7 +19,7 @@ export const addNewProjectModalReducer = (state = initState, action) => {
             return {
                 ...state,
                 loading: false,
-                child: 'addNewProjectModal',
+                child: action.payload,
                 open: true
             }
             
