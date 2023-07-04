@@ -44,7 +44,7 @@ const Modal = ({ child, style }) => {
                 () => {
                   dispatch(closeBugSuccess());
                   dispatch(clearResource());
-                  dispatch(clearResourceSingleProject())
+                  // dispatch(clearResourceSingleProject())
                 }} />
           </div>
         </div>

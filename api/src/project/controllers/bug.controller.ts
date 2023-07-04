@@ -18,6 +18,7 @@ export class BugController {
 
   @Post()
   async create(@Body() createBugDto: bugDto, @LoggedInUser() userId: ObjectId) {
+    console.log('BUG POST CONTROLLER', createBugDto);
     return new ResponseMessage('Successfully created a Ticket', await this.bugService.create(createBugDto, userId));
   }
 

@@ -63,7 +63,7 @@ const BugForm = () => {
             projectId: id,
             title,
             description,
-            selectedOptions,
+            assignedUsers:selectedOptions,
             estimateTime,
             type,
             status,

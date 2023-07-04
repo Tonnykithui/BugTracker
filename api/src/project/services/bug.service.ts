@@ -34,16 +34,37 @@ export class BugService {
     })
 
     const ticket = await this.bugModel.create(createBugDto);
-    await this.ticketMembersModel.create({ memberId: userId.userId, projectId: createBugDto.projectId, ticketId: ticket._id });
-
+    // await this.ticketMembersModel.create({ memberId: userId.userId, projectId: createBugDto.projectId, ticketId: ticket._id });
+    console.log('ASSIGNED USERS FROM BODY IN SERVICE',createBugDto.assignedUsers)
     if (createBugDto.assignedUsers?.length > 0) {
-      createBugDto.assignedUsers?.forEach(async (user) => {
-        if (await (await this.projectMembersModel.find({ memberId: user, projectId: createBugDto.projectId })).length > 0) {
-          await this.ticketMembersModel.create({ memberId: user, projectId: createBugDto.projectId, ticketId: ticket._id });
-        } else {
-          throw new HttpException('User assigned to ticket is not in the base Project', HttpStatus.BAD_REQUEST);
-        }
-      });
+      for (let i = 0; i < createBugDto.assignedUsers.length; i++) {
+        const element = createBugDto.assignedUsers[i];
+        let newUserId = new Types.ObjectId(element.toString());
+        if(await this.projectMembersModel.findOne({
+          memberId: newUserId,
+          projectId: createBugDto.projectId
+        })){
+          const ticketMember = await this.ticketMembersModel.create({
+            memberId: newUserId,
+            projectId: createBugDto.projectId,
+            ticketId: ticket._id
+          });
+          console.log('TICKET MEMBER CREATED',ticketMember)
+        } 
+        // else {
+
+        // }
+      }
+      // createBugDto.assignedUsers?.forEach(async (user) => {
+      //   let newUserId = new Types.ObjectId(user.toString());
+      //   console.log(newUserId)
+      //   if ((await this.projectMembersModel.find({ memberId: newUserId, projectId: createBugDto.projectId })).length == 0) {
+      //     await this.ticketMembersModel.create({ memberId: newUserId, projectId: createBugDto.projectId, ticketId: ticket._id });
+      //   } 
+      //   // else {
+      //   //   throw new HttpException('User assigned to ticket is not in the base Project', HttpStatus.BAD_REQUEST);
+      //   // }
+      // });
     }
 
     return ticket;
