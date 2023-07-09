@@ -3,7 +3,8 @@ import { REGISTER_USER_ERR, REGISTER_USER_REQ, REGISTER_USER_SUC } from "../acti
 const initState = {
     loading: false,
     user: null,
-    error: '',
+    error: null,
+    status: null
 };
 
 const userCreateReducer = (state = initState, action) => {
@@ -12,20 +13,20 @@ const userCreateReducer = (state = initState, action) => {
             return {
                 ...state,
                 loading: true,
-                error: '',
+                status: 200
             };
         case REGISTER_USER_SUC:
             return {
                 ...state,
                 loading: false,
                 user: action.payload,
-                error: '',
             };
         case REGISTER_USER_ERR:
             return {
                 ...state,
                 loading: false,
-                error: action.payload,
+                error: action.payload1,
+                status: action.payload2
             };
         default:
             return state;

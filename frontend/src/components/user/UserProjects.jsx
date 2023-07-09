@@ -5,11 +5,11 @@ import { fetchOtherUserProjects } from '../../redux';
 
 const UserProjects = () => {
   const projects = useSelector(state => state.OtherUserProjectsReducer.projects.data);
-  const isEmpty = projects.length === 0;
-
+  const isEmpty = projects.length;
+  console.log('IS EMPTY',isEmpty)
   return (
     <div className='grid grid-cols-2 gap-2 bg-slate-100 p-2 h-full overflow-auto'>
-      {isEmpty ? (
+      {isEmpty == 0 ? (
         <div className='flex justify-center items-center'>
           <h1>No projects</h1>
         </div>

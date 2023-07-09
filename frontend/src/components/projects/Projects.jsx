@@ -23,8 +23,7 @@ const Projects = () => {
   else {
     childToDisplay = childToDisplay1
   }
-  // const isAuthenticated = useSelector(state => state.authReducer.isAuthenticated);
-
+  
   return (
     <>
       <div className="project-page">

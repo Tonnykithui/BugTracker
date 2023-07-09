@@ -60,8 +60,9 @@ export class ProjectController {
     return await this.projectService.addUserToExistingProject(projectId, userId);
   }
 
-  @Patch(':id')
+  @Post(':id')
   async update(@Param('id') id: ObjectId, @Body() updateProjectDto: projectDto) {
+    console.log('UPDATING PROJECT DETAILS', updateProjectDto);
     return new ResponseMessage('Successfully updated a project', await this.projectService.update(id, updateProjectDto));
   }
 

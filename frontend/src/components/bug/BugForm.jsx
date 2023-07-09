@@ -3,7 +3,7 @@ import Button from '../button/Button';
 import Input from '../input/Input';
 import './bugForm.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { createBugThunk } from '../../redux';
+import { createBugThunk, updateBug } from '../../redux';
 import { useParams } from 'react-router-dom';
 const inputStylingCancel = {
     border: 'none',
@@ -44,6 +44,9 @@ const BugForm = () => {
 
     const passedType = useSelector((state) => state.createBugReducer.type);
     const users = useSelector((state) => state.usersFetchReducer.users.data);
+    const isEditText = useSelector((state) => state.createBugReducer.type);
+    const isEdit = (isEditText == 'EDITTICKET') ? true: false;
+    const bugToEdit = useSelector(state => state.bugSingleReducer.bug?.data.ticket);
 
     useEffect(() => {
         setType(passedType);
@@ -73,15 +76,37 @@ const BugForm = () => {
         dispatch(createBugThunk(ticket))
     };
 
+    const editSubmit = (event) => {
+        event.preventDefault();
+        console.log('STATUS', status)
+        let ticket = {
+            projectId: id,
+            title : title == '' ? bugToEdit.title : title,
+            description : description == '' ? bugToEdit.description : description,
+            assignedUsers:selectedOptions,
+            estimateTime : estimateTime == "" ? bugToEdit.estimateTime : estimateTime,
+            type : type == '' ? bugToEdit.type : type,
+            status : status == '' ? bugToEdit.status : status,
+            priority : priority == '' ? bugToEdit.priority : priority,
+        };
+        
+        let bugId = bugToEdit._id;
+        console.log('EDITED TICKET',ticket)
+        console.log('EDITED TICKET ID', bugId);
+        if(bugId != null){
+            dispatch(updateBug(bugId,ticket))
+        }
+    };
+
     return (
         <div className='bg-slate-300 p-2'>
-            <h2 className='text-center font-semibold text-2xl'>Create Bug</h2>
+            <h2 className='text-center font-semibold text-2xl'>{isEdit ? 'Edit' : 'Create Bug'}</h2>
             <div className='m-2'>
                 <label htmlFor='' className='block font-semibold'>
                     Title
                 </label>
                 <Input
-                    placeholder='Enter bug title...'
+                    placeholder= {isEdit ? bugToEdit?.title : 'Enter bug title...'}
                     styles='form-input'
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
@@ -96,6 +121,7 @@ const BugForm = () => {
                     rows='3'
                     className='form-input'
                     value={description}
+                    placeholder= { isEdit ? bugToEdit?.description : 'Enter bug description'}
                     onChange={(e) => setBugDescription(e.target.value)}
                 ></textarea>
             </div>
@@ -119,7 +145,7 @@ const BugForm = () => {
                     <div className='status'>
                         <label htmlFor=''>Estimate Time(Hours)</label>
                         <Input
-                            placeholder='Enter description'
+                            placeholder= { isEdit ? bugToEdit?.estimateTime :'Enter description'}
                             styles='form-input'
                             value={estimateTime}
                             onChange={(e) => setEstimateTime(e.target.value)}
@@ -176,8 +202,13 @@ const BugForm = () => {
             </div>
             <div className='buttons'>
                 <Button style={inputStylingCancel}>Cancel</Button>
-                <Button style={inputStylingSubmit} onClick={(e) => handleSubmit(e)}>
-                    Add Ticket
+                <Button 
+                style={inputStylingSubmit} 
+                onClick={(e) => 
+                    isEdit ? editSubmit(e) : handleSubmit(e)
+                }
+                >
+                    { isEdit ? "Edit Ticket" : "Add Ticket"}
                 </Button>
             </div>
         </div>

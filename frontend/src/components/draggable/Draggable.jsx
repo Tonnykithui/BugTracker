@@ -3,7 +3,7 @@ import './draggable.css';
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Modal from '../modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSingleBug, openBugDeleteModal, openBugSuccess } from '../../redux';
+import { fetchSingleBug, openBugDeleteModal, openBugFormSuc, openBugSuccess } from '../../redux';
 
 const Draggable = ({ info }) => {
 
@@ -58,7 +58,7 @@ const Draggable = ({ info }) => {
             <div className='flex flex-col absolute right-0 text-sm gap-1'>
               <button
                 className='bg-blue-500 rounded-lg p-1 text-white'
-              // onClick={() => }
+              onClick={() => { dispatch(openBugFormSuc('EDITTICKET')); dispatch(fetchSingleBug(info._id))}}
               >
                 Edit
               </button>

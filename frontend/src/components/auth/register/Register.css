@@ -3,7 +3,7 @@
 }
 
 .register-screens {
-    @apply bg-white p-10;
+    @apply bg-white p-2;
 }
 
 .register-message {
@@ -13,6 +13,10 @@
 .register-input {
     @apply p-2;
 } 
+
+.register-input p {
+    @apply text-red-600;
+}
 
 .register-input input {
     @apply h-10 rounded-lg bg-slate-200 p-4 w-80 outline-none;

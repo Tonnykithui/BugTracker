@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import Button from '../button/Button';
 import Input from '../input/Input';
 import './project.css';
-import { addNewProjectThunk, clearResourceSingleProject, closeBugSuccess } from '../../redux';
+import { addNewProjectThunk, clearResourceSingleProject, closeBugSuccess, updateProject } from '../../redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoX } from "react-icons/go";
 
@@ -32,22 +32,13 @@ const addBtn = {
 // });
 
 const Project = ({ isEdit }) => {
-    // const [loading, setLoading] = useState(true)
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setLoading(false);
-    //     }, 2000);
-    // }, [])
 
     const users = useSelector(state => state.usersFetchReducer.users.data);
     const project = useSelector(state => state.projectSingleReducer.project?.data.project);
     const projectAssignedMembers = useSelector(state => state.projectSingleReducer.project?.data.assignedProjectMembers)
-    const [projectName, setProjectName] = useState(isEdit ? project?.name : '');
-    const [description, setDescription] = useState(isEdit ? project?.description : '');
-    const [selectedOptions, setSelectedOptions] = useState(isEdit ?
-        projectAssignedMembers?.map((item) => item._id)
-        : []);
+    const [projectName, setProjectName] = useState('');
+    const [description, setDescription] = useState('');
+    const [selectedOptions, setSelectedOptions] = useState([]);
 
     const handleOptionChange = (event) => {
         const selectedValues = Array.from(
@@ -62,20 +53,27 @@ const Project = ({ isEdit }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let project = {
-            name: projectName,
-            description,
-            selectedOptions
-        };
-
-        console.log('EDITED PROJECT DETAILS', project)
-        console.log(selectedOptions)
-        // dispatch(addNewProjectThunk(project))
+        if (!isEdit) {
+            if (projectName.trim() == '' || description.trim() == '') {
+                alert('Please fill in all the details for the project')
+            } else {
+                let newProject = {
+                    name: projectName,
+                    description,
+                    selectedOptions
+                };
+                dispatch(addNewProjectThunk(newProject))
+            }
+        } else {
+            let newProject = {
+                name: projectName !== '' ? projectName : project.name,
+                description: description !== '' ? description : project.description,
+                selectedOptions
+            }
+            dispatch(updateProject(project._id, newProject))
+        }
     };
 
-    // if (loading) {
-    //     return <div>loading</div>
-    // }
     return (
         <>
 
@@ -103,6 +101,7 @@ const Project = ({ isEdit }) => {
                         <div className='w-full p-2'>
                             <label htmlFor='name' className='font-semibold block'>Name</label>
                             <Input styles='form-input' id='name' name='name'
+                                placeholder={isEdit ? project?.name : 'Please provide project name'}
                                 value={projectName} onChange={(e) => setProjectName(e.target.value)}
                             />
                             {/* {errors.name && <span>{errors.name.message}</span>} */}
@@ -112,7 +111,10 @@ const Project = ({ isEdit }) => {
                             <textarea name="" maxLength='200' id="description" className='description'
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
-                                cols="50" rows="5"></textarea>
+                                cols="50" rows="5"
+                                placeholder={isEdit ? project?.description : 'Please provide project description'}
+                            >
+                            </textarea>
                             {/* {errors.description && <span>{errors.description.message}</span>} */}
                         </div>
                         <div className='w-full p-2'>

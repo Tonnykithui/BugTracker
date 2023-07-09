@@ -1,3 +1,4 @@
+import { closeBugSuccess } from "../../modal/actions/closeBug.Actions";
 import { fetchSingleProject } from "../../project/actions/SingleProject";
 import { UPDATE_BUG_ERR, UPDATE_BUG_REQ, UPDATE_BUG_SUC } from "../actionTypes/updateBug";
 
@@ -44,6 +45,7 @@ export const updateBug = (bugId, updatedBugData) => {
             const updatedBug = await response.json();
             dispatch(fetchSingleProject(updatedBugData.projectId))
             dispatch(updateBugSuccess(updatedBug));
+            dispatch(closeBugSuccess())
         } catch (error) {
             dispatch(updateBugError(error.message));
         }

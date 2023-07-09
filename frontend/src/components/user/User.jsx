@@ -35,8 +35,9 @@ const User = () => {
       <Sidebar />
       <div className="w-full h-5/6 mt-20 flex flex-row gap-2 p-2">
         <div className="absolute inset-0 bg-blue-500 h-40 z-0 "></div>
+        {/* && user.user.data.usersProjects.length */}
         {
-          hasUserData && user.user.data.usersProjects && user.user.data.usersProjects.length ? (
+          hasUserData && user.user.data.usersProjects ? (
             <>
               <div className="bg-white p-4 w-2/5 z-10">
                 <UserProfile />

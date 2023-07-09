@@ -25,6 +25,6 @@ export class LoginController {
 
     @Post('register')
     async register(@Body() data: userDto, @LoggedInUser() userId){
-        return new ResponseMessage('Successfully register the user', await this.authService.registerUser(data));
+        return new ResponseMessage('Successfully register the user', await this.authService.registerUser(data), 200);
     }
 }

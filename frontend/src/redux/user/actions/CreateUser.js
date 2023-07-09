@@ -1,4 +1,5 @@
 import { REGISTER_USER_ERR, REGISTER_USER_REQ, REGISTER_USER_SUC } from "../actionType/CreateUser";
+import { ToastContainer, toast } from 'react-toastify'
 
 export const registerUserRequest = () => {
     return {
@@ -13,18 +14,19 @@ export const registerUserSuccess = (user) => {
     };
 };
 
-export const registerUserError = (error) => {
+export const registerUserError = (error1, error2) => {
+    console.log('DISPATCHING ERROR', error1, error2)
     return {
         type: REGISTER_USER_ERR,
-        payload: error,
+        payload1: error1,
+        payload2: error2
     };
 };
+
 
 export const createUser = (userData) => {
     return async (dispatch) => {
         dispatch(registerUserRequest());
-
-        try {
             // Perform the create user request here
             const response = await fetch('http://localhost:3200/auth/register', {
                 method: 'POST',
@@ -32,17 +34,28 @@ export const createUser = (userData) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(userData),
-            });
-
+            })
+            .then((resp) => {
+                dispatch(registerUserSuccess(resp));
+                toast('Successfully registered as a new User')
+                return resp.json()
+                // console.log(resp.json())
+            })
+            // .catch((err) => {
+            //     console.log(err);
+            //     dispatch(registerUserError(err.message, response.status));
+            //     // throw err.message
+            // });
+            console.log('RESPONSE',response);
             if (!response.ok) {
-                throw new Error('Failed to create user');
+                toast(response.message);
+                dispatch(registerUserError(response.message, response.statusCode));
             }
 
-            const newUser = await response.json();
+            // if(response.error == 200){
+            //     toast(response.message)
+            // }
 
-            dispatch(registerUserSuccess(newUser));
-        } catch (error) {
-            dispatch(registerUserError(error.message));
-        }
+            // const newUser = await response.json(); 
     };
 };

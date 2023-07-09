@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../button/Button';
 import './projDetails.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +21,11 @@ const newMembersStyling = {
 };
 
 const ProjDetailsTop = ({ project, assignedUsers }) => {
+
+    const [showUser, setShowUser] = useState(false);
+    const [userDetails, setUserDetails] = useState();
+    // const userFromUserDetails = assignedUsers.find((user) => user.id == userDetails);
+    
     const dispatch = useDispatch();
     const { id } = useParams();
 
@@ -28,6 +33,7 @@ const ProjDetailsTop = ({ project, assignedUsers }) => {
         dispatch(fetchUsersInProject(id))
         dispatch(addNewUserToProjSuc())
     }
+
     return (
         <>
             <div>
@@ -38,7 +44,7 @@ const ProjDetailsTop = ({ project, assignedUsers }) => {
                             <p>{project.name}</p>
                         </div>
                         <div className="meambers">
-                            <div className="members-title flex flex-row justify-between mb-1">
+                            <div className="members-title flex flex-row justify-between mb-1 w-full items-center gap-2">
                                 <h2>Team</h2>
                                 <Button
                                     style={newMembersStyling}
@@ -48,14 +54,24 @@ const ProjDetailsTop = ({ project, assignedUsers }) => {
                             <div className="member-list">
                                 <ul>
                                     {
-                                        assignedUsers ? 
-                                        assignedUsers.map((user) => (
-                                            <li key={user.id}>{user.firstname?.slice(0, 1)}{user.lastname?.slice(0, 1)}</li>
-                                        )) :
-                                        (
-                                            <p>Loading</p>
-                                        )
+                                        assignedUsers ?
+                                            assignedUsers.map((user) => (
+                                                <>
+                                                    <li
+                                                        key={user.id}
+                                                        // onMouseOver={() => {setShowUser(true); setUserDetails(user.id)}}
+                                                        // onMouseLeave={() => {setShowUser(false); setUserDetails()}}
+                                                        className='cursor-pointer'
+                                                    >
+                                                        {user.firstname?.slice(0, 1)}{user.lastname?.slice(0, 1)}
+                                                    </li>
+                                                </>
+                                            )) :
+                                            (
+                                                <p>Loading</p>
+                                            )
                                     }
+
                                 </ul>
                             </div>
                         </div>
