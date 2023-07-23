@@ -50,15 +50,6 @@ const BugOveralls = () => {
                             }
                         </p>
                     </li>
-                    {/* <li>
-                        <h2>
-                            Report date
-                        </h2>
-                        <p>Feb 22,2022</p>
-                    </li>
-                    <li>
-                        <h2>Label</h2>
-                    </li> */}
                 </ul>
             </div>
             <div className='mt-3'>
@@ -72,3 +63,13 @@ const BugOveralls = () => {
 }
 
 export default BugOveralls;
+
+{/* <li>
+                        <h2>
+                            Report date
+                        </h2>
+                        <p>Feb 22,2022</p>
+                    </li>
+                    <li>
+                        <h2>Label</h2>
+                    </li> */}

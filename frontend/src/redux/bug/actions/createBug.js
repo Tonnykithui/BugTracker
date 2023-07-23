@@ -4,6 +4,7 @@ import { OPEN_BUG_ERR } from '../../modal/actionTypes/ViewBug';
 import { OPEN_BUG_FORM_ERR, OPEN_BUG_FORM_SUC } from '../../modal/actionTypes/CreateBug';
 import { fetchSingleProject } from '../../project/actions/SingleProject';
 import { closeBugSuccess } from '../../modal/actions/closeBug.Actions';
+import { toast } from 'react-toastify';
 
 export const createBugReq = () => {
   return {
@@ -27,10 +28,10 @@ export const createBugErr = error => {
 
 
 export const createBugThunk = (bugData) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(createBugReq());
     const token = localStorage.getItem('token');
-    axios
+    let res = await axios
       .post(
         'http://localhost:3200/bug',
         bugData,

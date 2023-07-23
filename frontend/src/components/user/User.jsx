@@ -16,16 +16,7 @@ const User = () => {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   let token = localStorage.getItem('token');
-  //   const decodedToken = jwt_decode(token);
-  //   dispatch(fetchOtherUserProjects(decodedToken.sub))
-  //   dispatch(fetchOtherUserTickets(decodedToken.sub))
-  // }, []);
-
-  // console.log(user.user.data._id)
-  if(hasUserData){
-    console.log(user.user.data.user._id)
+  if (hasUserData) {
     dispatch(fetchOtherUserProjects(user.user.data.user._id))
     dispatch(fetchOtherUserTickets(user.user.data.user._id))
   }
@@ -35,7 +26,6 @@ const User = () => {
       <Sidebar />
       <div className="w-full h-5/6 mt-20 flex flex-row gap-2 p-2">
         <div className="absolute inset-0 bg-blue-500 h-40 z-0 "></div>
-        {/* && user.user.data.usersProjects.length */}
         {
           hasUserData && user.user.data.usersProjects ? (
             <>
@@ -64,7 +54,7 @@ const User = () => {
                   {
                     view == 1 ? (
                       <>
-                        <EditUser />
+                        <EditUser userId={user.user.data.user._id} />
                       </>
                     ) :
                       view === 2 ? (
@@ -93,6 +83,14 @@ export default User;
 
 
 
+  // useEffect(() => {
+  //   let token = localStorage.getItem('token');
+  //   const decodedToken = jwt_decode(token);
+  //   dispatch(fetchOtherUserProjects(decodedToken.sub))
+  //   dispatch(fetchOtherUserTickets(decodedToken.sub))
+  // }, []);
+
+  // console.log(user.user.data._id)
 
 // import React, { useEffect } from 'react';
 // import Sidebar from '../sidebar/Sidebar';

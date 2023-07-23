@@ -26,7 +26,6 @@ export class ProjectService implements OnModuleInit {
   //USE BINARY SEARCH TO SPEED UP
   async create(data: projectDto, userId) {
     //check project with same name does not exist
-    console.log('=================PROJECT SERVICE=================',data)
     data.createdBy = userId.userId;
     data.creationDate = new Date();
     const projects = await this.projectModel.find();
@@ -166,7 +165,7 @@ export class ProjectService implements OnModuleInit {
       });
 
       if(userInProjectAlready){
-        throw new HttpException('User alrready exists in the project', HttpStatus.BAD_REQUEST);
+        throw new HttpException('User already exists in the project', HttpStatus.BAD_REQUEST);
       } else {
         return await this.projectMembers.create({
           memberId: newUserId,

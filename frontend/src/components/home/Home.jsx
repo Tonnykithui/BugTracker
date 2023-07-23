@@ -1,27 +1,31 @@
 import React from 'react'
-import ProjectDetails from '../projects/ProjectDetails';
 import All from '../stats/All';
 import Task from '../task/Task';
 import './home.css';
 import Sidebar from '../sidebar/Sidebar';
 import { useDispatch } from 'react-redux';
-import { fetchProject, fetchUsers } from '../../redux';
+import { fetchPendingTickets, fetchProject, fetchTicketTypes, fetchTicketsByPriority, fetchTicketsByStatus, fetchUserTickets, fetchUsers } from '../../redux';
+import Ongoing from '../ongoing/Ongoing';
 
 const Home = () => {
 
   const dispatch = useDispatch()
   dispatch(fetchUsers());
   dispatch(fetchProject());
-
+  dispatch(fetchUserTickets())
+  dispatch(fetchPendingTickets())
+  dispatch(fetchTicketTypes())
+  dispatch(fetchTicketsByStatus())
+  dispatch(fetchTicketsByPriority())
+  
   return (
     <div className='dashboard-wrapper'>
-      {/* <div className='dashboard'>Dashboard</div> */}
       <div className='Home'>
         <Sidebar />
         <div className="home-contents">
           <All />
-          <ProjectDetails />
           <Task />
+          <Ongoing />
         </div>
       </div>
     </div>

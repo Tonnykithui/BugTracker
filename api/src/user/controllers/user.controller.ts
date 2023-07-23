@@ -37,7 +37,7 @@ export class UserController {
     return new ResponseMessage('Successfully fetched a single user details', await this.userService.findOne(id));
   }
 
-  @Patch(':id')
+  @Post(':id')
   async update(@Param('id') id: ObjectId, @Body() updateUserDto: User) {
     return new ResponseMessage('Successfully updated a single user details', await this.userService.update(id, updateUserDto));
   }

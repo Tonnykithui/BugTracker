@@ -48,6 +48,9 @@ export class Bug {
     @Prop({ type: mongoose.SchemaTypes.ObjectId, ref: User.name })
     lastUpdatedBy: ObjectId;
 
+    @Prop()
+    type: string;
+
 }
 
 export const bugSchema = SchemaFactory.createForClass(Bug);
@@ -83,4 +86,7 @@ export class bugDto {
 
     @ApiProperty()
     assignedUsers: ObjectId[];
+
+    @ApiProperty()
+    type: string;
 }

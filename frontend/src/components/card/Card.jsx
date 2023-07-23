@@ -27,7 +27,7 @@ const Card = ({ user }) => {
                         <p>{user.phone}</p>
                         <p>{user.email}</p>
                     </div>
-                    <div className="ticket-assigned">
+                    {/* <div className="ticket-assigned">
                         <div className="tickets">
                             <h2>Tickets</h2>
                             <p>22</p>
@@ -40,7 +40,7 @@ const Card = ({ user }) => {
                             <h2>Open</h2>
                             <p>4</p>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </Link >
         </>

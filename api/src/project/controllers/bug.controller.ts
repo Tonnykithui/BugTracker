@@ -18,7 +18,6 @@ export class BugController {
 
   @Post()
   async create(@Body() createBugDto: bugDto, @LoggedInUser() userId: ObjectId) {
-    console.log('BUG POST CONTROLLER', createBugDto);
     return new ResponseMessage('Successfully created a Ticket', await this.bugService.create(createBugDto, userId));
   }
 
@@ -27,15 +26,29 @@ export class BugController {
     return new ResponseMessage('Successfully fetched all tickets assigned to logged in user', await this.bugService.findAllTicketsAssignedToUser(userId));
   }
 
-  @Get('otherUsers/:userId')
-  async findAllTicketsAssignedToOtherUser(@Param() userId) {
-    console.log('TICKET FOR ',userId);
-    return new ResponseMessage('Successfully fetched all tickets assigned to logged in user', await this.bugService.findAllTicketsAssignedToUser(userId));
-  }
-
   @Get('pendingTickets')
   async pendingTickets(@LoggedInUser() userId: ObjectId){
     return new ResponseMessage('Successfully fetched all tickets belonging to a user and not completed', await this.bugService.findTaskForAUser(userId));
+  }
+
+  @Get('bugType/all')
+  async findReportByAssignedType(@LoggedInUser() userId: ObjectId){
+    return new ResponseMessage('Successfully fetched all bugs by their type', await this.bugService.findTypeOfReport(userId));
+  }
+
+  @Get('bugStatus/all')
+  async findBugByStatusAll(@LoggedInUser() userId: ObjectId){
+    return new ResponseMessage('Successfully fetched all bugs by their status', await this.bugService.findUsersOpenClosedNInprogressTickets(userId));
+  }
+
+  @Get('bugPriority/all')
+  async findBugByTheirPriority(@LoggedInUser() userId:ObjectId){
+    return new ResponseMessage('Successfully fetched all bugs by their priority', await this.bugService.findUsersTicketsPriority(userId));
+  }
+  
+  @Get('otherUsers/:userId')
+  async findAllTicketsAssignedToOtherUser(@Param() userId) {
+    return new ResponseMessage('Successfully fetched all tickets assigned to logged in user', await this.bugService.findAllTicketsAssignedToUser(userId));
   }
 
   @Get('user/:userId')
@@ -50,13 +63,11 @@ export class BugController {
 
   @Post(':id')
   async update(@Param('id') id: string, @Body() updateBugDto: bugDto, @LoggedInUser() userId: ObjectId) {
-    console.log('HIT UPDATE TICKET CONTROLLER', updateBugDto)
     return new ResponseMessage('Successfully updated a ticket', await this.bugService.update(id, updateBugDto));
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string, @LoggedInUser() userId: ObjectId) {
-    console.log('DELETE TICKET CONTROLLER')
     return new ResponseMessage('Successfully deleted a ticket', await this.bugService.remove(id, userId));
   }
 
@@ -65,7 +76,6 @@ export class BugController {
   async createComment(@Param('bugId') bugId: ObjectId, @Body() createCommentDto: commentDto, @LoggedInUser() userId) {
     createCommentDto.Owner = userId.userId;
     createCommentDto.ticketId = bugId;
-    console.log('Comment message', createCommentDto);
     return new ResponseMessage("Successfully commented on a ticket", await this.commentService.create(createCommentDto));
   }
 

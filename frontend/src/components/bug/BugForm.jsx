@@ -5,6 +5,8 @@ import './bugForm.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { createBugThunk, updateBug } from '../../redux';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 const inputStylingCancel = {
     border: 'none',
     outline: 'none',
@@ -28,6 +30,7 @@ const inputStylingSubmit = {
 
 const bugType = ['OPEN', 'INPROGRESS', 'CLOSED']
 const priorities = ['LOW', 'MEDIUM', 'HIGH'];
+const ticketType = ['Bug', 'Issue'];
 
 const BugForm = () => {
 
@@ -38,19 +41,19 @@ const BugForm = () => {
     const [description, setBugDescription] = useState('');
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [estimateTime, setEstimateTime] = useState('');
-    const [type, setType] = useState('');
+    const [type, setType] = useState();
     const [status, setStatus] = useState();
     const [priority, setPriority] = useState();
 
-    const passedType = useSelector((state) => state.createBugReducer.type);
+    // const passedType = useSelector((state) => state.createBugReducer.type);
     const users = useSelector((state) => state.usersFetchReducer.users.data);
     const isEditText = useSelector((state) => state.createBugReducer.type);
     const isEdit = (isEditText == 'EDITTICKET') ? true: false;
     const bugToEdit = useSelector(state => state.bugSingleReducer.bug?.data.ticket);
 
-    useEffect(() => {
-        setType(passedType);
-    }, []);
+    // useEffect(() => {
+    //     setType(passedType);
+    // }, []);
 
     const handleOptionChange = (event) => {
         const selectedValues = Array.from(
@@ -72,13 +75,15 @@ const BugForm = () => {
             status,
             priority,
         };
-        console.log(ticket);
-        dispatch(createBugThunk(ticket))
+        if(ticket.title == '' || ticket.description == ''){
+            toast('Please provide title and description for the ticket')
+        }
+        dispatch(createBugThunk(ticket));
+        
     };
 
     const editSubmit = (event) => {
         event.preventDefault();
-        console.log('STATUS', status)
         let ticket = {
             projectId: id,
             title : title == '' ? bugToEdit.title : title,
@@ -91,8 +96,6 @@ const BugForm = () => {
         };
         
         let bugId = bugToEdit._id;
-        console.log('EDITED TICKET',ticket)
-        console.log('EDITED TICKET ID', bugId);
         if(bugId != null){
             dispatch(updateBug(bugId,ticket))
         }
@@ -164,8 +167,13 @@ const BugForm = () => {
                             value={type}
                             onChange={(e) => setType(e.target.value)}
                         >
-                            <option value='Issue'>Issue</option>
-                            <option value='Bug'>Bug</option>
+                            {
+                                ticketType.map((tType) => (
+                                    <option value={`${tType}`}>{tType}</option>
+                                ))
+                            }
+                            {/* <option value='Issue'>Issue</option>
+                            <option value='Bug'>Bug</option> */}
                         </select>
                     </div>
                     <div className='status'>
@@ -178,8 +186,8 @@ const BugForm = () => {
                             onChange={(e) => setStatus(e.target.value)}
                         >
                             {
-                                bugType.map((type) => (
-                                    <option value={`${type}`}>{type}</option>
+                                bugType.map((stats) => (
+                                    <option value={`${stats}`}>{stats}</option>
                                 ))
                             }
                         </select>

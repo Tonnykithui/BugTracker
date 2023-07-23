@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import Chart from 'chart.js/auto';
 
-const PolarAreaChart = () => {
+
+const PolarAreaChart = ({ ticket }) => {
   const chartRef = useRef(null);
   let myChart = null;
 
@@ -25,6 +26,7 @@ const PolarAreaChart = () => {
       },
     };
 
+    if (chartRef.current) {
     const myChartRef = chartRef.current.getContext('2d');
 
     if (myChart) {
@@ -32,12 +34,12 @@ const PolarAreaChart = () => {
     }
 
     myChart = new Chart(myChartRef, {
-      type: 'polarArea',
+      type: 'pie',
       data: {
-        labels: ['High (10)', 'Medium (5)', 'Low (1)'],
+        labels: ['High', 'Medium', 'Low'],
         datasets: [
           {
-            data: [10, 5, 1],
+            data: [ticket.high.length || 0, ticket.medium.length || 0, ticket.low.length || 0],
             backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
             borderWidth: 0,
           },
@@ -48,14 +50,18 @@ const PolarAreaChart = () => {
 
     return () => {
       myChart.destroy();
-    };
-  }, []);
-
+    };}
+  }, [ticket]);
   return (
-    <div className='bg-white w-full'>
-      {/* style={{ width: '150px', height: '150px' }} */}
-      <canvas ref={chartRef} className='mx-auto max-w-full lg:h-32 lg:w-32 md:h-16 md:w-16' />
-    </div>
+    <>
+      {
+        ticket && (
+          <div className='bg-white '>
+            <canvas ref={chartRef} style={{ width: '150px', height: '150px' }} />
+          </div>
+        )
+      }
+    </>
   );
 };
 

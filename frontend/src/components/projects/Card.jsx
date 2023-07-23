@@ -23,9 +23,9 @@ const Card = ({ project }) => {
 
   return (
 
-    <div className='project-card' >
-      <div className='project-head flex flex-row justify-between relative'>
-        <h1>{project.name}</h1>
+    <div className='project-card'>
+      <div className='project-head flex flex-row justify-between relative items-center'>
+        <h4 className='font-semibold'>{project.name}</h4>
         <BsThreeDotsVertical onMouseOver={() => setShowHiddenOptions(true)} />
         {
           showHiddenOptions &&
@@ -48,7 +48,8 @@ const Card = ({ project }) => {
         }
       </div>
       <Link to={`/project/${project._id}`} onClick={handleClick}>
-        <div className='h-28 overflow-y-scroll'>
+      {/* overflow-y-scroll */}
+        <div className='h-20'>
           <p>{project.description}</p>
         </div>
         <div className="proj-details-bottom">

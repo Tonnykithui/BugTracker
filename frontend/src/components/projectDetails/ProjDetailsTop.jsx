@@ -24,7 +24,6 @@ const ProjDetailsTop = ({ project, assignedUsers }) => {
 
     const [showUser, setShowUser] = useState(false);
     const [userDetails, setUserDetails] = useState();
-    // const userFromUserDetails = assignedUsers.find((user) => user.id == userDetails);
     
     const dispatch = useDispatch();
     const { id } = useParams();

@@ -1,6 +1,6 @@
-.project-head{
-    @apply font-semibold text-xl;
-}
+/* .project-head{
+    @apply ;
+} */
 
 .project-timeline{
     @apply flex flex-row items-center gap-2 mb-3;
@@ -23,7 +23,7 @@
 }
 
 .project-card {
-    @apply h-64 p-2 relative;
+    @apply h-52 p-4 relative lg:w-80;
 }
 
 .proj-details-bottom {

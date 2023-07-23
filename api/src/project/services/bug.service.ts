@@ -26,16 +26,25 @@ export class BugService {
     createBugDto.ticketOwner = userId.userId;
     createBugDto.lastUpdatedBy = userId.userId;
     const tickets = await this.bugModel.find({ projectId: createBugDto.projectId });
-    console.log("All tickets", tickets);
+    
     tickets.forEach(ticket => {
       if (ticket.title.toLowerCase().trim() === createBugDto.title.toLowerCase().trim()) {
         throw new HttpException('Ticket with the same Title exists', HttpStatus.BAD_REQUEST);
       }
     })
 
+    if(createBugDto.type === undefined){
+      createBugDto.type = 'Issue'
+    }
     const ticket = await this.bugModel.create(createBugDto);
     // await this.ticketMembersModel.create({ memberId: userId.userId, projectId: createBugDto.projectId, ticketId: ticket._id });
-    console.log('ASSIGNED USERS FROM BODY IN SERVICE',createBugDto.assignedUsers)
+    let newUserId = new Types.ObjectId(userId.userId);
+    await this.ticketMembersModel.create({
+      ticketId: ticket._id,
+      memberId: newUserId,
+      projectId: createBugDto.projectId
+    });
+
     if (createBugDto.assignedUsers?.length > 0) {
       for (let i = 0; i < createBugDto.assignedUsers.length; i++) {
         const element = createBugDto.assignedUsers[i];
@@ -49,22 +58,11 @@ export class BugService {
             projectId: createBugDto.projectId,
             ticketId: ticket._id
           });
-          console.log('TICKET MEMBER CREATED',ticketMember)
         } 
         // else {
 
         // }
       }
-      // createBugDto.assignedUsers?.forEach(async (user) => {
-      //   let newUserId = new Types.ObjectId(user.toString());
-      //   console.log(newUserId)
-      //   if ((await this.projectMembersModel.find({ memberId: newUserId, projectId: createBugDto.projectId })).length == 0) {
-      //     await this.ticketMembersModel.create({ memberId: newUserId, projectId: createBugDto.projectId, ticketId: ticket._id });
-      //   } 
-      //   // else {
-      //   //   throw new HttpException('User assigned to ticket is not in the base Project', HttpStatus.BAD_REQUEST);
-      //   // }
-      // });
     }
 
     return ticket;
@@ -72,24 +70,16 @@ export class BugService {
 
   async findAllTicketsAssignedToUser(userId) {
     let newId = new Types.ObjectId(userId.userId);
+    
     const tickets = await this.ticketMembersModel.find({ memberId: newId });
+    
     let userTickets: Bug[] = await Promise.all(tickets.map(async (item) => {
       let ticket = await this.bugModel.findById(item.ticketId);
+      
       return ticket;
     }));
     return userTickets;
   }
-  // async findAllTicketsAssignedToUser(userId) {
-  //   let newId = new Types.ObjectId(userId.userId);
-  //   const tickets = await this.ticketMembersModel.find({ memberId: newId });
-  //   console.log('USER TICKETS',tickets);
-  //   let userTickets: Bug[] = [];
-  //   tickets.forEach(async item => {
-  //     let ticket = await this.bugModel.findById(item.ticketId);
-  //     userTickets.push(ticket);
-  //   })
-  //   return userTickets;
-  // }
 
   async findOne(ticketId) {
     const ticket = await this.bugModel.findById(ticketId);
@@ -108,24 +98,13 @@ export class BugService {
   }
 
   async update(id, updateBugDto) {
-    console.log(id);
     if (await this.bugModel.findById(id)) {
-      // const allTickets = await this.bugModel.find({ projectId: updateBugDto.projectId });
-      // for (let i = 0; i < allTickets.length; i++) {
-      //   if (allTickets[i].title === updateBugDto.title && allTickets[i]._id != id) {
-      //     throw new HttpException('Ticket with given title already exists', HttpStatus.BAD_REQUEST);
-      //   }
-      // }
-
+      
       let ticketId = { _id: id }
       delete updateBugDto._id;
-      // const update = { $unset: { _id: id }, $set: { ...updateBugDto } };
-      // console.log(update);
       let ticketUpdate = await this.bugModel.findOneAndUpdate(ticketId, updateBugDto);
-      console.log('HERE')
       // const ticketUpdate = await this.bugModel.findByIdAndUpdate(id, updateBugDto);
 
-      console.log(ticketUpdate);
       if (updateBugDto.assignedUsers?.length > 0) {
         for (let i = 0; i < updateBugDto.assignedUsers.length; i++) {
           const ticketMemberExists = await this.ticketMembersModel.find({ memberId: updateBugDto.assignedUsers[i], projectId: updateBugDto.projectId, ticketId: id })
@@ -145,14 +124,13 @@ export class BugService {
 
   async remove(id, userId) {
     const ticket = await this.bugModel.findById(id);
-
-    console.log('COMPARISON', ticket.ticketOwner.toString() === userId.userId);
+    const ticketId = new Types.ObjectId(id);
     if (ticket) {
       if (ticket.ticketOwner.toString() !== userId.userId) {
         throw new HttpException('User not allowed to delete this ticket', HttpStatus.BAD_REQUEST);
       } else {
         const ticketMembers = await this.ticketMembersModel.deleteMany({
-          ticketId: id
+          ticketId: ticketId
         });
         return await this.bugModel.findByIdAndDelete(id);
       }
@@ -204,17 +182,22 @@ export class BugService {
   }
 
   async findTaskForAUser(userId) {
+    let newUserId = new Types.ObjectId(userId.userId);
     let allRelatedBugsToUser = await this.ticketMembersModel.find({
-      memberId: userId.userId
+      memberId: newUserId
     });
-
     let allUndoneBugs = [];
 
-    allRelatedBugsToUser.forEach(async (bug) => {
-      allUndoneBugs.push(await this.bugModel.find({ _id: bug.ticketId, status: 'OPEN' }));
-    });
-
-    return allUndoneBugs.slice(0, 9);
+    for (let i = 0; i < allRelatedBugsToUser.length; i++) {
+      const element = allRelatedBugsToUser[i];
+      let ticket = await this.bugModel.findOne({
+        _id: element.ticketId
+      }).populate('projectId', { name : 1});
+      if(ticket.status !== 'CLOSED'){
+        allUndoneBugs.push(ticket);
+      }
+    }
+    return allUndoneBugs.slice(0,6);
   }
 
   async findUserBugRelation(userId) {
@@ -240,25 +223,90 @@ export class BugService {
   }
 
   async findUsersOpenClosedNInprogressTickets(userId) {
-    let ticketsAssigned = await this.ticketMembersModel.find({ memberId: userId });
+    let newUserId = new Types.ObjectId(userId.userId);
+    let ticketsAssigned = await this.ticketMembersModel.find({ memberId: newUserId });
 
-    let allTicket: bugDto[] = [];
-    ticketsAssigned.forEach(async (ticket) => {
-      let ticketForUser: bugDto = await this.bugModel.findById(ticket.ticketId);
-      if (ticketForUser) {
+    let allTicket = [];
+    for (let i = 0; i < ticketsAssigned.length; i++) {
+      const element = ticketsAssigned[i];
+      let ticketForUser: bugDto = await this.bugModel.findById(element.ticketId);
+      if(ticketForUser){
         allTicket.push(ticketForUser);
       }
-    });
+    }
 
-    let tickets = await this.bugModel.find({});
-    console.log('TICKETS ASSIGNED', allTicket);
     return {
-      allOpen: ticketsAssigned.length > 0 ? allTicket.filter((ticket) => ticket.status !== 'OPEN') : [],
-      allInProgress: ticketsAssigned.length > 0 ? allTicket.filter((ticket) => ticket.status !== 'INPROGRESS') : [],
-      allClosed: ticketsAssigned.length > 0 ? allTicket.filter((ticket) => ticket.status !== 'CLOSED') : []
+      allOpen: allTicket.filter((ticket) => ticket.status == 'OPEN'),
+      allInProgress: allTicket.filter((ticket) => ticket.status == 'INPROGRESS'),
+      allClosed: allTicket.filter((ticket) => ticket.status == 'CLOSED')
+    }
+  }
+
+  async findTypeOfReport(userId){
+    let newUserId = new Types.ObjectId(userId.userId);
+    let ticketsAssigned = await this.ticketMembersModel.find({ memberId: newUserId });
+    let allTicket = [];
+    for (let i = 0; i < ticketsAssigned.length; i++) {
+      const element = ticketsAssigned[i];
+      let ticketForUser = await this.bugModel.findById(element.ticketId);
+      if(ticketForUser){
+        allTicket.push(ticketForUser);
+      }
+    }
+    
+    return {
+      issue: allTicket.filter((ticket) => ticket.type == 'Issue'),
+      bug: allTicket.filter((ticket) => ticket.type == 'Bug')
+    }
+  }
+
+  async findUsersTicketsPriority(userId) {
+    let newUserId = new Types.ObjectId(userId.userId);
+    let ticketsAssigned = await this.ticketMembersModel.find({ memberId: newUserId });
+
+    let allTicket = [];
+    for (let i = 0; i < ticketsAssigned.length; i++) {
+      const element = ticketsAssigned[i];
+      let ticketForUser: bugDto = await this.bugModel.findById(element.ticketId);
+      if(ticketForUser){
+        allTicket.push(ticketForUser);
+      }
+    }
+
+    return {
+      low: allTicket.filter((ticket) => ticket.priority == 'LOW'),
+      medium: allTicket.filter((ticket) => ticket.priority == 'MEDIUM'),
+      high: allTicket.filter((ticket) => ticket.priority == 'HIGH')
     }
   }
 }
+
+// ticketsAssigned.forEach(async (ticket) => {
+    //   let ticketForUser: bugDto = await this.bugModel.findById(ticket.ticketId);
+    //   if (ticketForUser) {
+    //     allTicket.push(ticketForUser);
+    //   }
+    // });
+
+    // let tickets = await this.bugModel.find({});
+    // console.log('TICKETS ASSIGNED', allTicket);
+// ticketsAssigned.forEach(async (ticket) => {
+      
+    //   console.log('TICKET ITSELF', ticketForUser)
+    //   if (ticketForUser) {
+    //     allTicket.push(ticketForUser);
+    //   }
+    // });
+// createBugDto.assignedUsers?.forEach(async (user) => {
+      //   let newUserId = new Types.ObjectId(user.toString());
+      //   console.log(newUserId)
+      //   if ((await this.projectMembersModel.find({ memberId: newUserId, projectId: createBugDto.projectId })).length == 0) {
+      //     await this.ticketMembersModel.create({ memberId: newUserId, projectId: createBugDto.projectId, ticketId: ticket._id });
+      //   } 
+      //   // else {
+      //   //   throw new HttpException('User assigned to ticket is not in the base Project', HttpStatus.BAD_REQUEST);
+      //   // }
+      // });
 
 // await this.ticketMembersModel.deleteMany(
 //   {
@@ -268,3 +316,26 @@ export class BugService {
 //       { memberId: { $ne: updateBugDto.ticketOwner } }
 //     ]
 //   });
+// const allTickets = await this.bugModel.find({ projectId: updateBugDto.projectId });
+      // for (let i = 0; i < allTickets.length; i++) {
+      //   if (allTickets[i].title === updateBugDto.title && allTickets[i]._id != id) {
+      //     throw new HttpException('Ticket with given title already exists', HttpStatus.BAD_REQUEST);
+      //   }
+      // }
+      // async findAllTicketsAssignedToUser(userId) {
+  //   let newId = new Types.ObjectId(userId.userId);
+  //   const tickets = await this.ticketMembersModel.find({ memberId: newId });
+  //   console.log('USER TICKETS',tickets);
+  //   let userTickets: Bug[] = [];
+  //   tickets.forEach(async item => {
+  //     let ticket = await this.bugModel.findById(item.ticketId);
+  //     userTickets.push(ticket);
+  //   })
+  //   return userTickets;
+  // }
+// allRelatedBugsToUser.forEach( async (bug) => {
+    //   let ticket = await this.bugModel.find({ _id: bug.ticketId, status: 'OPEN' })
+    //   allUndoneBugs.push(ticket);
+    // });
+    // console.log('ALL UNDONE BUGS', allUndoneBugs);
+    // console.log('RELATED BUGS TO USER', allRelatedBugsToUser)

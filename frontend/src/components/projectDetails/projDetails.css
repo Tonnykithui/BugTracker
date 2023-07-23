@@ -68,6 +68,9 @@
     @apply overflow-y-scroll opacity-80 row-span-5;
 }
 
+.droppable::-webkit-scrollbar {
+    display: none;
+}
 /* row-span-6 */
 /* borderRadius:'5px', background:'grey', color:'blue' */
 

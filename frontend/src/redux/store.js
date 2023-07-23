@@ -31,6 +31,10 @@ import userProjectsReducer from './project/reducers/SingleUserProjects';
 import OtherUserProjectsReducer from './project/reducers/OtherUserProjects';
 import OtherUserTicketsReducer from './bug/reducers/otherUserBug';
 import confirmBugDeleteReducer from './modal/reducers/confirmDelete';
+import pendingTicketsReducer from './bug/reducers/pendingBug';
+import ticketTypesReducer from './bug/reducers/type';
+import ticketStatusReducer from './bug/reducers/ticketStatus';
+import ticketPrioritytReducer from './bug/reducers/ticketPriority';
 
 const combinedReducers = combineReducers({
     bugOpenModalReducer: bugOpenModalReducer,
@@ -59,7 +63,11 @@ const combinedReducers = combineReducers({
     userProjectsReducer: userProjectsReducer,
     OtherUserProjectsReducer: OtherUserProjectsReducer,
     OtherUserTicketsReducer: OtherUserTicketsReducer,
-    confirmBugDeleteReducer: confirmBugDeleteReducer
+    confirmBugDeleteReducer: confirmBugDeleteReducer,
+    pendingTicketsReducer: pendingTicketsReducer,
+    ticketTypesReducer: ticketTypesReducer,
+    ticketStatusReducer: ticketStatusReducer,
+    ticketPrioritytReducer: ticketPrioritytReducer
 })
 
 const persistConfig = {

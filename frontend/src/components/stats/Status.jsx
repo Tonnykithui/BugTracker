@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import Chart from 'chart.js/auto';
 
-const PieChart = () => {
+const PieChart = ({ ticket }) => {
+  
   const chartRef = useRef(null);
   let myChart = null;
 
@@ -22,6 +23,7 @@ const PieChart = () => {
       },
     };
 
+    if (chartRef.current) {
     const myChartRef = chartRef.current.getContext('2d');
 
     if (myChart) {
@@ -34,7 +36,7 @@ const PieChart = () => {
         labels: ['Open', 'Closed', 'In Progress'],
         datasets: [
           {
-            data: [10, 20, 15],
+            data: [ticket.allOpen.length || 0, ticket.allClosed.length || 0, ticket.allInProgress.length || 0],
             backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
             borderWidth: 0,
           },
@@ -45,13 +47,19 @@ const PieChart = () => {
 
     return () => {
       myChart.destroy();
-    };
-  }, []);
+    };}
+  }, [ticket]);
 
   return (
-    <div className='bg-white'>
-      <canvas ref={chartRef} style={{ width: '150px', height: '150px' }}/>
-    </div>
+    <>
+      {
+        ticket && (
+          <div className='bg-white'>
+            <canvas ref={chartRef} style={{ width: '150px', height: '150px' }} />
+          </div>
+        )
+      }
+    </>
   );
 };
 

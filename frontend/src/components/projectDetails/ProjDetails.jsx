@@ -20,12 +20,7 @@ export const buttonStyles = {
     height: '25px'
 }
 
-const info = {
-    title: 'This is the title',
-    para: 'Long details here'
-}
 
-let project;
 const ProjDetails = ({ }) => {
 
     const project = useSelector(state => state.projectSingleReducer);
@@ -46,8 +41,6 @@ const ProjDetails = ({ }) => {
         childToDisplay = 'addNewUserToProj'
     }
 
-    const isAuthenticated = useSelector(state => state.authReducer.isAuthenticated);
-    // console.log('SINGLE PROJECT', project.project.data.tickets)
     return (
         <>
             {
@@ -100,3 +93,11 @@ const ProjDetails = ({ }) => {
 }
 
 export default ProjDetails
+
+// const info = {
+//     title: 'This is the title',
+//     para: 'Long details here'
+// }
+
+// let project;
+    // const isAuthenticated = useSelector(state => state.authReducer.isAuthenticated);

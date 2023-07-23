@@ -48,7 +48,6 @@ const Project = ({ isEdit }) => {
         setSelectedOptions(selectedValues);
     };
 
-    console.log('PROJECT LOG', project);
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
@@ -79,23 +78,6 @@ const Project = ({ isEdit }) => {
 
             <div className='bg-slate-300 p-2'>
                 <h2 className='add-project'>{isEdit ? 'Edit project' : 'Add Project'}</h2>
-                {isEdit &&
-                    <>
-                        <h2 className='text-center font-semibold text-xl'>Users in project</h2>
-                        <div className='flex flex-row list-none w-full justify-center'>
-
-                            {projectAssignedMembers?.map((user) => (
-                                <li className='bg-white rounded-md p-1 ml-1 flex flex-row items-center'>
-                                    {user?.firstname} {user?.lastname}
-                                    <GoX
-                                        className='text-red-600 hover:cursor-pointer'
-                                        onClick={() => selectedOptions.filter((item) => item === user._id)} />
-                                </li>
-                            ))}
-                        </div>
-                    </>
-                }
-
                 <div className='add-project-wrap'>
                     <form>
                         <div className='w-full p-2'>
@@ -150,3 +132,20 @@ const Project = ({ isEdit }) => {
 };
 
 export default Project;
+
+{/* {isEdit &&
+                    <>
+                        <h2 className='text-center font-semibold text-xl'>Users in project</h2>
+                        <div className='flex flex-row list-none w-full justify-center'>
+
+                            {projectAssignedMembers?.map((user) => (
+                                <li className='bg-white rounded-md p-1 ml-1 flex flex-row items-center'>
+                                    {user?.firstname} {user?.lastname}
+                                    <GoX
+                                        className='text-red-600 hover:cursor-pointer'
+                                        onClick={() => selectedOptions.filter((item) => item === user._id)} />
+                                </li>
+                            ))}
+                        </div>
+                    </>
+                } */}

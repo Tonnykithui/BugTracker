@@ -11,7 +11,7 @@
 }
 
 .task-list ul li{
-    @apply flex flex-row items-center p-2 border-b-2 justify-between border-slate-200 font-semibold;
+    @apply flex flex-col p-2 border-b-2 justify-between border-slate-200 items-start;
 }
 
 .task-icon{

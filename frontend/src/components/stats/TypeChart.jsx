@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import Chart from 'chart.js/auto';
 
-const TypeChart = () => {
+const TypeChart = ({ type }) => {
   const chartRef = useRef(null);
   let myChart = null;
 
@@ -22,7 +22,7 @@ const TypeChart = () => {
       },
     };
 
-    console.log('chartOptions:', chartOptions);
+    if (chartRef.current) {
     const myChartRef = chartRef.current.getContext('2d');
 
     if (myChart) {
@@ -35,7 +35,7 @@ const TypeChart = () => {
         labels: ['Issue', 'Bug'],
         datasets: [
           {
-            data: [10, 20],
+            data: [type.issue.length || 0, type.bug.length || 0],
             backgroundColor: ['#FF6384', '#36A2EB'],
             borderWidth: 0,
           },
@@ -46,13 +46,18 @@ const TypeChart = () => {
 
     return () => {
       myChart.destroy();
-    };
-  }, []);
-
+    };}
+  }, [type]);
+  
   return (
-    <div className='bg-white'>
-      <canvas ref={chartRef} style={{ width: '150px', height: '150px' }}/>
-    </div>
+    <>
+      {type && (
+        <div className='bg-white'>
+          <canvas ref={chartRef} style={{ width: '150px', height: '150px' }} />
+        </div>
+      )
+      }
+    </>
   );
 };
 

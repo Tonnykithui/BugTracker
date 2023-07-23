@@ -20,8 +20,6 @@ const Administration = () => {
     const handleInputChange = (event) => {
         const { value } = event.target;
         setSearch(value);
-        console.log('VALUE', value)
-        console.log('SEARCH', search)
         const filteredUsers = data.filter((user) => {
             const fullName = `${user.firstname} ${user.lastname}`;
             return fullName.toLowerCase().includes(value.toLowerCase());
@@ -30,21 +28,20 @@ const Administration = () => {
         setFilteredUsers(filteredUsers);
     }
 
-    console.log('FILTERED USERS ', filteredUsers);
-    // console.log('FILTERED TEXT', search)
-
     return (
         <div className='administration'>
             <div className="admin-page">
-                <Sidebar value={search} onChange={(e) => setFilteredUsers(e.target.value)} />
-                
+                <Sidebar />
+
                 <div className="employee-cards p-2">
-                {/* <input type="text" name="" id="" value={search} onChange={handleInputChange} /> */}
-                    <SearchBar value={search} onchange={handleInputChange}/>
-                    <div className='admin'>
+                    {/* <input type="text" name="" id="" value={search} onChange={handleInputChange} /> */}
+                    <SearchBar value={search} onchange={handleInputChange} />
+                    <div className='admin pb-10'>
                         {
                             filteredUsers.map((user) => (
-                                <Card user={user} />
+                                <div>
+                                    <Card user={user} />
+                                </div>
                             ))
                         }
                     </div>
