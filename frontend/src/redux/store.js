@@ -35,6 +35,7 @@ import pendingTicketsReducer from './bug/reducers/pendingBug';
 import ticketTypesReducer from './bug/reducers/type';
 import ticketStatusReducer from './bug/reducers/ticketStatus';
 import ticketPrioritytReducer from './bug/reducers/ticketPriority';
+import confirmUserDeleteReducer from './modal/reducers/confirmUserDelete';
 
 const combinedReducers = combineReducers({
     bugOpenModalReducer: bugOpenModalReducer,
@@ -67,7 +68,8 @@ const combinedReducers = combineReducers({
     pendingTicketsReducer: pendingTicketsReducer,
     ticketTypesReducer: ticketTypesReducer,
     ticketStatusReducer: ticketStatusReducer,
-    ticketPrioritytReducer: ticketPrioritytReducer
+    ticketPrioritytReducer: ticketPrioritytReducer,
+    confirmUserDeleteReducer: confirmUserDeleteReducer
 })
 
 const persistConfig = {

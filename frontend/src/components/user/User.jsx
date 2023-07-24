@@ -7,12 +7,18 @@ import UserProjects from './UserProjects';
 import { fetchOtherUserProjects, fetchOtherUserTickets, fetchUserTickets } from '../../redux';
 import UserTickets from './UserTickets';
 import jwt_decode from 'jwt-decode';
+import Button from '../button/Button';
+import Modal from '../modal/Modal';
+import { openUserDeleteModal } from '../../redux/modal/actions/confirmUserDelete';
+
 
 
 const User = () => {
+
   const user = useSelector(state => state.singleUserReducer);
   const [view, setView] = useState(1);
   const hasUserData = user && user.user && user.user.data;
+  const showModal = useSelector(state => state.confirmUserDeleteReducer.modalOpen);
 
   const dispatch = useDispatch();
 
@@ -24,6 +30,11 @@ const User = () => {
   return (
     <div className="h-screen flex bg-slate-300">
       <Sidebar />
+      {showModal &&
+        <Modal
+          child='confirmDeleteUser'
+        />
+      }
       <div className="w-full h-5/6 mt-20 flex flex-row gap-2 p-2">
         <div className="absolute inset-0 bg-blue-500 h-40 z-0 "></div>
         {
@@ -31,6 +42,13 @@ const User = () => {
             <>
               <div className="bg-white p-4 w-2/5 z-10">
                 <UserProfile />
+                <div className='flex flex-row justify-center items-center w-full h-fit'>
+                  <Button
+                    children='Delete User'
+                    style={{ background: 'red', padding: '2px', borderRadius: '8px', color: 'white', marginTop: '20px' }}
+                    onClick={(event) => { event.stopPropagation(); dispatch(openUserDeleteModal(user.user.data.user._id))}}
+                  />
+                </div>
               </div>
               <div className="h-full bg-white p-4 w-full z-10 flex flex-col">
                 <div className="h-5 flex flex-row z-20 mb-5">
@@ -80,7 +98,26 @@ const User = () => {
 
 export default User;
 
-
+{/* <BsThreeDotsVertical onMouseOver={() => setShowHiddenOptions(true)} />
+                {
+                    showHiddenOptions &&
+                    <div className='flex flex-row text-sm gap-1 absolute right-0'>
+                        <Button
+                            children='Edit'
+                            style={{ background: 'blue', padding: '2px', borderRadius: '8px', color: 'white' }}
+                            onClick={
+                                () => {
+                                    // dispatch(fetchSingleProject(project._id));
+                                    // dispatch(createNewProjectModalSuc('editProjectModal'))
+                                }}
+                        />
+                        <Button
+                            children='Delete'
+                            style={{ background: 'red', padding: '2px', borderRadius: '8px', color: 'white' }}
+                            onClick={(event) => { event.stopPropagation() }}
+                        />
+                    </div>
+                } */}
 
 
   // useEffect(() => {

@@ -8,6 +8,7 @@ import BugForm from '../bug/BugForm';
 import AddUserToProject from '../addUser/AddUserToProject';
 import Project from '../project/Project';
 import ConfirmDelete from '../confirmDelete/ConfirmDelete';
+import ConfirmDeleteUser from '../confirmDelete/ConfirmDeleteUser';
 
 
 const Modal = ({ child, style }) => {
@@ -25,6 +26,8 @@ const Modal = ({ child, style }) => {
     childToDisplay = <ConfirmDelete message='confirmDeleteProject' />
   } else if (child == 'editProjectModal') {
     childToDisplay = <Project isEdit={true} />
+  } else if(child == 'confirmDeleteUser'){
+    childToDisplay = <ConfirmDeleteUser />
   }
   else {
     childToDisplay = <Project />

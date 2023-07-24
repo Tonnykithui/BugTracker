@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import per from "../../img/per.svg";
 import './card.css';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { fetchSingleUser } from '../../redux';
+import Button from '../button/Button';
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 const Card = ({ user }) => {
     const dispatch = useDispatch()
     const handleClick = (userId) => {
         dispatch(fetchSingleUser(userId))
     }
+    // const [showHiddenOptions, setShowHiddenOptions] = useState(false);
+    // setTimeout(() => {
+    //     setShowHiddenOptions(false);
+    // }, 5000);
     return (
         <>
             <Link to={`/user/${user._id}`} onClick={() => handleClick(user._id)}>

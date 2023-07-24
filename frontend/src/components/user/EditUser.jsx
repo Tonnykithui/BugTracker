@@ -5,9 +5,11 @@ import { updateUserDetails } from '../../redux/user/actions/updateUser';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Modal from '../modal/Modal';
+
 
 const EditUser = ({ userId }) => {
-
+    
     const [firstname, setFirstname] = useState();
     const [lastname, setLastname] = useState();
     const [email, setEmail] = useState();

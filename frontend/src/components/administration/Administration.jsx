@@ -34,7 +34,6 @@ const Administration = () => {
                 <Sidebar />
 
                 <div className="employee-cards p-2">
-                    {/* <input type="text" name="" id="" value={search} onChange={handleInputChange} /> */}
                     <SearchBar value={search} onchange={handleInputChange} />
                     <div className='admin pb-10'>
                         {
@@ -45,9 +44,6 @@ const Administration = () => {
                             ))
                         }
                     </div>
-                    <div className='absolute top-2 right-6'>
-                        <Button style={{ background: 'blue', padding: '4px', borderRadius: '8px', color: "white" }}>NEW USER</Button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -55,3 +51,7 @@ const Administration = () => {
 }
 
 export default Administration
+
+{/* <div className='absolute top-2 right-6'>
+                        <Button style={{ background: 'blue', padding: '4px', borderRadius: '8px', color: "white" }}>NEW USER</Button>
+                    </div> */}
