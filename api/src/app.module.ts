@@ -15,7 +15,7 @@ import { UserModule } from './user/user.module';
   imports: [
     ProjectModule, 
     UserModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/bugtracker')
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/bugtracker')
   ],
   controllers: [AppController],
   providers: [
