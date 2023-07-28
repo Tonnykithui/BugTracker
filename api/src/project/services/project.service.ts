@@ -106,8 +106,10 @@ export class ProjectService implements OnModuleInit {
 
   async remove(id) {
     if (await this.projectModel.findById(id)) {
-      await this.bugService.deleteAllTicketsForProject(id);
-      await this.projectMembers.deleteMany({ projectId: id });
+      let ticketsToDelete = await this.bugService.deleteAllTicketsForProject(id);
+      let membersToDelete = await this.projectMembers.deleteMany({ projectId: id });
+      console.log('TICKETS TO DELETE', ticketsToDelete);
+      console.log('MEMBERS TO DELETE', membersToDelete);
       return await this.projectModel.findByIdAndDelete(id);
     } else {
       throw new HttpException('Project to delete does not exists', HttpStatus.BAD_REQUEST);
@@ -121,7 +123,13 @@ export class ProjectService implements OnModuleInit {
 
       for (let i = 0; i < users.length; i++) {
         let res = await this.userService.findOne(users[i].memberId);
-        usersInProject.push(res);
+        if(res) {
+          usersInProject.push(res);
+        } else {
+          await this.projectMembers.findOneAndRemove({
+            memberId: users[i].memberId
+          })
+        }
       }
 
       return usersInProject;
@@ -143,7 +151,13 @@ export class ProjectService implements OnModuleInit {
 
     let projectsInvolved: Project[] = await Promise.all(projects.map(async(project) => {
       let proj = await this.projectModel.findById(project.projectId);
-      return proj;
+      if(proj){
+        return proj;
+      } else {
+        await this.projectMembers.findByIdAndRemove({
+          projectId: project.projectId
+        });
+      }
     }));
 
     return projectsInvolved;
@@ -176,8 +190,4 @@ export class ProjectService implements OnModuleInit {
       throw new HttpException('Either the user or the project does not exists', HttpStatus.BAD_REQUEST);
     }
   }
-  // async projectSummaryReport(){
-  //   let allProjects = await this.projectModel.find();
-
-  // }
 }

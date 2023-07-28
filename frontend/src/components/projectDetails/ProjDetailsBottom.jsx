@@ -29,7 +29,6 @@ const ProjDetailsBottom = ({ tickets }) => {
         let newData = {};
         const updatedTickets = ticketAll.map((ticket) => {
             if (ticket._id === data) {
-                console.log('Found Ticket Details', ticket);
                 ticket.status = str;
                 dispatch(updateBug(data, ticket));
                 return {

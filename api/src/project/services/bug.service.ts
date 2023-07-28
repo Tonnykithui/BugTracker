@@ -59,9 +59,6 @@ export class BugService {
             ticketId: ticket._id
           });
         } 
-        // else {
-
-        // }
       }
     }
 
@@ -75,8 +72,13 @@ export class BugService {
     
     let userTickets: Bug[] = await Promise.all(tickets.map(async (item) => {
       let ticket = await this.bugModel.findById(item.ticketId);
-      
-      return ticket;
+      if(ticket){
+        return ticket;
+      } else {
+        await this.ticketMembersModel.findOneAndRemove({
+          ticketId: item.ticketId
+        })
+      }
     }));
     return userTickets;
   }
@@ -87,6 +89,7 @@ export class BugService {
     const assignedUsers = await this.ticketMembersModel.find({ ticketId: ticketId })
       .populate('memberId', { firstname: 1, lastname: 1 });
 
+    // const userExists = ;
     if (ticket) {
       return {
         ticket,

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { UserService } from './services/user.service';
 import { UserController } from './controllers/user.controller';
 import { JwtModule } from '@nestjs/jwt';
@@ -9,6 +9,7 @@ import { User, userSchema } from './models/user.entity';
 import { LoginController } from './controllers/auth.controller';
 import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './services/auth.service';
+import { ProjectModule } from 'src/project/project.module';
 
 @Module({
   imports: [

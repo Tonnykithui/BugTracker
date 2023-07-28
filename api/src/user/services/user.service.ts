@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Role } from '../models/item.types';
@@ -10,7 +10,7 @@ import { BugService } from 'src/project/services/bug.service';
 export class UserService {
 
   constructor(
-    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(User.name) private userModel: Model<User>
   ) { }
 
   async create(data: userDto) {
@@ -39,6 +39,8 @@ export class UserService {
 
   async remove(id) {
     if (await this.userModel.findById(id)) {
+      //find if user is assigned project or tickets and delete their records
+
       return await this.userModel.findByIdAndDelete(id);
     } else {
       throw new HttpException('User with provided id does not exists', HttpStatus.BAD_REQUEST);

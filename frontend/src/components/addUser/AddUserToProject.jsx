@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Button from '../button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUserToProject } from '../../redux/user/actions/AddUserToProject';
+import { fetchUsersInProject } from '../../redux';
 
 
 const addUserBtnStyling = {
@@ -29,6 +30,7 @@ const AddUserToProject = () => {
         for (let i = 0; i < selectedOptions.length; i++) {
             dispatch(addUserToProject(selectedOptions[i], projectId))
         }
+        dispatch(fetchUsersInProject(projectId))
     }
 
     const users = useSelector(state => state.fetchUsersInProject.users);
