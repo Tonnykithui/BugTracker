@@ -18,8 +18,6 @@ export class LoginController {
 
     @Post('login')
     async login(@Body() data: LoginDTO){
-        console.log('HIT LOGIN ROUTE');
-        console.log(data);
         return new ResponseMessage('Successfully logged in the user', await this.authService.loginUser(data));
     }
 

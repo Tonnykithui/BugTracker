@@ -20,9 +20,7 @@ export const buttonStyles = {
     height: '25px'
 }
 
-
 const ProjDetails = ({ }) => {
-
     const project = useSelector(state => state.projectSingleReducer);
     const viewBug = useSelector(state => state.bugOpenModalReducer.open);
     const addBug = useSelector(state => state.createBugReducer.open);
@@ -35,7 +33,7 @@ const ProjDetails = ({ }) => {
         childToDisplay = 'openBug'
     } else if (addBug) {
         childToDisplay = 'createBug'
-    } else if(bugDelete){
+    } else if (bugDelete) {
         childToDisplay = 'confirmDelete'
     } else {
         childToDisplay = 'addNewUserToProj'
@@ -47,23 +45,23 @@ const ProjDetails = ({ }) => {
                 project.loading && (
                     <>
                         <Sidebar />
-                        <p>LOADING</p>
+                        {/* <p>LOADING</p> */}
                     </>
                 )
             }
             {
-                viewBug || addBug || addNewUser || bugDelete?
+                viewBug || addBug || addNewUser || bugDelete ?
                     (
                         <>
                             <div className='ProjDetails-wrapper'>
                                 <Sidebar />
                                 <div className="ProjectDetails">
                                     <ProjDetailsTop
-                                        project={!project.loading ? project.project.data.project : [] }
-                                        assignedUsers={!project.loading ? project.project.data.assignedProjectMembers : [] }
+                                        project={!project.loading ? project.project.data.project : []}
+                                        assignedUsers={!project.loading ? project.project.data.assignedProjectMembers : []}
                                     />
                                     <ProjDetailsBottom
-                                        tickets={!project.loading ? project.project.data.tickets : [] }
+                                        tickets={!project.loading ? project.project.data.tickets : []}
                                     />
                                 </div>
                             </div>

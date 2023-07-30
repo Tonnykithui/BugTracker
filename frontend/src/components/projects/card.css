@@ -23,7 +23,7 @@
 }
 
 .project-card {
-    @apply h-52 p-4 relative lg:w-80;
+    @apply h-52 p-4 relative lg:w-96;
 }
 
 .proj-details-bottom {

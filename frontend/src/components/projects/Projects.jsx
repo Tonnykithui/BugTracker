@@ -15,31 +15,24 @@ const Projects = () => {
   const childToDisplay1 = 'addNewProjectModal'
   const childToDisplay2 = 'confirmDeleteProject'
   let childToDisplay = '';
-  if(childToDispFromConfirmModal == childToDisplay2){
+  if (childToDispFromConfirmModal == childToDisplay2) {
     childToDisplay = childToDisplay2
-  } else if(editProjectChild == 'editProjectModal'){
+  } else if (editProjectChild == 'editProjectModal') {
     childToDisplay = 'editProjectModal'
-  } 
+  }
   else {
     childToDisplay = childToDisplay1
   }
-  
+
   return (
     <>
       <div className="project-page">
         <Sidebar />
+        <ProjectList />
         {
-          newProject || displayConfirmDelProj?
-            (
-              <>
-                <ProjectList />
-                <Modal child={`${childToDisplay}`}
-                  style={{}} />
-              </>
-            ) :
-            (
-              <ProjectList />
-            )
+          (newProject || displayConfirmDelProj) &&
+          <Modal child={`${childToDisplay}`}
+            style={{}} />
         }
       </div>
     </>

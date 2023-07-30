@@ -67,9 +67,7 @@ export class BugService {
 
   async findAllTicketsAssignedToUser(userId) {
     let newId = new Types.ObjectId(userId.userId);
-    
     const tickets = await this.ticketMembersModel.find({ memberId: newId });
-    
     let userTickets: Bug[] = await Promise.all(tickets.map(async (item) => {
       let ticket = await this.bugModel.findById(item.ticketId);
       if(ticket){
@@ -88,8 +86,6 @@ export class BugService {
     const comments = await this.commentService.findAllCommentsForTicket(ticketId);
     const assignedUsers = await this.ticketMembersModel.find({ ticketId: ticketId })
       .populate('memberId', { firstname: 1, lastname: 1 });
-
-    // const userExists = ;
     if (ticket) {
       return {
         ticket,
@@ -116,9 +112,7 @@ export class BugService {
           }
         }
       }
-
       return ticketUpdate;
-
     } else {
       throw new HttpException('No ticket with given ID exists', HttpStatus.BAD_REQUEST);
     }

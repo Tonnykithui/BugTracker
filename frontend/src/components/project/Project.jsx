@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import Button from '../button/Button';
 import Input from '../input/Input';
 import './project.css';
-import { addNewProjectThunk, clearResourceSingleProject, closeBugSuccess, updateProject } from '../../redux';
+import { addNewProjectThunk, clearResourceSingleProject, closeBugSuccess, fetchProject, updateProject } from '../../redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoX } from "react-icons/go";
 
@@ -61,7 +61,8 @@ const Project = ({ isEdit }) => {
                     description,
                     selectedOptions
                 };
-                dispatch(addNewProjectThunk(newProject))
+                dispatch(addNewProjectThunk(newProject));
+                dispatch(fetchProject());
             }
         } else {
             let newProject = {
@@ -75,8 +76,7 @@ const Project = ({ isEdit }) => {
 
     return (
         <>
-
-            <div className='bg-slate-300 p-2'>
+            <div className='bg-slate-500 p-2'>
                 <h2 className='add-project'>{isEdit ? 'Edit project' : 'Add Project'}</h2>
                 <div className='add-project-wrap'>
                     <form>
@@ -86,7 +86,6 @@ const Project = ({ isEdit }) => {
                                 placeholder={isEdit ? project?.name : 'Please provide project name'}
                                 value={projectName} onChange={(e) => setProjectName(e.target.value)}
                             />
-                            {/* {errors.name && <span>{errors.name.message}</span>} */}
                         </div>
                         <div className='w-full p-2'>
                             <label htmlFor='description' className='font-semibold block'>Description</label>
@@ -95,9 +94,8 @@ const Project = ({ isEdit }) => {
                                 onChange={(e) => setDescription(e.target.value)}
                                 cols="50" rows="5"
                                 placeholder={isEdit ? project?.description : 'Please provide project description'}
-                            >
+                                >
                             </textarea>
-                            {/* {errors.description && <span>{errors.description.message}</span>} */}
                         </div>
                         <div className='w-full p-2'>
                             <label htmlFor='' className='font-semibold text-left'>Assign Devs</label>
@@ -124,7 +122,6 @@ const Project = ({ isEdit }) => {
                                 onClick={() => { dispatch(clearResourceSingleProject()); dispatch(closeBugSuccess()) }} />
                         </div>
                     </form>
-
                 </div>
             </div>
         </>
@@ -149,3 +146,5 @@ export default Project;
                         </div>
                     </>
                 } */}
+                {/* {errors.name && <span>{errors.name.message}</span>} */}
+                            {/* {errors.description && <span>{errors.description.message}</span>} */}

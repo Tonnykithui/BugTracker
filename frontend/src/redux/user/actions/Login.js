@@ -1,7 +1,7 @@
 import { LOGGEDINSUC, LOGIN } from "../actionType/Login"
 import * as axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { toast } from "react-toastify";
 
 export const login = (data) => {
     return {
@@ -22,7 +22,6 @@ export const loginThunk = (data, redirectToHome) => {
         await axios.default.post('http://localhost:3200/auth/login', data)
         .then(res => {
             if(res.status == 201){
-                console.log(res.data.data);
                 localStorage.setItem('token', res.data.data);
                 redirectToHome();
                 dispatch(login(res.data))
@@ -30,6 +29,7 @@ export const loginThunk = (data, redirectToHome) => {
             }
         })
         .catch(err => {
+            toast(err.response.data.message);
             throw err
         })
     }

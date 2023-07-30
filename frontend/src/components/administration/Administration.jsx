@@ -32,10 +32,10 @@ const Administration = () => {
         <div className='administration'>
             <div className="admin-page">
                 <Sidebar />
-
                 <div className="employee-cards p-2">
+                <h4 className='font-semibold pl-2 text-lg'>Team</h4>
                     <SearchBar value={search} onchange={handleInputChange} />
-                    <div className='admin pb-10'>
+                    <div className='admin pb-10 pt-2'>
                         {
                             filteredUsers.map((user) => (
                                 <div>

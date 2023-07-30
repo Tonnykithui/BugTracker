@@ -36,14 +36,14 @@ export const addUserToProject = (userId, projectId) => {
                 body: JSON.stringify({ userId, projectId })
             });
 
-        if (response.ok) {
-            dispatch(addUserToProjectSuccess(userId, projectId));
-        } else {
-            const errorData = await response.json();
-            dispatch(addUserToProjectFailure(errorData.message));
+            if (response.ok) {
+                dispatch(addUserToProjectSuccess(userId, projectId));
+            } else {
+                const errorData = await response.json();
+                dispatch(addUserToProjectFailure(errorData.message));
+            }
+        } catch (error) {
+            dispatch(addUserToProjectFailure(error.message));
         }
-    } catch (error) {
-        dispatch(addUserToProjectFailure(error.message));
-    }
-};
+    };
 };

@@ -13,7 +13,6 @@ export class CommentService {
   async create(createCommentDto) {
     const date = new Date();
     createCommentDto.submitTime = date;
-    console.log('COMMENT SERVICE',createCommentDto);
     return await this.commentModel.create(
       {
         name: createCommentDto.name,
@@ -51,7 +50,7 @@ export class CommentService {
   }
 
   async deleteCommentsForTicket(ticketId) {
-    if (await (await this.commentModel.find({ ticketId: ticketId })).length > 0) {
+    if ((await this.commentModel.find({ ticketId: ticketId })).length > 0) {
       return await this.commentModel.deleteMany({ ticketId: ticketId });
     } else {
       return 'No comments found for the ticket'

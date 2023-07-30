@@ -1,6 +1,7 @@
 import { closeBugSuccess } from '../../modal/actions/closeBug.Actions';
 import { CREATE_PROJECT_FAILURE, CREATE_PROJECT_REQUEST, CREATE_PROJECT_SUCCESS } from '../actionType/NewProject';
 import * as axios from 'axios';
+import { fetchProject } from './FetchProject';
 
 
 export const createProjectRequest = () => ({
@@ -33,6 +34,7 @@ export const addNewProjectThunk = (data) => {
         )
             .then(data => {
                 dispatch(createProjectSuccess(data))
+                dispatch(fetchProject())
                 dispatch(closeBugSuccess())
             })
             .catch(err => {

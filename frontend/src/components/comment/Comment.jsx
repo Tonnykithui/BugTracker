@@ -23,12 +23,9 @@ const Comment = () => {
   let token = localStorage.getItem('token');
   let decodedDetails = jwt_decode(token);
 
-  console.log('TOKEN DETAILS',decodedDetails);
-
   let handleCommentSubmit;
   if (bugId !== null) {
     handleCommentSubmit = () => {
-      console.log('This is the comment', name)
       setName('')
       dispatch(createComment(bugId, name));
       dispatch(fetchSingleBug(bugId))
@@ -50,15 +47,15 @@ const Comment = () => {
                     <div className="ownerNdelete">
                       <h3>{comment.Owner.firstname} {comment.Owner.lastname}</h3>
                       {
-                        decodedDetails.sub === comment.Owner._id ? 
-                        <span className='text-red-600 font-semibold text-lg'>X</span> :
-                        ''
+                        decodedDetails.sub === comment.Owner._id ?
+                          <span className='text-red-600 font-semibold text-lg'>X</span> :
+                          ''
                       }
                     </div>
                     <p>
                       {comment.name}
                     </p>
-                    <h4>{comment.submitTime.slice(0,10)}</h4>
+                    <h4>{comment.submitTime.slice(0, 10)}</h4>
                   </div>
                   <div className="delete-btn">
                   </div>

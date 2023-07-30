@@ -24,7 +24,7 @@ const ProjDetailsTop = ({ project, assignedUsers }) => {
 
     const [showUser, setShowUser] = useState(false);
     const [userDetails, setUserDetails] = useState();
-    
+
     const dispatch = useDispatch();
     const { id } = useParams();
 
@@ -70,7 +70,6 @@ const ProjDetailsTop = ({ project, assignedUsers }) => {
                                                 <p>Loading</p>
                                             )
                                     }
-
                                 </ul>
                             </div>
                         </div>

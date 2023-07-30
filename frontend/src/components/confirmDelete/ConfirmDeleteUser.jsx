@@ -6,7 +6,7 @@ import { deleteUser } from '../../redux/user/actions/deleteUser';
 import { useNavigate } from 'react-router-dom';
 
 const ConfirmDeleteUser = ({ message }) => {
-  
+
   const toDelete = message
   const dispatch = useDispatch();
   const userId = useSelector(state => state.confirmUserDeleteReducer.user);
@@ -17,31 +17,31 @@ const ConfirmDeleteUser = ({ message }) => {
       <h3>Are you sure you want to delete this User</h3>
       <div className='flex flex-row gap-1'>
         <Button
-        style={{
-          padding: '5px',
-          background: 'red',
-          color: 'white',
-          borderRadius: '8px',
-          width:'100%'
-        }}
-        onClick={() => dispatch(closeUserDeleteModal())}
+          style={{
+            padding: '5px',
+            background: 'red',
+            color: 'white',
+            borderRadius: '8px',
+            width: '100%'
+          }}
+          onClick={() => dispatch(closeUserDeleteModal())}
         >
           Cancel
         </Button>
         <Button
-        style={{
-          padding: '5px',
-          background: 'blue',
-          color: 'white',
-          borderRadius: '8px',
-          width:'100%'
-        }}
-        onClick={
-          () => {
-            dispatch(deleteUser(userId));
-            navigate('/teams');
+          style={{
+            padding: '5px',
+            background: 'blue',
+            color: 'white',
+            borderRadius: '8px',
+            width: '100%'
+          }}
+          onClick={
+            () => {
+              dispatch(deleteUser(userId));
+              navigate('/teams');
+            }
           }
-        }
         >
           Confirm
         </Button>

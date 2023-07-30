@@ -49,7 +49,19 @@ export class ProjectService implements OnModuleInit {
   }
 
   async findAll() {
-    return await this.projectModel.find().populate('createdBy', { firstname: 1, lastname: 1 });
+    //get all projects
+    const allProjects = await this.projectModel.find();
+    let returnRes: Project[] = [];
+    for (let i = 0; i < allProjects.length; i++) {
+      const element = allProjects[i];
+      let userExists = await this.userService.findOne(element.createdBy)
+      if(userExists){
+        returnRes.push(await element.populate('createdBy', { firstname: 1, lastname: 1 }))
+      } else {
+        returnRes.push(element);
+      }
+    }
+    return returnRes;
   }
 
   async findOne(id) {
@@ -94,7 +106,7 @@ export class ProjectService implements OnModuleInit {
     if (await this.projectModel.findById(id)) {
       if (data.assignedUsers?.length > 0) {
         data.assignedUsers.forEach(async user => {
-          if (!(await (await this.projectMembers.find({ projectId: id, memberId: user })).length > 0))
+          if (!((await this.projectMembers.find({ projectId: id, memberId: user })).length > 0))
             await this.projectMembers.create({ memberId: user, projectId: id })
         })
       }
@@ -108,8 +120,6 @@ export class ProjectService implements OnModuleInit {
     if (await this.projectModel.findById(id)) {
       let ticketsToDelete = await this.bugService.deleteAllTicketsForProject(id);
       let membersToDelete = await this.projectMembers.deleteMany({ projectId: id });
-      console.log('TICKETS TO DELETE', ticketsToDelete);
-      console.log('MEMBERS TO DELETE', membersToDelete);
       return await this.projectModel.findByIdAndDelete(id);
     } else {
       throw new HttpException('Project to delete does not exists', HttpStatus.BAD_REQUEST);
@@ -131,9 +141,7 @@ export class ProjectService implements OnModuleInit {
           })
         }
       }
-
       return usersInProject;
-
     } else
       throw new HttpException('Project given ID does not exists', HttpStatus.BAD_REQUEST);
   }

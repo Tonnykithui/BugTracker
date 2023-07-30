@@ -9,8 +9,8 @@ const UserProjects = () => {
   return (
     <div className='grid grid-cols-2 gap-2 bg-slate-100 p-2 h-full overflow-auto'>
       {isEmpty == 0 ? (
-        <div className='flex justify-center items-center'>
-          <h1>No projects</h1>
+        <div className='flex justify-center h-full w-full'>
+          <h1 className='text-xl font-semibold'>No projects</h1>
         </div>
       ) : (
         projects.map(item => <Card project={item} />)

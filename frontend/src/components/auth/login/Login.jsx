@@ -7,6 +7,8 @@ import "./Login.css";
 import Button from '../../button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginThunk } from '../../../redux';
+import Welcome from '../Welcome';
+import { ToastContainer } from 'react-toastify';
 
 
 const Login = () => {
@@ -32,6 +34,7 @@ const Login = () => {
 
     return (
         <div className='login-wrapper'>
+            <ToastContainer />
             <div className="login-screens">
                 <div className="login">
                     <div className="login-message">
@@ -51,7 +54,7 @@ const Login = () => {
                             <span>
                                 <BsKey />
                             </span>
-                            <input type="text" name="" id="" placeholder='password'
+                            <input type="password" name="" id="" placeholder='password'
                                 value={password}
                                 onChange={(e) => setPassword(e.currentTarget.value)}
                             />
@@ -67,7 +70,7 @@ const Login = () => {
                         <p>Don't have an Account? <Link to='/register'><span>Sign Up</span></Link></p>
                     </div>
                 </div>
-                <div className="login-welcome"></div>
+                <Welcome />
             </div>
         </div>
     )

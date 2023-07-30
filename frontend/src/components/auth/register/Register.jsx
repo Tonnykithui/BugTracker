@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { createUser } from '../../../redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Welcome from '../Welcome';
 
 const Register = () => {
 
@@ -130,7 +131,7 @@ const Register = () => {
                     </div>
                 </form>
             </div>
-            <div className="login-welcome"></div>
+            <Welcome />
         </div>
     );
 };

@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { FETCH_PROJECT_ERR, FETCH_PROJECT_REQ, FETCH_PROJECT_SUC } from "../actionType/FetchProject";
 
 export const fetchProjectRequest = () => {
@@ -35,9 +36,9 @@ export const fetchProjectRequest = () => {
             'Authorization': 'Bearer ' + token
           }}
           );
-        const projectData = await response.json();
-        console.log(projectData);    
+        const projectData = await response.json(); 
         dispatch({ type: FETCH_PROJECT_SUC, payload: projectData });
+        toast('Successfully fetched all project');
       } catch (error) {
         dispatch({ type: FETCH_PROJECT_ERR, payload: error.message });
       }

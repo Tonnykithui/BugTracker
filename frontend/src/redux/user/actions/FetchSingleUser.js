@@ -28,11 +28,9 @@ export const fetchSingleUser = (userId) => {
         )
             .then((response) => response.json())
             .then((data) => {
-                // On successful response, dispatch success action
                 dispatch(fetchSingleUserSuccess(data));
             })
             .catch((error) => {
-                // On error, dispatch failure action
                 dispatch(fetchSingleUserFailure(error.message));
             });
     };

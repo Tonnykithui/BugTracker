@@ -15,7 +15,6 @@ export const registerUserSuccess = (user) => {
 };
 
 export const registerUserError = (error1, error2) => {
-    console.log('DISPATCHING ERROR', error1, error2)
     return {
         type: REGISTER_USER_ERR,
         payload1: error1,
@@ -23,39 +22,41 @@ export const registerUserError = (error1, error2) => {
     };
 };
 
-
 export const createUser = (userData) => {
     return async (dispatch) => {
         dispatch(registerUserRequest());
-            // Perform the create user request here
-            const response = await fetch('http://localhost:3200/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            })
+        // Perform the create user request here
+        const response = await fetch('http://localhost:3200/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        })
             .then((resp) => {
                 dispatch(registerUserSuccess(resp));
-                toast('Successfully registered as a new User')
+                if (resp.status == 201) {
+                    toast('Successfully registered as a new User');
+
+                }
                 return resp.json()
                 // console.log(resp.json())
             })
-            // .catch((err) => {
+
+        if (!response.ok) {
+            toast(response.message);
+            dispatch(registerUserError(response.message, response.statusCode));
+        }
+    };
+};
+
+// .catch((err) => {
             //     console.log(err);
             //     dispatch(registerUserError(err.message, response.status));
             //     // throw err.message
             // });
-            console.log('RESPONSE',response);
-            if (!response.ok) {
-                toast(response.message);
-                dispatch(registerUserError(response.message, response.statusCode));
-            }
-
-            // if(response.error == 200){
+ // if(response.error == 200){
             //     toast(response.message)
             // }
 
             // const newUser = await response.json(); 
-    };
-};

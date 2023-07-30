@@ -13,7 +13,6 @@ const BugOveralls = () => {
         return <p>Loading...</p>;
     }
 
-
     return (
         <div>
             <div className=''>
@@ -63,13 +62,3 @@ const BugOveralls = () => {
 }
 
 export default BugOveralls;
-
-{/* <li>
-                        <h2>
-                            Report date
-                        </h2>
-                        <p>Feb 22,2022</p>
-                    </li>
-                    <li>
-                        <h2>Label</h2>
-                    </li> */}
