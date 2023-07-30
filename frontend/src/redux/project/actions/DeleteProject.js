@@ -1,5 +1,6 @@
 import { closeBugDeleteModal } from "../../modal/actions/confirmDelete";
 import { DELETE_PROJ_ERR, DELETE_PROJ_REQ, DELETE_PROJ_SUC } from "../actionType/DeleteProject";
+import { fetchProject } from "./FetchProject";
 import { fetchUserProjects } from "./SingleUserProject";
 
 export const deleteProjectRequest = () => {
@@ -42,6 +43,7 @@ export const deleteProject = (projectId) => {
             }
 
             dispatch(deleteProjectSuccess());
+            dispatch(fetchProject())
             dispatch(fetchUserProjects())
             dispatch(closeBugDeleteModal())
         } catch (error) {

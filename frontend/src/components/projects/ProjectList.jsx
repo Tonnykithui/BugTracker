@@ -53,7 +53,7 @@ const ProjectList = () => {
         <div className='w-full flex flex-row justify-between gap-10 p-2'>
           <SearchBar value={search} onchange={handleInputChange} />
           <div className='text-white rounded-lg font-semibold p-2'>
-            <Button style={buttonStyles} onClick={() => dispatch(createNewProjectModalSuc('addNewProjectModal'))}>NEW PROJECT</Button>
+            <Button style={buttonStyles} onClick={() => dispatch(createNewProjectModalSuc('addNewProjectModal'))}>NEW</Button>
           </div>
         </div >
         <div className='project'>

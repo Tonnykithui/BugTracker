@@ -52,5 +52,5 @@
 }
 
 .project-list{
-  @apply grid grid-cols-3 gap-2;
+  @apply grid lg:grid-cols-3 gap-2;
 }

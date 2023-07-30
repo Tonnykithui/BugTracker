@@ -38,7 +38,7 @@ export const fetchProjectRequest = () => {
           );
         const projectData = await response.json(); 
         dispatch({ type: FETCH_PROJECT_SUC, payload: projectData });
-        toast('Successfully fetched all project');
+        // toast('Successfully fetched all project');/
       } catch (error) {
         dispatch({ type: FETCH_PROJECT_ERR, payload: error.message });
       }
