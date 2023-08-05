@@ -18,19 +18,19 @@ export class AuthService implements OnModuleInit {
     }
 
     async loginUser(data) {
-        const checkUser = await this.userService.findUserByEmailOrPhone(data.email);
-        if (checkUser.length == 0) {
+        const checkUser = await this.userService.findUserByEmail(data.email);
+        if (!checkUser) {
             throw new HttpException('User with given details does not exists', HttpStatus.BAD_REQUEST);
         } else {
-            const passwordsMatch = await bcrypt.compare(data.password, checkUser[0].password);
+            const passwordsMatch = await bcrypt.compare(data.password, checkUser.password);
             if (!passwordsMatch) {
                 throw new HttpException('Details provided do not match', HttpStatus.BAD_REQUEST);
             } else {
                 //GENERATE TOKEN
                 const userPayload = {
-                    sub: checkUser[0]._id,
-                    email: checkUser[0].email,
-                    role: checkUser[0].role
+                    sub: checkUser._id,
+                    email: checkUser.email,
+                    role: checkUser.role
                 }
 
                 const payloadItem = await this.jwtService.sign(userPayload);
@@ -44,7 +44,7 @@ export class AuthService implements OnModuleInit {
         const emailIsValid = await this.validateEmail(data.email);
         if (emailIsValid) {
             const checkUser = await this.userService.findUserByEmailOrPhone(data.email, data.phone);
-            if (checkUser && checkUser.length >= 1) {
+            if (checkUser) {
                 throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
             } else {
                 //confirm password match
@@ -68,7 +68,7 @@ export class AuthService implements OnModuleInit {
     }
 
     async createSuperUser(){
-        if((await this.userService.findUserByEmailOrPhone('test@gmail.com')).length == 0){
+        if(!(await this.userService.findUserByEmail('test@gmail.com'))){
             const superPass = '1234567';
             const encryptedPass = await bcrypt.hash(superPass, 10);
     
@@ -78,10 +78,9 @@ export class AuthService implements OnModuleInit {
                 lastname: 'admin',
                 password: encryptedPass,
                 confirmPassword: encryptedPass,
-                phone: '0793011434',
+                phone: '07930113',
                 role: [Role.PROJECTMANAGER]
             }
-
             return await this.userService.create(superAdmin);
         }
     }

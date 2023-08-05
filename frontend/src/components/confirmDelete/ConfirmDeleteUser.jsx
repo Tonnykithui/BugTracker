@@ -39,6 +39,7 @@ const ConfirmDeleteUser = ({ message }) => {
           onClick={
             () => {
               dispatch(deleteUser(userId));
+              dispatch(closeUserDeleteModal());
               navigate('/teams');
             }
           }

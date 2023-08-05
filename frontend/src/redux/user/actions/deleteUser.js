@@ -29,6 +29,16 @@ export const deleteUser = (userId) => {
                 }
             });
 
+            await fetch(
+                `http://localhost:3200/bug/${userId}/user`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                }
+            );
+
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message);

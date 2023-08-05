@@ -41,8 +41,8 @@ const BugOveralls = () => {
                                 assignee.map((user) => (
                                     <>
                                         <div className='flex flex-col bg-white rounded-lg p-2'>
-                                            <p>{user.memberId.firstname}</p>
-                                            <p>{user.memberId.lastname}</p>
+                                            <p>{user.memberId?.firstname}</p>
+                                            <p>{user.memberId?.lastname}</p>
                                         </div>
                                     </>
                                 ))

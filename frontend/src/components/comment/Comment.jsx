@@ -45,9 +45,9 @@ const Comment = () => {
                 <li className='p-2 rounded-md bg-white m-1'>
                   <div>
                     <div className="ownerNdelete">
-                      <h3>{comment.Owner.firstname} {comment.Owner.lastname}</h3>
+                      <h3>{comment.Owner?.firstname} {comment.Owner?.lastname}</h3>
                       {
-                        decodedDetails.sub === comment.Owner._id ?
+                        decodedDetails.sub === comment.Owner?._id ?
                           <span className='text-red-600 font-semibold text-lg'>X</span> :
                           ''
                       }

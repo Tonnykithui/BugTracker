@@ -5,6 +5,7 @@ import './project.css';
 import ProjectList from './ProjectList';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../sidebar/Sidebar';
+import { ToastContainer } from 'react-toastify';
 
 const Projects = () => {
   const newProject = useSelector(state => state.addNewProjectModalReducer.open);
@@ -31,8 +32,11 @@ const Projects = () => {
         <ProjectList />
         {
           (newProject || displayConfirmDelProj) &&
-          <Modal child={`${childToDisplay}`}
-            style={{}} />
+          <>
+            <Modal child={`${childToDisplay}`}
+              style={{}} />
+            <ToastContainer />
+          </>
         }
       </div>
     </>

@@ -28,6 +28,10 @@ const Administration = () => {
         setFilteredUsers(filteredUsers);
     }
 
+    useEffect(() => {
+        setFilteredUsers(data);
+    }, [data]);
+
     return (
         <div className='administration'>
             <div className="admin-page">

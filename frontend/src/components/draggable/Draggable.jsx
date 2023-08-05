@@ -75,7 +75,7 @@ const Draggable = ({ info }) => {
         </div>
         <div className="finer-details">
           <div className='text-left flex flex-row'>
-            <h3 className='font-semibold text-black'>Created By:</h3>{info?.ticketOwner.firstname} {info?.ticketOwner.lastname}
+            <h3 className='font-semibold text-black'>Created By:</h3>{info?.ticketOwner?.firstname} {info?.ticketOwner?.lastname}
           </div>
         </div>
       </div>

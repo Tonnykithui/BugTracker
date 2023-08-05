@@ -48,7 +48,18 @@ export class UserService {
   }
 
   async findUserByEmailOrPhone(email: string, phone?: string) {
-    return await this.userModel.find({ $or: [{ email: email }, { phone: phone }] });
+    // let phoneType = typeof phone;
+    // console.log('checking equality', phone == '')
+    // console.log('CONSOLE.LOG()', phone)
+    if(phone != ""){
+      return await this.userModel.findOne({ $or: [{ email: email }, { phone: phone }] });
+    } else {
+      return await this.userModel.findOne({ email: email });
+    }
+  }
+
+  async findUserByEmail(email: string){
+    return await this.userModel.findOne({ email: email })
   }
 
   async assignUserOtherRole(userId, loggedInUserId, role) {

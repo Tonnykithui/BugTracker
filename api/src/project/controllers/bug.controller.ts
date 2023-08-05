@@ -88,4 +88,9 @@ export class BugController {
   async removeComment(@Param('bugId') bugId: ObjectId, @Param('commentId') commentId: ObjectId , @LoggedInUser() userId: ObjectId) {
     return new ResponseMessage("Successfully deleted a comment", await this.commentService.remove(bugId, commentId, userId));
   }
+
+  @Delete('/:userId/user')
+  async deleteTicketsAssociatedToUser(@Param('userId') userId: ObjectId, @LoggedInUser() loggedInUser: ObjectId){
+    return new ResponseMessage('Successfully deleted all tickets associated to a user', await this.bugService.removeUserTicketAssociation(userId))
+  }
 }

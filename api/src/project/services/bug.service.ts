@@ -19,7 +19,8 @@ export class BugService {
     @InjectModel(TicketMembers.name) private ticketMembersModel: Model<TicketMembers>,
     @InjectModel(ProjectMembers.name) private projectMembersModel: Model<ProjectMembers>,
     @InjectModel(Project.name) private projectModel: Model<Project>,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private userService: UserService
   ) { }
 
   async create(createBugDto: bugDto, userId) {
@@ -274,6 +275,23 @@ export class BugService {
       low: allTicket.filter((ticket) => ticket.priority == 'LOW'),
       medium: allTicket.filter((ticket) => ticket.priority == 'MEDIUM'),
       high: allTicket.filter((ticket) => ticket.priority == 'HIGH')
+    }
+  }
+
+  async removeUserTicketAssociation(userId){
+    const userIdToObjId = new Types.ObjectId(userId);
+    const userExist = await this.userService.findOne(userIdToObjId);
+    if(userExist){
+      const ticket = await this.bugModel.findOne({ ticketOwner: userIdToObjId });
+      if(ticket){
+        await this.ticketMembersModel.deleteMany({ ticketOwner: userIdToObjId });
+        await this.projectMembersModel.deleteMany({ memberId: userIdToObjId });
+        return 'Successfully deleted all tickets for the user'
+      } else {
+        return 'User does not have associated tickets'
+      }
+    } else {
+      throw new HttpException('Sorry, the user you are trying to delete does not exist.', HttpStatus.BAD_REQUEST);
     }
   }
 }
