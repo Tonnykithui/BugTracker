@@ -71,11 +71,3 @@ const ProjectList = () => {
 }
 
 export default ProjectList
-
-{/* <div className='items-center'>
-            <ProjectStatus />
-          </div> */}
-{/* <h2 className='font-semibold text-2xl pl-2'>Projects</h2> */ }
-{/* <div className='text-white rounded-lg font-semibold absolute top-2 right-2 p-2'>
-            <Button style={buttonStyles} onClick={() => dispatch(createNewProjectModalSuc('addNewProjectModal'))}>NEW PROJECT</Button>
-          </div> */}

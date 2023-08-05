@@ -124,9 +124,13 @@ export class BugService {
     const ticket = await this.bugModel.findById(id);
     const ticketId = new Types.ObjectId(id);
     if (ticket) {
-      if (ticket.ticketOwner.toString() !== userId.userId) {
+      if (ticket.ticketOwner?.toString() != null && ticket.ticketOwner.toString() !== userId.userId) {
         throw new HttpException('User not allowed to delete this ticket', HttpStatus.BAD_REQUEST);
       } else {
+        console.log('DELETING TICKET MEMBERS');
+        console.log(await this.ticketMembersModel.deleteMany({
+          ticketId: ticketId
+        }));
         const ticketMembers = await this.ticketMembersModel.deleteMany({
           ticketId: ticketId
         });
@@ -280,10 +284,16 @@ export class BugService {
 
   async removeUserTicketAssociation(userId){
     const userIdToObjId = new Types.ObjectId(userId);
+    console.log('DELETING THE USER DETAILS', userIdToObjId);
     const userExist = await this.userService.findOne(userIdToObjId);
     if(userExist){
-      const ticket = await this.bugModel.findOne({ ticketOwner: userIdToObjId });
-      if(ticket){
+      const ticket = await this.ticketMembersModel.findOne({ ticketOwner: userIdToObjId });
+      const project = await this.projectMembersModel.findOne({ memberId: userIdToObjId });
+
+      console.log('THE ELEPHANT BREAK FREE');
+      console.log('PROJECT', project);
+      console.log('TICKET', ticket);
+      if(ticket || project){
         await this.ticketMembersModel.deleteMany({ ticketOwner: userIdToObjId });
         await this.projectMembersModel.deleteMany({ memberId: userIdToObjId });
         return 'Successfully deleted all tickets for the user'

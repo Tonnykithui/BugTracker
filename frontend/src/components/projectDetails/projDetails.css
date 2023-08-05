@@ -1,9 +1,9 @@
 .ProjDetails-wrapper {
-    @apply bg-slate-300 h-screen w-screen flex flex-row;
+    @apply bg-slate-300 h-screen w-screen flex flex-row overflow-hidden;
 }
 
 .ProjectDetails {
-    @apply grid lg:grid-rows-6 gap-5 h-full p-4 w-full;
+    @apply grid lg:grid-rows-6 gap-5 h-full p-4 w-full overflow-scroll;
 }
 
 /****************   TOP      *******/

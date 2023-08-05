@@ -34,12 +34,6 @@ const Board = () => {
 
   const history = useNavigate();
 
-  // useEffect(() => {
-  //     if (!isAuthenticated) {
-  //         history('http://localhost:3000/login'); // redirect to login page
-  //     }
-  // }, [isAuthenticated, history]);
-
   return (
     <div className='board'>
       <Sidebar />

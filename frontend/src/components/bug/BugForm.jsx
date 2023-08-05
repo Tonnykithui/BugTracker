@@ -51,10 +51,6 @@ const BugForm = () => {
     const isEdit = (isEditText == 'EDITTICKET') ? true: false;
     const bugToEdit = useSelector(state => state.bugSingleReducer.bug?.data.ticket);
 
-    // useEffect(() => {
-    //     setType(passedType);
-    // }, []);
-
     const handleOptionChange = (event) => {
         const selectedValues = Array.from(
             event.target.selectedOptions,
@@ -172,8 +168,6 @@ const BugForm = () => {
                                     <option value={`${tType}`}>{tType}</option>
                                 ))
                             }
-                            {/* <option value='Issue'>Issue</option>
-                            <option value='Bug'>Bug</option> */}
                         </select>
                     </div>
                     <div className='status'>

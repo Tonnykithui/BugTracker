@@ -12,10 +12,6 @@ const Card = ({ user }) => {
     const handleClick = (userId) => {
         dispatch(fetchSingleUser(userId))
     }
-    // const [showHiddenOptions, setShowHiddenOptions] = useState(false);
-    // setTimeout(() => {
-    //     setShowHiddenOptions(false);
-    // }, 5000);
     return (
         <>
             <Link to={`/user/${user._id}`} onClick={() => handleClick(user._id)}>
