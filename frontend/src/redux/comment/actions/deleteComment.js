@@ -23,11 +23,16 @@ export const deleteCommentError = (error) => {
 export const deleteComment = (ticketId, commentId) => {
     return async (dispatch) => {
         dispatch(deleteCommentRequest());
-
+        const token = localStorage.getItem('token');
         try {
             // Perform the delete comment request here
             const response = await fetch(`http://localhost:3200/bug/${ticketId}/comments/${commentId}`, {
                 method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+
             });
 
             if (!response.ok) {

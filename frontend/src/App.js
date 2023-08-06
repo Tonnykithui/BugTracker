@@ -41,6 +41,3 @@ function App() {
 
 export default App;
 
-{/* <Route path="/dashboard" element={ProtectedRoute(<Dashboard />, userAuthenticated)} isAuthenticated={userAuthenticated} /> */ }
-{/* <Route path="/profile" element={ProtectedRoute(<Profile />, userAuthenticated)} isAuthenticated={userAuthenticated} /> */ }
-  // const userAuthenticated = false;

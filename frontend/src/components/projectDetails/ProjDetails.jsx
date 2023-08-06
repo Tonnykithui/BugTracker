@@ -54,6 +54,7 @@ const ProjDetails = ({ }) => {
                     <div className="ProjectDetails">
                         <ProjDetailsTop
                             project={!project.loading ? project.project.data.project : []}
+                            // assignedUsers={project.project.data.assignedProjectMembers}
                             assignedUsers={!project.loading ? project.project.data.assignedProjectMembers : []}
                         />
                         <ProjDetailsBottom
@@ -76,29 +77,3 @@ const ProjDetails = ({ }) => {
 }
 
 export default ProjDetails
-
-// const info = {
-//     title: 'This is the title',
-//     para: 'Long details here'
-// }
-
-// let project;
-    // const isAuthenticated = useSelector(state => state.authReducer.isAuthenticated);
-
-    // :
-    //                 (
-    //                     <>
-    //                         <div className='ProjDetails-wrapper'>
-    //                             <Sidebar />
-    //                             <div className="ProjectDetails">
-    //                                 <ProjDetailsTop
-    //                                     project={!project.loading ? project.project.data.project : []}
-    //                                     assignedUsers={!project.loading ? project.project.data.assignedProjectMembers : []}
-    //                                 />
-    //                                 <ProjDetailsBottom
-    //                                     tickets={!project.loading ? project.project.data.tickets : []}
-    //                                 />
-    //                             </div>
-    //                         </div>
-    //                     </>
-    //                 )

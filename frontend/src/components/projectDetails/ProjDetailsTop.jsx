@@ -58,8 +58,6 @@ const ProjDetailsTop = ({ project, assignedUsers }) => {
                                                 <>
                                                     <li
                                                         key={user.id}
-                                                        // onMouseOver={() => {setShowUser(true); setUserDetails(user.id)}}
-                                                        // onMouseLeave={() => {setShowUser(false); setUserDetails()}}
                                                         className='cursor-pointer'
                                                     >
                                                         {user.firstname?.slice(0, 1)}{user.lastname?.slice(0, 1)}
@@ -78,6 +76,5 @@ const ProjDetailsTop = ({ project, assignedUsers }) => {
             </div>
         </>
     );
-};
-
+}
 export default ProjDetailsTop;

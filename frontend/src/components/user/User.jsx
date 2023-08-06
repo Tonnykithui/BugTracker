@@ -50,7 +50,7 @@ const User = () => {
                   />
                 </div>
               </div>
-              <div className="h-full bg-white p-4 w-full z-10 flex flex-col">
+              <div className="h-full bg-white p-4 w-full z-10 flex flex-col lg:col-span-2 sm:col-span-1">
                 <div className="h-5 flex flex-row z-20 mb-5">
                   <div
                     className={view === 1 ? "edit z-40 w-full h-8 text-center bg-blue-300" : 'edit z-40 w-full text-center'}

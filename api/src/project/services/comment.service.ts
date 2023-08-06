@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, ObjectId } from 'mongoose';
+import { Model, ObjectId, Types } from 'mongoose';
 import { Comment, commentDto } from '../models/comment.entity';
 
 @Injectable()
@@ -41,10 +41,13 @@ export class CommentService {
   }
 
   async remove(bugId, commentId, userId) {
-    const comment = await this.commentModel.find({ id: commentId, ticketId: bugId });
+    const commId = new Types.ObjectId(commentId);
+    const comment = await this.commentModel.find({ _id: commId, ticketId: bugId });
+    console.log('WE IN SERVICE', comment);
     if(comment[0].Owner.toString() !== userId.userId){
       throw new HttpException('User not allowed to delete comment', HttpStatus.BAD_REQUEST);
     } else {
+
       return await this.commentModel.findByIdAndDelete(commentId);
     }
   }

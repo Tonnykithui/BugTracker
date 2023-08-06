@@ -1,4 +1,6 @@
+import { closeNewUserModal } from "../../modal/actions/addUser.Action";
 import { ADD_USER_TO_PROJECT_FAILURE, ADD_USER_TO_PROJECT_REQUEST, ADD_USER_TO_PROJECT_SUCCESS } from "../actionType/AddUserToProject";
+import { fetchUsersInProject } from "./FetchUsersInProject";
 
 export const addUserToProjectRequest = () => {
     return {
@@ -38,6 +40,8 @@ export const addUserToProject = (userId, projectId) => {
 
             if (response.ok) {
                 dispatch(addUserToProjectSuccess(userId, projectId));
+                dispatch(fetchUsersInProject(projectId))
+                dispatch(closeNewUserModal());
             } else {
                 const errorData = await response.json();
                 dispatch(addUserToProjectFailure(errorData.message));

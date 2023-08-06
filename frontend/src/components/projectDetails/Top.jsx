@@ -19,8 +19,6 @@ const newMembersStyling = {
 
 const Top = () => {
     const dispatch = useDispatch();
-    // const project = useSelector(state => state.projectSingleReducer.project.data?.project);
-    // const assignedUsers = useSelector(state => state.projectSingleReducer.project.data?.assignedProjectMembers) || [];
     return (
         <div className="top">
             <div className="title">

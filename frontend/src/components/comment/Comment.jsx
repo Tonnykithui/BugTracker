@@ -4,7 +4,7 @@ import Input from '../input/Input';
 import "./comment.css";
 import { AiOutlineSend } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { createComment, fetchSingleBug } from '../../redux';
+import { createComment, deleteComment, fetchSingleBug } from '../../redux';
 import jwt_decode from 'jwt-decode';
 
 const btnStyles = {
@@ -32,6 +32,10 @@ const Comment = () => {
     }
   }
 
+  const handleCommentDelete = (commentId, bugId) => {
+    dispatch(deleteComment(bugId, commentId))
+  }
+
   return (
     <div className='comment'>
       <div className="comment-title">
@@ -48,7 +52,7 @@ const Comment = () => {
                       <h3>{comment.Owner?.firstname} {comment.Owner?.lastname}</h3>
                       {
                         decodedDetails.sub === comment.Owner?._id ?
-                          <span className='text-red-600 font-semibold text-lg'>X</span> :
+                          <span className='text-red-600 font-semibold text-lg' onClick={handleCommentDelete(comment._id, bugId)}>X</span> :
                           ''
                       }
                     </div>

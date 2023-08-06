@@ -86,6 +86,7 @@ export class BugController {
 
   @Delete('/:bugId/comments/:commentId')
   async removeComment(@Param('bugId') bugId: ObjectId, @Param('commentId') commentId: ObjectId , @LoggedInUser() userId: ObjectId) {
+    console.log('THIS IS JUST A CONTROLLER')
     return new ResponseMessage("Successfully deleted a comment", await this.commentService.remove(bugId, commentId, userId));
   }
 

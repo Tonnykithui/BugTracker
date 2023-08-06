@@ -36,6 +36,7 @@ import ticketTypesReducer from './bug/reducers/type';
 import ticketStatusReducer from './bug/reducers/ticketStatus';
 import ticketPrioritytReducer from './bug/reducers/ticketPriority';
 import confirmUserDeleteReducer from './modal/reducers/confirmUserDelete';
+// import { createStore } from 'redux';
 
 const combinedReducers = combineReducers({
     bugOpenModalReducer: bugOpenModalReducer,
@@ -75,7 +76,7 @@ const combinedReducers = combineReducers({
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['auth'], // only persist the auth state
+    // whitelist: ['auth'], // only persist the auth state
 };
 
 export const persistedReducerStore = persistReducer(persistConfig, combinedReducers);
@@ -86,11 +87,17 @@ export const persistedReducerStore = persistReducer(persistConfig, combinedReduc
 //     composeWithDevTools(applyMiddleware(thunk))
 // );
 
-export const reduxStore = configureStore({
-    reducer: persistedReducerStore,
-    middleware: [thunk]
-})
+// export const reduxStore = configureStore({
+//     reducer: persistedReducerStore,
+//     middleware: [thunk]
+// })
 
-const reduxStorePersist = persistStore(reduxStore);
+const store = createStore(
+    persistedReducerStore,
+    applyMiddleware(thunk)
+)
 
-export default reduxStorePersist;
+const reduxStorePersist = persistStore(store);
+
+export { store, reduxStorePersist };
+// export default reduxStorePersist;

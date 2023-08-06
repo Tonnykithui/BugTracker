@@ -55,7 +55,3 @@ const Administration = () => {
 }
 
 export default Administration
-
-{/* <div className='absolute top-2 right-6'>
-                        <Button style={{ background: 'blue', padding: '4px', borderRadius: '8px', color: "white" }}>NEW USER</Button>
-                    </div> */}
