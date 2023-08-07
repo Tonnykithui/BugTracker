@@ -19,19 +19,18 @@ export class UserService {
 
   async findAll(userId) {
     let newUserId = new Types.ObjectId(userId.userId)
-    console.log(newUserId);
-    return await this.userModel.find({ _id: { $ne: newUserId } })
+    return await this.userModel.find({ _id: { $ne: newUserId } }).select('-password')
       .sort({ "firstname": 1 })
       .collation({ locale: "en_US", numericOrdering: true });
   }
 
   async findOne(id) {
-    return await this.userModel.findById(id);
+    return await this.userModel.findById(id).select('-password');
   }
 
   async update(id, data: User) {
     if (await this.userModel.findById(id)) {
-      return await this.userModel.findByIdAndUpdate(id, data);
+      return await this.userModel.findByIdAndUpdate(id, data).select('-password');
     } else {
       throw new HttpException("User with provided credentials does not exists", HttpStatus.BAD_REQUEST);
     }
@@ -41,25 +40,22 @@ export class UserService {
     if (await this.userModel.findById(id)) {
       //find if user is assigned project or tickets and delete their records
 
-      return await this.userModel.findByIdAndDelete(id);
+      return await this.userModel.findByIdAndDelete(id).select('-password');
     } else {
       throw new HttpException('User with provided id does not exists', HttpStatus.BAD_REQUEST);
     }
   }
 
   async findUserByEmailOrPhone(email: string, phone?: string) {
-    // let phoneType = typeof phone;
-    // console.log('checking equality', phone == '')
-    // console.log('CONSOLE.LOG()', phone)
     if(phone != ""){
-      return await this.userModel.findOne({ $or: [{ email: email }, { phone: phone }] });
+      return await this.userModel.findOne({ $or: [{ email: email }, { phone: phone }] }).select('-password');
     } else {
       return await this.userModel.findOne({ email: email });
     }
   }
 
   async findUserByEmail(email: string){
-    return await this.userModel.findOne({ email: email })
+    return await this.userModel.findOne({ email: email });
   }
 
   async assignUserOtherRole(userId, loggedInUserId, role) {

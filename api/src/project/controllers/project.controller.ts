@@ -48,12 +48,13 @@ export class ProjectController {
 
   @Get('/:projectId/users')
   async getUsersInAProject(@Param('projectId') projectId: ObjectId){
-    return await this.projectService.findUserInACertainProject(projectId);
+    console.log('FETCHING USERS IN A PROJECT')
+    return new ResponseMessage('Successfully fetched users in a project', await this.projectService.findUserInACertainProject(projectId));
   }
 
   @Post('/:projectId/user/:userId')
   async addUserToExistingProject(@Param('projectId') projectId, @Param('userId') userId){
-    return await this.projectService.addUserToExistingProject(projectId, userId);
+    return new ResponseMessage('Successfully added users in a project',await this.projectService.addUserToExistingProject(projectId, userId));
   }
 
   @Post(':id')

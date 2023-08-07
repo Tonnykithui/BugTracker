@@ -143,6 +143,7 @@ export class ProjectService implements OnModuleInit {
           })
         }
       }
+      console.log('USERS IN PROJECT', usersInProject);
       return usersInProject;
     } else
       throw new HttpException('Project given ID does not exists', HttpStatus.BAD_REQUEST);

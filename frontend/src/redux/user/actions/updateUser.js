@@ -1,6 +1,7 @@
 import { UPDATE_USER_FAILURE, UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS } from "../actionType/updateUser";
 import { ToastContainer, toast } from 'react-toastify';
 import { fetchUsers } from "./FetchUsers";
+import { fetchSingleUser } from "./FetchSingleUser";
 
 export const updateUserRequest = () => ({
     type: UPDATE_USER_REQUEST,
@@ -42,6 +43,7 @@ export const updateUserDetails = (userId, updatedData) => {
 
             const updatedUser = await response.json();
             dispatch(updateUserSuccess(updatedUser));
+            dispatch(fetchSingleUser(userId))
             dispatch(fetchUsers());
         } catch (error) {
             dispatch(updateUserFailure(error.message));

@@ -37,10 +37,10 @@ export const addUserToProject = (userId, projectId) => {
                 },
                 body: JSON.stringify({ userId, projectId })
             });
+            dispatch(addUserToProjectSuccess(userId, projectId));
+            dispatch(fetchUsersInProject(projectId))
 
             if (response.ok) {
-                dispatch(addUserToProjectSuccess(userId, projectId));
-                dispatch(fetchUsersInProject(projectId))
                 dispatch(closeNewUserModal());
             } else {
                 const errorData = await response.json();

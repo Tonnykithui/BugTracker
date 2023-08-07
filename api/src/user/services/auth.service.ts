@@ -51,7 +51,6 @@ export class AuthService implements OnModuleInit {
                 if (data.password !== data.confirmPassword)
                     throw new HttpException('Passwords provided do not match', HttpStatus.BAD_REQUEST)
 
-                //encrypt password
                 const encryptedPass = await bcrypt.hash(data.password, 10);
                 data.password = encryptedPass;
 

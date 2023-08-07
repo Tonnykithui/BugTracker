@@ -21,7 +21,7 @@ const newMembersStyling = {
 };
 
 const ProjDetailsTop = ({ project, assignedUsers }) => {
-
+    console.log('LOGGING USERS IN PROJECT', assignedUsers);
     const [showUser, setShowUser] = useState(false);
     const [userDetails, setUserDetails] = useState();
 
@@ -33,6 +33,10 @@ const ProjDetailsTop = ({ project, assignedUsers }) => {
         dispatch(addNewUserToProjSuc())
     }
 
+    useEffect(() => {
+
+    },[assignedUsers])
+    
     return (
         <>
             <div>
