@@ -19,6 +19,9 @@ jobs:
         with:
           node-version: '18' # You can specify the Node.js version you need
 
+      - name: Change path to point where package.json is
+        working-directory: /home/runner/work/BugTracker/api
+        
       - name: Install Dependencies
         run: npm install # Adjust this if you use a different package manager
 
