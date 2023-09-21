@@ -24,7 +24,8 @@ jobs:
         run: npm install # Adjust this if you use a different package manager
 
       - name: Start Application
-        run: npm start # Modify this to match your start command
+        working-directory: ./api
+        run: npm run start:dev # Modify this to match your start command
 
       - name: Wait for Application to Start
         run: sleep 40 # Adjust the sleep time as needed to give your app time to start
@@ -59,3 +60,6 @@ jobs:
               username: ${{ secrets.IP_USERNAME }}
               script: |
                   whoami
+
+      - name: ECHO TO FINISH
+      
