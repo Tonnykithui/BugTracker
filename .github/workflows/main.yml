@@ -20,7 +20,7 @@ jobs:
           node-version: '18' # You can specify the Node.js version you need
 
       - name: Change path to where package.json is && Install Dependencies
-        working-directory: /api
+        working-directory: ./api
         run: npm install # Adjust this if you use a different package manager
 
       - name: Start Application
