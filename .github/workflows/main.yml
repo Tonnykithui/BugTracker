@@ -17,4 +17,4 @@ jobs:
       - name: executing remote ssh commands using password
         run: |
              ssh sibasi@172.191.145.106 && "bash -s" < ~/codeupdates.sh
-      
+             SSH_PRIVATE_KEY: ${{ secrets.CICD_TEST }}
