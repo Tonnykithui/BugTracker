@@ -2,9 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push
-    # branches:
-      # - main
-      # - dev
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,8 +10,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
-      - name: executing remote ssh commands using password
+
+      - name: Execute remote SSH command
         run: |
-             ssh sibasi@172.191.145.106 && "bash -s" < ~/codeupdates.sh
-             # SSH_PRIVATE_KEY: ${{ secrets.CICD_TEST }}
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh sibasi@172.191.145.106 "bash -s" < ~/codeupdates.sh
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
