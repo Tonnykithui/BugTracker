@@ -11,10 +11,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Execute remote SSH command
-        run: |
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh sibasi@172.191.145.106 "bash -s" < ~/codeupdates.sh
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: deploy file
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+            username: 'sibasi'
+            server: '172.191.145.106'
+            ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} 
+            port: 22
+            # local_path: './static/*'
+            # remote_path: '/var/www/app'
+            sftpArgs: '-o ConnectTimeout=5'
+      # - name: Execute remote SSH command
+      #   run: |
+      #     echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+      #     chmod 600 ~/.ssh/id_rsa
+      #     ssh sibasi@172.191.145.106 "bash -s" < ~/codeupdates.sh
+      #   env:
+      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
